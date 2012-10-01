@@ -56,7 +56,7 @@ template node["samba"]["config"] do
   source "smb.conf.erb"
   owner "root"
   group "root"
-  mode "0644"
+  mode 00644
   variables :shares => shares["shares"]
   notifies :restart, resources(:service => svcs)
 end
