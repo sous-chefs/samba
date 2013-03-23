@@ -66,6 +66,6 @@ if users
     samba_user u["id"] do
       password u["smbpasswd"]
       action [:create, :enable]
-    end
+    end if u["smbpasswd"]
   end
 end
