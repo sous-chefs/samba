@@ -18,6 +18,8 @@
 #
 actions :create, :enable, :delete
 
+default_action :create
+
 attribute :password, :kind_of => String
 attribute :exists, :default => false
 attribute :disabled, :default => false
