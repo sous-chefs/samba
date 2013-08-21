@@ -33,8 +33,8 @@ unless node["samba"]["passdb_backend"] =~ /^ldapsam/
 end
 
 package value_for_platform(
-  ["ubuntu", "debian", "arch"] => { "default" => "samba" },
-  ["redhat", "centos", "fedora", "scientific", "amazon"] => { "default" => "samba3x" },
+  ["ubuntu", "debian", "arch", "centos"] => { "default" => "samba" },
+  ["redhat", "fedora", "scientific", "amazon"] => { "default" => "samba3x" },
   "default" => "samba"
 )
 
