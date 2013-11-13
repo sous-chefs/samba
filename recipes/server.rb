@@ -32,12 +32,16 @@ unless node["samba"]["passdb_backend"] =~ /^ldapsam/
   users = search("users", "*:*")
 end
 
-package value_for_platform(
+packages =  value_for_platform(
   ["ubuntu", "debian", "arch"] => { "default" => "samba" },
   ["redhat", "centos", "fedora", "scientific", "amazon"] => { "default" => "samba3x" },
   ["raspbian"] => { "default" => ["samba", "samba-common-bin"] },
   "default" => "samba"
 )
+
+Array(packages).each do |package_name|
+  package(package_name)
+end
 
 svcs = value_for_platform(
   ["ubuntu", "debian"] => { "default" => ["smbd", "nmbd"] },
