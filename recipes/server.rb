@@ -41,7 +41,7 @@ package value_for_platform(
 svcs = value_for_platform(
   ["ubuntu", "debian"] => { "default" => ["smbd", "nmbd"] },
   ["redhat", "centos", "fedora", "scientific", "amazon"] => { "default" => ["smb", "nmb"] },
-  "arch" => { "default" => [ "samba" ] },
+  ["arch", "raspbian"] => { "default" => [ "samba" ] },
   "default" => ["smbd", "nmbd"]
 )
 
