@@ -21,8 +21,11 @@ users = nil
 shares = data_bag_item("samba", "shares")
 
 shares["shares"].each do |k,v|
-  if v.has_key?("path")
-    directory v["path"] do
+  if v.has_key?("options") && v["options"].has_key?("path")
+    directory v["options"]["path"] do
+      owner v.fetch("owner", "root")
+      group v.fetch("group", "root")
+      mode v.fetch("mode", 0755)
       recursive true
     end
   end

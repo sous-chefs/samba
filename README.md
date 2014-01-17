@@ -88,13 +88,18 @@ Example data bag item for a single share named `export` in the `shares` item.
       "id": "shares",
       "shares": {
         "export": {
-          "comment": "Exported Share",
-          "path": "/srv/export",
-          "guest ok": "no",
-          "printable": "no",
-          "write list": ["jtimberman"],
-          "create mask": "0664",
-          "directory mask": "0775"
+          "owner": "root",
+          "group": "jtimberman",
+          "mode": "0775",
+          "options": {
+            "comment": "Exported Share",
+            "path": "/srv/export",
+            "guest ok": "no",
+            "printable": "no",
+            "write list": ["jtimberman"],
+            "create mask": "0664",
+            "directory mask": "0775"
+          }
         }
       }
     }
