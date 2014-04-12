@@ -65,7 +65,7 @@ end
 
 if users
   users.each do |u|
-    if u["smbpasswd"] do
+    if u["smbpasswd"]
       samba_user u["id"] do
         password u["smbpasswd"]
         action [:create, :enable]
