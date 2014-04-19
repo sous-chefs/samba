@@ -71,9 +71,9 @@ if users
         action [:create, :enable]
       end
     else
-      samba_user u["id"] do
-        action [:delete]
-      end
+      #samba_user u["id"] do
+      #  action [:delete]
+      #end
     end
   end
 end
