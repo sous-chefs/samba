@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-package node["samba"]["smbclient"]
+package node["samba"]["client_package"]
