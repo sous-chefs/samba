@@ -18,6 +18,6 @@
 #
 
 package value_for_platform(
-  "arch" => { "default" => "smbclient" },
-  "default" => "smbclient"
+  "arch" => { "default" => package node["samba"]["smbclient"] },
+  "default" => package node["samba"]["smbclient"]
 )
