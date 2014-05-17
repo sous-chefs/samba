@@ -64,7 +64,7 @@ Sets up a Samba server. See "Usage" below for more information.
 Resources/Providers
 ===================
 
-This cookbook includes a resource/provider for managing Samba users with the smbpasswd program.
+This cookbook includes a resource/provider for managing samba users with the smbpasswd program.
 
     samba_user "jtimberman" do
       password "plaintextpassword"
