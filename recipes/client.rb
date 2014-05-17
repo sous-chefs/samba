@@ -17,7 +17,4 @@
 # limitations under the License.
 #
 
-package value_for_platform(
-  "arch" => { "default" => package node["samba"]["smbclient"] },
-  "default" => package node["samba"]["smbclient"]
-)
+package node["samba"]["smbclient"]
