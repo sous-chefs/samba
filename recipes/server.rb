@@ -48,6 +48,7 @@ svcs = value_for_platform(
 svcs.each do |s|
   service s do
     pattern "smbd|nmbd" if node["platform"] =~ /^arch$/
+    init_command "/usr/bin/service #{s}"
     action [:enable, :start]
   end
 end
