@@ -9,6 +9,7 @@
   workgroup = <%= node["samba"]["workgroup"] %>
   server string = <%= node["samba"]["server_string"] %>
   security = <%= node["samba"]["security"] %>
+  map to guest = <%= node["samba"]["map_to_guest"] %>
   interfaces = <%= node["samba"]["interfaces"] %>
   hosts allow = <%= node["samba"]["hosts_allow"] %>
   load printers = <%= node["samba"]["load_printers"] %>
