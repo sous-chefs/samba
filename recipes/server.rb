@@ -32,18 +32,8 @@ unless node["samba"]["passdb_backend"] =~ /^ldapsam/
   users = search("users", "*:*")
 end
 
-package value_for_platform(
-  ["ubuntu", "debian", "arch"] => { "default" => "samba" },
-  ["redhat", "centos", "fedora", "scientific", "amazon"] => { "default" => "samba3x" },
-  "default" => "samba"
-)
-
-svcs = value_for_platform(
-  ["ubuntu", "debian"] => { "default" => ["smbd", "nmbd"] },
-  ["redhat", "centos", "fedora", "scientific", "amazon"] => { "default" => ["smb", "nmb"] },
-  "arch" => { "default" => [ "samba" ] },
-  "default" => ["smbd", "nmbd"]
-)
+package node["samba"]["server_package"]
+svcs = node["samba"]["services"]
 
 template node["samba"]["config"] do
   source "smb.conf.erb"
