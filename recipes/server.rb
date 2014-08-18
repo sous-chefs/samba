@@ -45,13 +45,6 @@ svcs = value_for_platform(
   "default" => ["smbd", "nmbd"]
 )
 
-svcs.each do |s|
-  service s do
-    pattern "smbd|nmbd" if node["platform"] =~ /^arch$/
-    action [:enable, :start]
-  end
-end
-
 template node["samba"]["config"] do
   source "smb.conf.erb"
   owner "root"
@@ -70,5 +63,12 @@ if users
       password u["smbpasswd"]
       action [:create, :enable]
     end
+  end
+end
+
+svcs.each do |s|
+  service s do
+    pattern "smbd|nmbd" if node["platform"] =~ /^arch$/
+    action [:enable, :start]
   end
 end
