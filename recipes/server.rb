@@ -20,16 +20,24 @@
 users = nil
 shares = data_bag_item("samba", "shares")
 
-shares["shares"].each do |k,v|
-  if v.has_key?("path")
-    directory v["path"] do
-      recursive true
-    end
-  end
+shares['shares'].each do |k,v|
+  directory v['path'] do
+    recursive true
+  end if v.has_key?('path')
 end
 
 unless node["samba"]["passdb_backend"] =~ /^ldapsam/
-  users = search("users", "*:*")
+  if Chef::Config[:solo]
+    users = []
+    data_bag('users').each do |user|
+      u = data_bag_item('users', user)
+      if u['smbpasswd']
+        users << u
+      end
+    end
+  else
+    users = search('users', '*:*')
+  end
 end
 
 package value_for_platform(
