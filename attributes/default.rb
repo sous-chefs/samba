@@ -28,6 +28,36 @@ default["samba"]["security"] = "user"
 default["samba"]["map_to_guest"] = "Bad User"
 default["samba"]["socket_options"] = "TCP_NODELAY"
 
+# Samba client package defaults
+case platform
+when "arch"
+  default["samba"]["client_package"] = "smbclient"
+else
+  default["samba"]["client_package"] = "smbclient"
+end
+
+# Samba server package defaults
+case platform
+when "ubuntu","debian","arch"
+  default["samba"]["server_package"] = "samba"
+when "redhat","centos","fedora","scientific","amazon"
+  default["samba"]["server_package"] = "samba3x"
+else
+  default["samba"]["server_package"] = "samba"
+end
+
+# Samba service name defaults
+case platform
+when "ubuntu","debian"
+  default["samba"]["services"] = ["smbd", "nmbd"]
+when "redhat","centos","fedora","scientific","amazon"
+  default["samba"]["services"] = ["smb", "nmb"]
+when "arch"
+  default["samba"]["services"] = [ "samba" ]
+else
+  default["samba"]["services"] = ["smbd", "nmbd"]
+end
+
 case platform
 when "arch"
   set["samba"]["config"] = "/etc/samba/smb.conf"
