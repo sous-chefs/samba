@@ -27,6 +27,8 @@ default["samba"]["dns_proxy"] = "no"
 default["samba"]["security"] = "user"
 default["samba"]["map_to_guest"] = "Bad User"
 default["samba"]["socket_options"] = "TCP_NODELAY"
+default["samba"]["smbclient"] = "smbclient"
+
 
 case platform
 when "arch"
@@ -35,6 +37,7 @@ when "arch"
 when "redhat","centos","fedora","amazon","scientific"
   set["samba"]["config"] = "/etc/samba/smb.conf"
   set["samba"]["log_dir"] = "/var/log/samba/log.%m"
+  set["samba"]["smbclient"] = "samba-client"
 else
   set["samba"]["config"] = "/etc/samba/smb.conf"
   set["samba"]["log_dir"] = "/var/log/samba/%m.log"

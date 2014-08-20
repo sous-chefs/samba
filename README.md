@@ -41,6 +41,7 @@ The attributes are used to set up the default values in the smb.conf, and set de
 * `node["samba"]["socket_options"]` - Socket options, default "`TCP_NODELAY`"
 * `node["samba"]["config"]` - Location of Samba configuration, default "/etc/samba/smb.conf".
 * `node["samba"]["log_dir"]` - Location of Samba logs, default "/var/log/samba/%m.log".
+* `node["samba"]["smblient"]` - Name of the Samba client package, default "smbclient".
 
 Recipes
 =======
@@ -63,7 +64,7 @@ Sets up a Samba server. See "Usage" below for more information.
 Resources/Providers
 ===================
 
-This cookbook includes a resource/provider for managing samba users with the smbpasswd program.
+This cookbook includes a resource/provider for managing Samba users with the smbpasswd program.
 
     samba_user "jtimberman" do
       password "plaintextpassword"
