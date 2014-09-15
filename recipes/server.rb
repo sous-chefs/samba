@@ -27,7 +27,7 @@ shares['shares'].each do |k, v|
   end
 end
 
-users = if node["samba"]["passdb_backend"] !=~ /^ldapsam/ && node['samba']['find_users_from_data_bag'] == true
+users = if node["samba"]["passdb_backend"] !=~ /^ldapsam/ && node['samba']['enable_users_search']
   search(node['samba']['users_data_bag'], '*:*') # ~FC003
 end
 
