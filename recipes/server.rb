@@ -18,7 +18,7 @@
 #
 
 users = nil
-shares = data_bag_item("samba", "shares")
+shares = data_bag_item(node["samba"]["shares_data_bag"], "shares")
 
 shares["shares"].each do |k,v|
   if v.has_key?("path")
@@ -29,7 +29,7 @@ shares["shares"].each do |k,v|
 end
 
 unless node["samba"]["passdb_backend"] =~ /^ldapsam/
-  users = search("users", "*:*")
+  users = search(node["samba"]["users_data_bag"], "*:*")
 end
 
 package node["samba"]["server_package"]
