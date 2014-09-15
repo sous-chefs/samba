@@ -34,6 +34,8 @@ default["samba"]["users_data_bag"] = "users"
 case platform
 when "arch"
   default["samba"]["client_package"] = "smbclient"
+when "redhat", "centos", "fedora", "scientific", "amazon"
+  default["samba"]["client_package"] = "samba-client"
 else
   default["samba"]["client_package"] = "smbclient"
 end
