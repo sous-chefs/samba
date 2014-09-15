@@ -1,3 +1,13 @@
+## v0.12.0
+
+- Manage services at end of server recipe
+- Move package and service names to attributes
+- Select data bags via attributes instead of hardcoded names
+- Corrected service name on Debian
+- Add map to guest option in smb.conf
+- Add test kitchen, chefspec, serverspec, rubocop ignore rules, and foodcritic check
+- Cleanup attributes to make them easier to follow per-platform
+
 ## v0.11.4:
 
 ### Bug
