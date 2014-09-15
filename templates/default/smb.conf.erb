@@ -19,7 +19,7 @@
 #============================ Share Definitions ==============================
 <% @shares.each do |share,option| -%>
 [<%= share %>]
-  <% option.each do |o,v| -%>
+  <% option["options"].each do |o,v| -%>
   <%= o %> = <%= v.respond_to?(:join) ? v.join(',') : v %>
   <% end -%>
 
