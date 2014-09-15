@@ -111,4 +111,38 @@ describe 'samba::server' do
       expect(chef_run).to start_service('nmb')
     end
   end
+
+  context 'automatic user installation' do
+    let(:chef_run) do
+      ChefSpec::Runner.new(
+        :platform => 'ubuntu',
+        :version => '14.04'
+      )
+    end
+
+    let(:admins) do
+      stub_search('admins', '*:*').and_return([{
+        'id' => 'tscott',
+        'smbpassword' => 'zomgSoSecure'
+      }])
+    end
+
+    it 'sets up samba users from a data_bag search when enabled' do
+      chef_run.node.set['samba']['enable_users_search'] = true
+      chef_run.converge(described_recipe)
+      expect(chef_run).to create_samba_user('jtimberman')
+    end
+
+    it 'does not automatically set up samba users when disabled' do
+      chef_run.node.set['samba']['enable_users_search'] = false
+      chef_run.converge(described_recipe)
+      expect(chef_run).to_not create_samba_user('jtimberman')
+    end
+
+    it 'searches whichever data bag is selected ("users" by default)' do
+      chef_run.node.set['samba']['users_data_bag'] = 'admins'
+      chef_run.converge(described_recipe)
+      expect(chef_run).to create_samba_user('tscott')
+    end
+  end
 end
