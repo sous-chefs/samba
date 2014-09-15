@@ -21,7 +21,7 @@ users = nil
 shares = data_bag_item(node["samba"]["shares_data_bag"], "shares")
 
 shares["shares"].each do |k,v|
-  if v.has_key?("path")
+  if v.has_key?("path") #~FC023
     directory v["path"] do
       recursive true
     end
@@ -29,7 +29,7 @@ shares["shares"].each do |k,v|
 end
 
 unless node["samba"]["passdb_backend"] =~ /^ldapsam/
-  users = search(node["samba"]["users_data_bag"], "*:*")
+  users = search(node["samba"]["users_data_bag"], "*:*") #~FC003
 end
 
 package node["samba"]["server_package"]
