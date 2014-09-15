@@ -50,11 +50,11 @@ end
 
 # Samba service name defaults
 case platform
-when "ubuntu","debian"
+when "ubuntu"
   default["samba"]["services"] = ["smbd", "nmbd"]
 when "redhat","centos","fedora","scientific","amazon"
   default["samba"]["services"] = ["smb", "nmb"]
-when "arch"
+when "arch", 'debian'
   default["samba"]["services"] = [ "samba" ]
 else
   default["samba"]["services"] = ["smbd", "nmbd"]
