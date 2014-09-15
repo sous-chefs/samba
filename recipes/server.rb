@@ -58,6 +58,8 @@ end
 
 svcs.each do |s|
   service s do
+    supports :restart => true, :reload => true
+    provider Chef::Provider::Service::Upstart if platform?('ubuntu') && node['platform_version'].to_f == 14.04
     pattern "smbd|nmbd" if node["platform"] =~ /^arch$/
     action [:enable, :start]
   end
