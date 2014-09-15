@@ -41,7 +41,7 @@ case platform
 when "ubuntu","debian","arch"
   default["samba"]["server_package"] = "samba"
 when "redhat","centos","fedora","scientific","amazon"
-  default["samba"]["server_package"] = "samba3x"
+  default["samba"]["server_package"] = "samba"
 else
   default["samba"]["server_package"] = "samba"
 end
