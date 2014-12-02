@@ -32,6 +32,8 @@ default['samba']['socket_options']       = 'TCP_NODELAY'
 default['samba']['shares_data_bag']      = 'samba'
 default['samba']['users_data_bag']       = 'users'
 
+default['samba']['shares']               = {}
+
 case node['platform_family']
 when 'arch'
   default['samba']['client_package'] = 'smbclient'
