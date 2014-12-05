@@ -43,6 +43,7 @@ The attributes are used to set up the default values in the smb.conf, and set de
 * `node["samba"]["socket_options"]` - Socket options, default "`TCP_NODELAY`"
 * `node["samba"]["config"]` - Location of Samba configuration, default "/etc/samba/smb.conf".
 * `node["samba"]["log_dir"]` - Location of Samba logs, default "/var/log/samba/%m.log".
+* `node["samba"]["guest_account"]` - Specify the Unix account that guest users should be assigned when connecting to the Samba server.
 * `node["samba"]["shares_data_bag"]` - the name of the data bag that contains the shares information, default "samba". See `Usage` below.
 * `node["samba"]["users_data_bag"]` - the name of the data bag that contains user details, default "users". See `Usage` below.
 

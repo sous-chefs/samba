@@ -28,6 +28,7 @@ default['samba']['dns_proxy']            = 'no'
 default['samba']['security']             = 'user'
 default['samba']['map_to_guest']         = 'Bad User'
 default['samba']['socket_options']       = 'TCP_NODELAY'
+default['samba']['guest_account']         = 'nobody'
 
 default['samba']['shares_data_bag']      = 'samba'
 default['samba']['users_data_bag']       = 'users'
