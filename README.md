@@ -45,6 +45,7 @@ The attributes are used to set up the default values in the smb.conf, and set de
 * `node["samba"]["log_dir"]` - Location of Samba logs, default "/var/log/samba/%m.log".
 * `node["samba"]["shares_data_bag"]` - the name of the data bag that contains the shares information, default "samba". See `Usage` below.
 * `node["samba"]["users_data_bag"]` - the name of the data bag that contains user details, default "users". See `Usage` below.
+* `node["samba"]["shares"]` - json of samba shares with options. If the share's name identical with the same name in data bag, share options from data bag override share options in attributes
 
 Recipes
 =======
@@ -104,6 +105,31 @@ Example data bag item for a single share named `export` in the `shares` item.
     }
 
 Each of the hashes in `shares` will be a stanza in the smb.conf.
+
+Shares can be declated either in attributes or databags.
+
+    default['samba']['shares']              = {
+      "export2" => {
+        "comment" => "Exported Share 2",
+        "path" => "/srv/export2",
+        "guest ok" => "no",
+        "printable" => "no",
+        "write list" => ["smbuser"],
+        "create mask" => "0664",
+        "directory mask" => "0775"
+      },
+      "export3" => {
+        "comment" => "Exported Share 3",
+        "path" => "/srv/export3",
+        "guest ok" => "no",
+        "printable" => "no",
+        "write list" => ["smbuser"],
+        "create mask" => "0664",
+        "directory mask" => "0775"
+      }
+    }
+
+Note, that samba share declared in data bag override share in ['samba']['shares'] with the same name.
 
 Example data bag item for a user. Note that the user must exist on the system already. This is the minimal users data bag to set up the `smbpasswd` entry. More options are available for those using the `users` cookbook, see the readme for that cookbook for more information.
 

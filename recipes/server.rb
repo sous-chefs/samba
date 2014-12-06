@@ -18,9 +18,20 @@
 #
 
 users = nil
-shares = data_bag_item(node['samba']['shares_data_bag'], 'shares')
+if not Chef::DataBag.list.key?(node['samba']['shares_data_bag'])
+  sam = {
+    "id" => "shares",
+    "shares" => {}
+  }
+  shares_bag = Chef::DataBagItem.new
+  shares_bag.data_bag(node['samba']['shares_data_bag'])
+  shares_bag.raw_data = sam
+else
+  shares_bag = data_bag_item(node['samba']['shares_data_bag'], 'shares')
+end
+shares = node['samba']['shares'].merge(shares_bag['shares'])
 
-shares['shares'].each do |k, v|
+shares.each do |k, v|
   if v.key?('path') # ~FC023
     directory v['path'] do
       recursive true
@@ -40,7 +51,7 @@ template node['samba']['config'] do
   owner 'root'
   group 'root'
   mode 00644
-  variables :shares => shares['shares']
+  variables :shares => shares
   svcs.each do |s|
     notifies :restart, "service[#{s}]"
   end
