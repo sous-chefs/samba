@@ -24,11 +24,11 @@ default['samba']['bind_interfaces_only'] = 'no'
 default['samba']['server_string']        = 'Samba Server'
 default['samba']['load_printers']        = 'no'
 default['samba']['passdb_backend']       = 'tdbsam'
+default["samba"]['enable_users_search']  = true
 default['samba']['dns_proxy']            = 'no'
 default['samba']['security']             = 'user'
 default['samba']['map_to_guest']         = 'Bad User'
 default['samba']['socket_options']       = 'TCP_NODELAY'
-
 default['samba']['shares_data_bag']      = 'samba'
 default['samba']['users_data_bag']       = 'users'
 

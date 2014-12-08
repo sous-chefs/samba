@@ -20,9 +20,18 @@ describe 'samba::server' do
       'id' => 'jtimberman',
       'smbpasswd' => 'plaintextpassword'
     }]
+    samba_admins = [{
+      'id' => 'tscott',
+      'smbpasswd' => 'zomgsosecure'
+    }]
 
     stub_data_bag_item('samba', 'shares').and_return(samba_shares)
     stub_search('users', '*:*').and_return(samba_users)
+    stub_search('admins', '*:*').and_return(samba_admins)
+
+    allow(Mixlib::ShellOut).to receive(:new).and_return(double('shellout', {
+      :live_stream= => nil, :run_command => nil, :stdout => ''
+    }))
   end
 
   context 'ubuntu' do
@@ -109,6 +118,35 @@ describe 'samba::server' do
       expect(chef_run).to enable_service('nmb')
       expect(chef_run).to start_service('smb')
       expect(chef_run).to start_service('nmb')
+    end
+  end
+
+  context 'automatic user installation' do
+    let(:chef_run) do
+      ChefSpec::Runner.new(
+        :platform => 'ubuntu',
+        :version => '14.04',
+        :step_into => ['samba_user']
+      )
+    end
+
+    it 'sets up samba users from a data_bag search when enabled' do
+      chef_run.node.set['samba']['enable_users_search'] = true
+      chef_run.converge(described_recipe)
+      expect(chef_run).to create_samba_user('jtimberman')
+    end
+
+    it 'does not automatically set up samba users when disabled' do
+      chef_run.node.set['samba']['enable_users_search'] = false
+      chef_run.converge(described_recipe)
+      expect(chef_run).to_not create_samba_user('jtimberman')
+    end
+
+    it 'searches alternative data_bag for samba users when provided' do
+      chef_run.node.set['samba']['enable_users_search'] = true
+      chef_run.node.set['samba']['users_data_bag'] = 'admins'
+      chef_run.converge(described_recipe)
+      expect(chef_run).to create_samba_user('tscott')
     end
   end
 end

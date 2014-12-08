@@ -17,7 +17,6 @@
 # limitations under the License.
 #
 
-users = nil
 shares = data_bag_item(node['samba']['shares_data_bag'], 'shares')
 
 shares['shares'].each do |k, v|
@@ -28,8 +27,8 @@ shares['shares'].each do |k, v|
   end
 end
 
-unless node['samba']['passdb_backend'] =~ /^ldapsam/
-  users = search(node['samba']['users_data_bag'], '*:*') # ~FC003
+users = if node["samba"]["passdb_backend"] !=~ /^ldapsam/ && node['samba']['enable_users_search']
+  search(node['samba']['users_data_bag'], '*:*') # ~FC003
 end
 
 package node['samba']['server_package']
