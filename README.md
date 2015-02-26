@@ -45,6 +45,7 @@ The attributes are used to set up the default values in the smb.conf, and set de
 * `node["samba"]["log_dir"]` - Location of Samba logs, default "/var/log/samba/%m.log".
 * `node["samba"]["shares_data_bag"]` - the name of the data bag that contains the shares information, default "samba". See `Usage` below.
 * `node["samba"]["users_data_bag"]` - the name of the data bag that contains user details, default "users". See `Usage` below.
+* `node["samba"]["options"]` - the list of additional options, default {'unix charset' => 'UTF8'}. (optional)
 
 Recipes
 =======
