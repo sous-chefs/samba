@@ -31,7 +31,7 @@ default['samba']['map_to_guest']         = 'Bad User'
 default['samba']['socket_options']       = 'TCP_NODELAY'
 default['samba']['shares_data_bag']      = 'samba'
 default['samba']['users_data_bag']       = 'users'
-default['samba']['options']              = {'unix charset' => 'UTF8'}
+default['samba']['options']              = {}
 
 case node['platform_family']
 when 'arch'
