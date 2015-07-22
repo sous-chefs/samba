@@ -34,6 +34,12 @@ default['samba']['users_data_bag']       = 'users'
 default['samba']['options']              = {}
 
 case node['platform_family']
+when 'smartos'
+  default['samba']['client_package'] = 'smbclient'
+  default['samba']['server_package'] = 'samba'
+  default['samba']['services']       = ['smbd', 'nmbd']
+  set['samba']['config']             = '/opt/local/etc/samba/smb.conf'
+  set['samba']['log_dir']            = '/var/log/samba/log.%m'
 when 'arch'
   default['samba']['client_package'] = 'smbclient'
   default['samba']['server_package'] = 'samba'
