@@ -46,6 +46,7 @@ The attributes are used to set up the default values in the smb.conf, and set de
 * `node["samba"]["shares_data_bag"]` - the name of the data bag that contains the shares information, default "samba". See `Usage` below.
 * `node["samba"]["users_data_bag"]` - the name of the data bag that contains user details, default "users". See `Usage` below.
 * `node["samba"]["options"]` - the list of additional options, default {'unix charset' => 'UTF8'}. (optional)
+* `node['samba']['shares']` - the list contains the shares information. Used as alternative way to store shares information compare to data bag.
 
 Recipes
 =======
@@ -85,6 +86,8 @@ Usage
 The `samba::default` recipe includes `samba::client`, which simply installs smbclient package. Remaining information in this section pertains to `samba::server` recipe.
 
 Set attributes as desired in a role, and create a data bag with an item called `shares`. The default name for the data bag is `samba` but this can be changed by setting `node["samba"]["data_bag"]`. Also create a data bag with an item for each user that should have access to samba. The name of the users data bag defaults to `users` but can be changed by setting `node["samba"]["users_data_bag"]`.
+
+The alternative way to describe shares is to use attribute `node['samba']['shares']`. The `samba::server` recipe is checking if data bag `node["samba"]["data_bag"]` exists and if no, it uses `node['samba']['shares']`.
 
 Example data bag item for a single share named `export` in the `shares` item.
 
