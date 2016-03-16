@@ -17,9 +17,13 @@
 # limitations under the License.
 #
 
-shares = data_bag_item(node['samba']['shares_data_bag'], 'shares')
+if Chef::DataBag.list.key?(node['samba']['shares_data_bag'])
+  shares = data_bag_item(node['samba']['shares_data_bag'], 'shares')['shares']
+else
+  shares = node['samba']['shares']
+end
 
-shares['shares'].each do |k, v|
+shares.each do |k, v|
   if v.key?('path') # ~FC023
     directory v['path'] do
       recursive true
@@ -39,7 +43,7 @@ template node['samba']['config'] do
   owner 'root'
   group 'root'
   mode 00644
-  variables :shares => shares['shares']
+  variables :shares => shares
   svcs.each do |s|
     notifies :restart, "service[#{s}]"
   end
