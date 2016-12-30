@@ -1,6 +1,6 @@
 name             'samba'
-maintainer       'Joshua Timberman'
-maintainer_email 'cookbooks@housepub.org'
+maintainer       'Sous Chefs'
+maintainer_email 'help@sous-chefs.org'
 license          'Apache 2.0'
 description      'Installs/Configures samba'
 version          '0.12.0'
