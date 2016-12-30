@@ -1,6 +1,8 @@
 require_relative '../spec_helper'
 
 describe 'samba::server' do
+  let(:shellout) { double('shellout') }
+
   before(:each) do
     samba_shares = {
       'id' => 'shares',
@@ -12,33 +14,34 @@ describe 'samba::server' do
           'printable' => 'no',
           'write list' => ['smbuser'],
           'create mask' => '0664',
-          'directory mask' => '0775'
-        }
-      }
+          'directory mask' => '0775',
+        },
+      },
     }
     samba_users = [{
       'id' => 'jtimberman',
-      'smbpasswd' => 'plaintextpassword'
+      'smbpasswd' => 'plaintextpassword',
     }]
     samba_admins = [{
       'id' => 'tscott',
-      'smbpasswd' => 'zomgsosecure'
+      'smbpasswd' => 'zomgsosecure',
     }]
 
     stub_data_bag_item('samba', 'shares').and_return(samba_shares)
     stub_search('users', '*:*').and_return(samba_users)
     stub_search('admins', '*:*').and_return(samba_admins)
 
-    allow(Mixlib::ShellOut).to receive(:new).and_return(double('shellout', {
-      :live_stream= => nil, :run_command => nil, :stdout => ''
-    }))
+    allow(Mixlib::ShellOut).to receive(:new).and_return(shellout)
+    allow(shellout).to receive(:stdout).and_return('')
+    allow(shellout).to receive(:live_stream).and_return(STDOUT)
+    allow(shellout).to receive(:run_command).and_return(nil)
   end
 
   context 'ubuntu' do
     let(:chef_run) do
-      ChefSpec::Runner.new(
-        :platform => 'ubuntu',
-        :version => '14.04'
+      ChefSpec::SoloRunner.new(
+        platform: 'ubuntu',
+        version: '14.04'
       ).converge(described_recipe)
     end
 
@@ -66,9 +69,9 @@ describe 'samba::server' do
 
   context 'debian' do
     let(:chef_run) do
-      ChefSpec::Runner.new(
-        :platform => 'debian',
-        :version => '7.5'
+      ChefSpec::SoloRunner.new(
+        platform: 'debian',
+        version: '7.5'
       ).converge(described_recipe)
     end
 
@@ -93,9 +96,9 @@ describe 'samba::server' do
 
   context 'centos' do
     let(:chef_run) do
-      ChefSpec::Runner.new(
-        :platform => 'centos',
-        :version => '6.5'
+      ChefSpec::SoloRunner.new(
+        platform: 'centos',
+        version: '6.5'
       ).converge(described_recipe)
     end
 
@@ -123,10 +126,10 @@ describe 'samba::server' do
 
   context 'automatic user installation' do
     let(:chef_run) do
-      ChefSpec::Runner.new(
-        :platform => 'ubuntu',
-        :version => '14.04',
-        :step_into => ['samba_user']
+      ChefSpec::SoloRunner.new(
+        platform: 'ubuntu',
+        version: '14.04',
+        step_into: ['samba_user']
       )
     end
 
