@@ -3,7 +3,7 @@ require_relative '../spec_helper'
 describe 'samba::client' do
   context 'ubuntu' do
     let(:chef_run) do
-      ChefSpec::Runner.new(
+      ChefSpec::SoloRunner.new(
         platform: 'ubuntu',
         version: '14.04'
       ).converge(described_recipe)
@@ -16,7 +16,7 @@ describe 'samba::client' do
 
   context 'debian' do
     let(:chef_run) do
-      ChefSpec::Runner.new(
+      ChefSpec::SoloRunner.new(
         platform: 'debian',
         version: '7.5'
       ).converge(described_recipe)
@@ -29,7 +29,7 @@ describe 'samba::client' do
 
   context 'centos' do
     let(:chef_run) do
-      ChefSpec::Runner.new(
+      ChefSpec::SoloRunner.new(
         platform: 'centos',
         version: '6.5'
       ).converge(described_recipe)

@@ -34,7 +34,7 @@ describe 'samba::server' do
 
   context 'ubuntu' do
     let(:chef_run) do
-      ChefSpec::Runner.new(
+      ChefSpec::SoloRunner.new(
         platform: 'ubuntu',
         version: '14.04'
       ).converge(described_recipe)
@@ -64,7 +64,7 @@ describe 'samba::server' do
 
   context 'debian' do
     let(:chef_run) do
-      ChefSpec::Runner.new(
+      ChefSpec::SoloRunner.new(
         platform: 'debian',
         version: '7.5'
       ).converge(described_recipe)
@@ -91,7 +91,7 @@ describe 'samba::server' do
 
   context 'centos' do
     let(:chef_run) do
-      ChefSpec::Runner.new(
+      ChefSpec::SoloRunner.new(
         platform: 'centos',
         version: '6.5'
       ).converge(described_recipe)
@@ -121,7 +121,7 @@ describe 'samba::server' do
 
   context 'automatic user installation' do
     let(:chef_run) do
-      ChefSpec::Runner.new(
+      ChefSpec::SoloRunner.new(
         platform: 'ubuntu',
         version: '14.04',
         step_into: ['samba_user']
