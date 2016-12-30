@@ -1,86 +1,82 @@
-Description
-===========
+# Samba Cookbook
 
-Installs and configures Samba version 3.
+[![Build Status](https://travis-ci.org/sous-chefs/samba.svg?branch=master)](https://travis-ci.org/sous-chefs/samba) [![Cookbook Version](https://img.shields.io/cookbook/v/samba.svg)](https://supermarket.chef.io/cookbooks/samba)
 
-Requirements
-============
+Installs and configures Samba daemon. Uses Chef Server for data bag to build configuration file shares. Includes a resource for adding / removing Samba users.
 
-Assumes Samba version 3.
+## Requirements
 
-Should work on Debian-family, Red Hat-family and ArchLinux systems.
+### Platforms
 
-Uses Chef Server for data bag to build configuration file shares. Chef Zero should work as long as data bags are set up per __Usage__ below.
+- Debian / Ubuntu derivatives
+- RHEL and derivatives
 
-Requires a users data bag for the users when the password backend is not LDAP. If using the `users` [cookbook](https://supermarket.getchef.com/cookbooks/users), this already needs to exist, though a password needs to be specified for Samba.
+### Chef
 
-Limitations
-===========
+- Chef 11+
 
-Does not (yet) integrate with LDAP/AD.
+### Cookbooks
 
-Uses plaintext passwords for the user data bag entry to create the SMB users if the password backend is tdbsam or smbpasswd. See below under usage.
+- none
 
-Does not modify the Samba daemons to launch (i.e., ArchLinux's `/etc/conf.d/samba` `SAMBA_DAMONS`).
+## Known Limitations
 
-Samba 4 may work with or without modification.
+- Does not (yet) integrate with LDAP/AD.
+- Uses plaintext passwords for the user data bag entry to create the SMB users if the password backend is tdbsam or smbpasswd. See below under usage.
+- Does not modify the Samba daemons to launch (i.e., ArchLinux's `/etc/conf.d/samba` `SAMBA_DAMONS`).
+- Samba 4 may work with or without modification.
 
-Attributes
-==========
+## Attributes
 
 The attributes are used to set up the default values in the smb.conf, and set default locations used in the recipe. Where appropriate, the attributes use the default values in Samba.
 
-* `node["samba"]["workgroup"]` - The SMB workgroup to use, default "SAMBA".
-* `node["samba"]["interfaces"]` - Interfaces to listen on, default "lo 127.0.0.1".
-* `node["samba"]["hosts_allow"]` - Allowed hosts/networks, default "127.0.0.0/8".
-* `node["samba"]["bind_interfaces_only"]` - Limit interfaces to serve SMB, default "no"
-* `node["samba"]["server_string"]` - Server string value, default "Samba Server".
-* `node["samba"]["load_printers"]` - Whether to load printers, default "no".
-* `node["samba"]["passdb_backend"]` - Which password backend to use, default "tdbsam".
-* `node["samba"]["dns_proxy"]` - Whether to search NetBIOS names through DNS, default "no".
-* `node["samba"]["security"]` - Samba security mode, default "user".
-* `node["samba"]["map_to_guest"]` - What Samba should do with logins that don't match Unix users, default "Bad User".
-* `node["samba"]["socket_options"]` - Socket options, default "`TCP_NODELAY`"
-* `node["samba"]["config"]` - Location of Samba configuration, default "/etc/samba/smb.conf".
-* `node["samba"]["log_dir"]` - Location of Samba logs, default "/var/log/samba/%m.log".
-* `node["samba"]["shares_data_bag"]` - the name of the data bag that contains the shares information, default "samba". See `Usage` below.
-* `node["samba"]["users_data_bag"]` - the name of the data bag that contains user details, default "users". See `Usage` below.
-* `node["samba"]["options"]` - the list of additional options, default {'unix charset' => 'UTF8'}. (optional)
+- `node["samba"]["workgroup"]` - The SMB workgroup to use, default "SAMBA".
+- `node["samba"]["interfaces"]` - Interfaces to listen on, default "lo 127.0.0.1".
+- `node["samba"]["hosts_allow"]` - Allowed hosts/networks, default "127.0.0.0/8".
+- `node["samba"]["bind_interfaces_only"]` - Limit interfaces to serve SMB, default "no"
+- `node["samba"]["server_string"]` - Server string value, default "Samba Server".
+- `node["samba"]["load_printers"]` - Whether to load printers, default "no".
+- `node["samba"]["passdb_backend"]` - Which password backend to use, default "tdbsam".
+- `node["samba"]["dns_proxy"]` - Whether to search NetBIOS names through DNS, default "no".
+- `node["samba"]["security"]` - Samba security mode, default "user".
+- `node["samba"]["map_to_guest"]` - What Samba should do with logins that don't match Unix users, default "Bad User".
+- `node["samba"]["socket_options"]` - Socket options, default "`TCP_NODELAY`"
+- `node["samba"]["config"]` - Location of Samba configuration, default "/etc/samba/smb.conf".
+- `node["samba"]["log_dir"]` - Location of Samba logs, default "/var/log/samba/%m.log".
+- `node["samba"]["shares_data_bag"]` - the name of the data bag that contains the shares information, default "samba". See `Usage` below.
+- `node["samba"]["users_data_bag"]` - the name of the data bag that contains user details, default "users". See `Usage` below.
+- `node["samba"]["options"]` - the list of additional options, default {'unix charset' => 'UTF8'}. (optional)
 
-Recipes
-=======
+## Recipes
 
-client
-------
+### client
 
 Installs smbclient to provide access to SMB shares.
 
-default
--------
+### default
 
 Includes the client recipe by default.
 
-server
-------
+### server
 
 Sets up a Samba server. See "Usage" below for more information.
 
-Resources/Providers
-===================
+## Resources
 
 This cookbook includes a resource/provider for managing samba users with the smbpasswd program.
 
-    samba_user "jtimberman" do
-      password "plaintextpassword"
-      action [:create, :enable]
-    end
+```
+samba_user "jtimberman" do
+  password "plaintextpassword"
+  action [:create, :enable]
+end
+```
 
 For now, this resource can only create, enable or delete the user. It only supports setting the user's initial password. It assumes a password db backend that utilizes the smbpasswd program.
 
 This will not enforce the password to be set to the value specified. Meaning, if the local user changes their password with `smbpasswd`, the recipe will not reset it. This may be changed in a future version of this cookbook.
 
-Usage
-=====
+## Usage
 
 The `samba::default` recipe includes `samba::client`, which simply installs smbclient package. Remaining information in this section pertains to `samba::server` recipe.
 
@@ -88,52 +84,42 @@ Set attributes as desired in a role, and create a data bag with an item called `
 
 Example data bag item for a single share named `export` in the `shares` item.
 
-    % cat data_bags/samba/shares.json
-    {
-      "id": "shares",
-      "shares": {
-        "export": {
-          "comment": "Exported Share",
-          "path": "/srv/export",
-          "guest ok": "no",
-          "printable": "no",
-          "write list": ["jtimberman"],
-          "create mask": "0664",
-          "directory mask": "0775"
-        }
-      }
+```
+% cat data_bags/samba/shares.json
+{
+  "id": "shares",
+  "shares": {
+    "export": {
+      "comment": "Exported Share",
+      "path": "/srv/export",
+      "guest ok": "no",
+      "printable": "no",
+      "write list": ["jtimberman"],
+      "create mask": "0664",
+      "directory mask": "0775"
     }
+  }
+}
+```
 
 Each of the hashes in `shares` will be a stanza in the smb.conf.
 
 Example data bag item for a user. Note that the user must exist on the system already. This is the minimal users data bag to set up the `smbpasswd` entry. More options are available for those using the `users` cookbook, see the readme for that cookbook for more information.
 
-    % cat data_bags/users/jtimberman.json
-    {
-      "id": "jtimberman",
-      "smbpasswd": "plaintextpassword"
-    }
+```
+% cat data_bags/users/jtimberman.json
+{
+  "id": "jtimberman",
+  "smbpasswd": "plaintextpassword"
+}
+```
 
 Unfortunately, smbpasswd does not take a hashed password as an argument - the password is echoed and piped to the smbpasswd program. This is a limitation of Samba.
+## License
 
-Testing
-=======
+Copyright 2010-2016, Chef Software, Inc.
 
-This cookbook is tested with:
-
-* [ChefSpec](http://sethvargo.github.io/chefspec/) for pre-convergence tests
-* [Foodcritic](http://www.foodcritic.io/) for cookbook lint checking (specific rules are disabled via source comments)
-* [RuboCop](http://batsov.com/rubocop/) with [specific rules disabled](https://github.com/jtimberman/samba-cookbook/blob/master/.rubocop.yml)
-* [Test Kitchen](http://kitchen.ci) for convergence testing per platform
-* [ServerSpec](http://serverspec.org) for post-convergence tests
-
-License and Author
-==================
-
-Author:: Joshua Timberman (<joshua@opscode.com>)
-
-Copyright:: 2010, Opscode, Inc
-
+```text
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -145,3 +131,4 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+```
