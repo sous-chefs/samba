@@ -44,8 +44,8 @@ when 'arch'
   default['samba']['client_package'] = 'smbclient'
   default['samba']['server_package'] = 'samba'
   default['samba']['services']       = ['samba']
-  set['samba']['config']             = '/etc/samba/smb.conf'
-  set['samba']['log_dir']            = '/var/log/samba/log.%m'
+  default['samba']['config']         = '/etc/samba/smb.conf'
+  default['samba']['log_dir']        = '/var/log/samba/log.%m'
 when 'debian'
   default['samba']['client_package'] = 'smbclient'
   default['samba']['server_package'] = 'samba'
@@ -54,18 +54,18 @@ when 'debian'
                                        else
                                          ['samba']
                                        end
-  set['samba']['config']             = '/etc/samba/smb.conf'
-  set['samba']['log_dir']            = '/var/log/samba/%m.log'
+  default['samba']['config']         = '/etc/samba/smb.conf'
+  default['samba']['log_dir']        = '/var/log/samba/%m.log'
 when 'rhel', 'fedora'
   default['samba']['client_package'] = 'samba-client'
   default['samba']['server_package'] = 'samba'
   default['samba']['services']       = %w(smb nmb)
-  set['samba']['config']             = '/etc/samba/smb.conf'
-  set['samba']['log_dir']            = '/var/log/samba/log.%m'
+  default['samba']['config']         = '/etc/samba/smb.conf'
+  default['samba']['log_dir']        = '/var/log/samba/log.%m'
 else
   default['samba']['client_package'] = 'smbclient'
   default['samba']['server_package'] = 'samba'
   default['samba']['services']       = %w(smbd nmbd)
-  set['samba']['config']             = '/etc/samba/smb.conf'
-  set['samba']['log_dir']            = '/var/log/samba/%m.log'
+  default['samba']['config']         = '/etc/samba/smb.conf'
+  default['samba']['log_dir']        = '/var/log/samba/%m.log'
 end
