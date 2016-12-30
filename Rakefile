@@ -20,6 +20,7 @@ namespace :style do
       t.options = {
         fail_tags: ['any'],
         progress: true,
+        exclude: 'spec',
       }
     end
   rescue LoadError => e
