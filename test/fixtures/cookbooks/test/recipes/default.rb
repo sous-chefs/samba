@@ -5,3 +5,5 @@ user 'smbuser' do
   home '/home/smbuser'
   shell '/bin/bash'
 end
+
+include_recipe 'samba::server'

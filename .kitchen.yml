@@ -18,11 +18,10 @@ platforms:
 suites:
   - name: client
     run_list:
-      - recipe[samba::client]
+      - recipe[test::client]
     attributes:
 
   - name: server
     run_list:
-      - recipe[test]
-      - recipe[samba::server]
+      - recipe[test:server]
     attributes:
