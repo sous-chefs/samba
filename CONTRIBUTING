@@ -1,9 +1,0 @@
-Contribution process:
-
-1. [Optional] - Open an issue describing the problem or feature.
-2. Fork the repository.
-3. Make your changes. Be sure to add tests as applicable.
-4. Ensure code passes rubocop and foodcritic lint checks
-5. Submit a pull-request through GitHub.
-
-I maintain this cookbook in my free time, so I may not respond right away. I'll take contributions for additional platforms, but only if they have adequate test coverage so future changes don't break anything.
