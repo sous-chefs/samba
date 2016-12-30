@@ -9,6 +9,6 @@ recipe 'samba::default', 'Includes the samba::client recipe'
 recipe 'samba::client', 'Installs smbclient package'
 recipe 'samba::server', 'Installs samba server packages and configures smb.conf'
 
-%w{ arch debian ubuntu centos fedora redhat scientific amazon raspbian }.each do |os|
+%w( debian ubuntu centos fedora redhat scientific amazon oracle ).each do |os|
   supports os
 end
