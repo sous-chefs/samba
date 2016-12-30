@@ -8,6 +8,7 @@ transport:
 
 provisioner:
   name: dokken
+  data_bags_path: test/fixtures/data_bags
 
 verifier:
   name: inspec
@@ -91,5 +92,5 @@ suites:
 
   - name: server
     run_list:
-      - recipe[test:server]
+      - recipe[test::server]
     attributes:
