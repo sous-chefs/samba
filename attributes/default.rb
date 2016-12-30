@@ -1,9 +1,9 @@
 #
-# Cookbook Name:: samba
+# Cookbook:: samba
 # Attributes:: default
 #
-# Copyright 2010, Opscode, Inc.
-# Copyright 2014, Joshua Timberman <cookbooks@housepub.org>
+# Copyright:: 2010-2016, Chef Software, Inc.
+# Copyright:: 2014-2016, Joshua Timberman <cookbooks@housepub.org>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
