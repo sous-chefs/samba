@@ -4,8 +4,8 @@ describe 'samba::client' do
   context 'ubuntu' do
     let(:chef_run) do
       ChefSpec::Runner.new(
-        :platform => 'ubuntu',
-        :version => '14.04'
+        platform: 'ubuntu',
+        version: '14.04'
       ).converge(described_recipe)
     end
 
@@ -17,8 +17,8 @@ describe 'samba::client' do
   context 'debian' do
     let(:chef_run) do
       ChefSpec::Runner.new(
-        :platform => 'debian',
-        :version => '7.5'
+        platform: 'debian',
+        version: '7.5'
       ).converge(described_recipe)
     end
 
@@ -30,8 +30,8 @@ describe 'samba::client' do
   context 'centos' do
     let(:chef_run) do
       ChefSpec::Runner.new(
-        :platform => 'centos',
-        :version => '6.5'
+        platform: 'centos',
+        version: '6.5'
       ).converge(described_recipe)
     end
 
@@ -39,5 +39,4 @@ describe 'samba::client' do
       expect(chef_run).to install_package 'samba-client'
     end
   end
-
 end

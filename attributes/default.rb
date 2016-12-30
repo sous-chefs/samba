@@ -24,7 +24,7 @@ default['samba']['bind_interfaces_only'] = 'no'
 default['samba']['server_string']        = 'Samba Server'
 default['samba']['load_printers']        = 'no'
 default['samba']['passdb_backend']       = 'tdbsam'
-default["samba"]['enable_users_search']  = true
+default['samba']['enable_users_search']  = true
 default['samba']['dns_proxy']            = 'no'
 default['samba']['security']             = 'user'
 default['samba']['map_to_guest']         = 'Bad User'
@@ -37,7 +37,7 @@ case node['platform_family']
 when 'smartos'
   default['samba']['client_package'] = 'smbclient'
   default['samba']['server_package'] = 'samba'
-  default['samba']['services']       = ['smbd', 'nmbd']
+  default['samba']['services']       = %w(smbd nmbd)
   set['samba']['config']             = '/opt/local/etc/samba/smb.conf'
   set['samba']['log_dir']            = '/var/log/samba/log.%m'
 when 'arch'
@@ -49,23 +49,23 @@ when 'arch'
 when 'debian'
   default['samba']['client_package'] = 'smbclient'
   default['samba']['server_package'] = 'samba'
-  default['samba']['services']       =  if platform?('ubuntu') || platform?('linuxmint')
-                                          ['smbd', 'nmbd']
-                                        else
-                                          ['samba']
-                                        end
+  default['samba']['services']       = if platform?('ubuntu') || platform?('linuxmint')
+                                         %w(smbd nmbd)
+                                       else
+                                         ['samba']
+                                       end
   set['samba']['config']             = '/etc/samba/smb.conf'
   set['samba']['log_dir']            = '/var/log/samba/%m.log'
 when 'rhel', 'fedora'
   default['samba']['client_package'] = 'samba-client'
   default['samba']['server_package'] = 'samba'
-  default['samba']['services']       = ['smb', 'nmb']
+  default['samba']['services']       = %w(smb nmb)
   set['samba']['config']             = '/etc/samba/smb.conf'
   set['samba']['log_dir']            = '/var/log/samba/log.%m'
 else
   default['samba']['client_package'] = 'smbclient'
   default['samba']['server_package'] = 'samba'
-  default['samba']['services']       = ['smbd', 'nmbd']
+  default['samba']['services']       = %w(smbd nmbd)
   set['samba']['config']             = '/etc/samba/smb.conf'
   set['samba']['log_dir']            = '/var/log/samba/%m.log'
 end
