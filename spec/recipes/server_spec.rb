@@ -1,6 +1,8 @@
 require_relative '../spec_helper'
 
 describe 'samba::server' do
+  let(:shellout) { double('shellout') }
+
   before(:each) do
     samba_shares = {
       'id' => 'shares',
@@ -29,7 +31,10 @@ describe 'samba::server' do
     stub_search('users', '*:*').and_return(samba_users)
     stub_search('admins', '*:*').and_return(samba_admins)
 
-    allow(Mixlib::ShellOut).to receive(:new).and_return(double('shellout', :live_stream= => nil, :run_command => nil, :stdout => ''))
+    allow(Mixlib::ShellOut).to receive(:new).and_return(shellout)
+    allow(shellout).to receive(:stdout).and_return('')
+    allow(shellout).to receive(:live_stream).and_return(STDOUT)
+    allow(shellout).to receive(:run_command).and_return(nil)
   end
 
   context 'ubuntu' do

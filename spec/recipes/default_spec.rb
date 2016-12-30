@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-# Write unit tests with ChefSpec - https://github.com/sethvargo/chefspec#readme
 describe 'samba::default' do
   let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
 

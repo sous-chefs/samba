@@ -37,7 +37,7 @@ template node['samba']['config'] do
   source 'smb.conf.erb'
   owner 'root'
   group 'root'
-  mode 00644
+  mode '0644'
   variables shares: shares['shares']
   svcs.each do |s|
     notifies :restart, "service[#{s}]"
