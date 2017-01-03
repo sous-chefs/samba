@@ -9,10 +9,12 @@ recipe 'samba::default', 'Includes the samba::client recipe'
 recipe 'samba::client', 'Installs smbclient package'
 recipe 'samba::server', 'Installs samba server packages and configures smb.conf'
 
-%w( debian ubuntu centos fedora redhat scientific amazon oracle ).each do |os|
+%w( debian ubuntu centos fedora redhat amazon ).each do |os|
   supports os
 end
 
-source_url 'https://github.com/sous-chefs/samba' if respond_to?(:source_url)
-issues_url 'https://github.com/sous-chefs/samba/issues' if respond_to?(:issues_url)
-chef_version '>= 11.0' if respond_to?(:chef_version)
+source_url 'https://github.com/sous-chefs/samba'
+issues_url 'https://github.com/sous-chefs/samba/issues'
+chef_version '>= 12.1' if respond_to?(:chef_version)
+
+depends 'compat_resource', '>= 12.16.3'
