@@ -18,16 +18,49 @@
 #
 
 default_action :add
+resource_name :samba_share
 
-attribute :name, String, name_property: true
-attribute :comment, String
-attribute :path, String, required: true
-attribute :guest_ok, String, default: 'no', equal_to: ['yes','no']
-attribute :printable, String, default: 'no', equal_to: ['yes','no']
-attribute :write_list, Array, required: true  # e.g. ['jtimerman','damacus']
-attribute :create_mask, String, required: true, regex: [] # e.g. 0644
-attribute :directory_mask, String, required: true, regex: []
+property :name, String, name_property: true
+property :comment, String
+property :path, String, required: true
+property :guest_ok, String, default: 'no', equal_to: ['yes','no']
+property :printable, String, default: 'no', equal_to: ['yes','no']
+property :write_list, Array, required: true  # e.g. ['jtimerman','damacus']
+property :create_mask, String, required: true, regex: [] # e.g. 0644
+property :directory_mask, String, required: true, regex: []
+property :config_file, String, default: lazy {
+  if node['platform_family'] = 'smartos'
+    '/opt/local/etc/samba/smb.conf'
+  else
+    '/etc/samba/smb.conf'
+  end
+}
 
 action :add do
+  with_run_context :root do
+    edit_resource(:template, config_file) do |new_resource|
+      source 'smb.conf.erb'
+      variables[:shares] ||= {}
+      variables[:shares][new_resource.name] ||= []
+      variables[:shares][new_resource.name] += new_resource.name
 
+      variables[:shares][new_resource.name] ||= []
+      variables[:shares][new_resource.name] += new_resource.comment
+      variables[:shares][new_resource.name] ||= []
+      variables[:shares][new_resource.name] += new_resource.path
+      variables[:shares][new_resource.name] ||= []
+      variables[:shares][new_resource.name] += new_resource.guest_ok
+      variables[:shares][new_resource.name] ||= []
+      variables[:shares][new_resource.name] += new_resource.printable
+      variables[:shares][new_resource.name] ||= []
+      variables[:shares][new_resource.name] += new_resource.write_list
+      variables[:shares][new_resource.name] ||= []
+      variables[:shares][new_resource.name] += new_resource.create_mask
+      variables[:shares][new_resource.name] ||= []
+      variables[:shares][new_resource.name] += new_resource.directory_mask
+
+      action :nothing
+      delayed_action :create
+    end
+  end
 end

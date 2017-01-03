@@ -18,18 +18,18 @@
 #
 default_action :create
 
-attribute :workgroup, String, default: 'SAMBA'
-attribute :interfaces, String, default: 'lo 127.0.0.1'
-attribute :hosts_allow, String, default: '127.0.0.0/8' #Do some checking on this value with a regex
-attribute :bind_interfaces_only, String, default: 'no', equal_to: ['yes', 'no']
-attribute :server_string, String, default: 'Samba Server'
-attribute :load_printers, String, default: 'no', equal_to: ['yes', 'no']
-attribute :passdb_backend, String, default: 'tdbsam', equal_to: ['ldapsam','tdbsam','smbpasswd']
-attribute :dns_proxy, String, default: 'no', default: 'no', equal_to: ['yes', 'no']
-attribute :security, String, default: 'user', equal_to: ['user','domain','ADS','share','server'] # https://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/ServerType.html
-attribute :map_to_guest, String, default: 'Bad User'
-attribute :socket_options, String, default: '`TCP_NODELAY`'
-attribute :log_dir, String, default: lazy {
+property :workgroup, String, default: 'SAMBA'
+property :interfaces, String, default: 'lo 127.0.0.1'
+property :hosts_allow, String, default: '127.0.0.0/8'
+property :bind_interfaces_only, String, default: 'no', equal_to: ['yes', 'no']
+property :server_string, String, default: 'Samba Server'
+property :load_printers, String, default: 'no', equal_to: ['yes', 'no']
+property :passdb_backend, String, default: 'tdbsam', equal_to: ['ldapsam','tdbsam','smbpasswd']
+property :dns_proxy, String, default: 'no', default: 'no', equal_to: ['yes', 'no']
+property :security, String, default: 'user', equal_to: ['user','domain','ADS','share','server'] # https://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/ServerType.html
+property :map_to_guest, String, default: 'Bad User'
+property :socket_options, String, default: '`TCP_NODELAY`'
+property :log_dir, String, default: lazy {
   case node['platform_family']
   when 'smartos', 'arch', 'rhel', 'fedora'
     '/var/log/samba/log.%m'
@@ -39,17 +39,17 @@ attribute :log_dir, String, default: lazy {
     '/var/log/samba/%m.log'
   end
 }
-attribute :max_log_size, String, default: '5000' #5M
-attribute :options, [String, nil], default: ''
-attribute :enable_users_search, [TrueClass, FalseClass], default: true
-attribute :config_file, String, default: lazy {
+property :max_log_size, String, default: '5000' #5M
+property :options, [String, nil], default: ''
+property :enable_users_search, [TrueClass, FalseClass], default: true
+property :config_file, String, default: lazy {
   if node['platform_family'] = 'smartos'
     '/opt/local/etc/samba/smb.conf'
   else
     '/etc/samba/smb.conf'
   end
 }
-attribute :samba_services, Array, default: lazy {
+property :samba_services, Array, default: lazy {
   case node['platform']
   when 'smartos', 'ubuntu', 'linuxmint'
     %w(smbd nmbd)
@@ -64,11 +64,11 @@ attribute :samba_services, Array, default: lazy {
 action :create do
   package 'samba'
 
-
-  # collect all share information before running this
-
-
-  template config do
+  template config_file do
+    source 'smb.conf.erb'
+    owner 'root'
+    group 'root'
+    mode '0644'
     variables(
       workgroup: new_resource.workgroup
       server_string: new_resource.server_string
@@ -82,5 +82,7 @@ action :create do
       samba_options: new_resource.options
       shares: new_resource.shares
     )
+    samba_services.each do |samba_service|
+      notifies :restart, "service[#{samba_service}]"
   end
 end

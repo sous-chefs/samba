@@ -19,10 +19,10 @@
 
 default_action :create
 
-attribute :name, String, name_property: true
-attribute :password, String
-attribute :exists, [TrueClass, FalseClass],default: false
-attribute :disabled, [TrueClass, FalseClass], default: false
+property :name, String, name_property: true
+property :password, String
+property :exists, [TrueClass, FalseClass],default: false
+property :disabled, [TrueClass, FalseClass], default: false
 
 action :create do
   unless @smbuser.exists

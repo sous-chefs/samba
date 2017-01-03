@@ -7,7 +7,7 @@ Uses Chef Server for data bag to build configuration file shares.
 Includes resources for:
 - adding / removing Samba users.
 - adding Samba shares
-- 
+-
 
 
 ## Requirements
@@ -19,7 +19,7 @@ Includes resources for:
 
 ### Chef
 
-- Chef 12.5+
+- Chef 12.1+
 
 ### Cookbooks
 
