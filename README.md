@@ -2,7 +2,13 @@
 
 [![Build Status](https://travis-ci.org/sous-chefs/samba.svg?branch=master)](https://travis-ci.org/sous-chefs/samba) [![Cookbook Version](https://img.shields.io/cookbook/v/samba.svg)](https://supermarket.chef.io/cookbooks/samba)
 
-Installs and configures Samba daemon. Uses Chef Server for data bag to build configuration file shares. Includes a resource for adding / removing Samba users.
+Installs and configures Samba daemon.
+Uses Chef Server for data bag to build configuration file shares.
+Includes resources for:
+- adding / removing Samba users.
+- adding Samba shares
+- 
+
 
 ## Requirements
 
@@ -13,7 +19,7 @@ Installs and configures Samba daemon. Uses Chef Server for data bag to build con
 
 ### Chef
 
-- Chef 11+
+- Chef 12.5+
 
 ### Cookbooks
 

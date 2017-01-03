@@ -16,10 +16,47 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-actions :create, :enable, :delete
 
 default_action :create
 
-attribute :password, kind_of: String
-attribute :exists, default: false
-attribute :disabled, default: false
+attribute :name, String, name_property: true
+attribute :password, String
+attribute :exists, [TrueClass, FalseClass],default: false
+attribute :disabled, [TrueClass, FalseClass], default: false
+
+action :create do
+  unless @smbuser.exists
+    pw = new_resource.password
+    execute "Create #{new_resource.name}" do
+      command "echo '#{pw}\n#{pw}' | smbpasswd -s -a #{new_resource.name}"
+    end
+  end
+end
+
+action :enable do
+  if @smbuser.disabled
+    execute "Enable #{new_resource.name}" do
+      command "smbpasswd -e #{new_resource.name}"
+    end
+  end
+end
+
+action :delete do
+  if @smbuser.exists
+    execute "Delete #{new_resource.name}" do
+      command "smbpasswd -x #{new_resource.name}"
+    end
+    new_resource.updated_by_last_action(true)
+  end
+end
+
+def load_current_resource
+  @smbuser = Chef::Resource::SambaUser.new(new_resource.name)
+
+  Chef::Log.debug("Checking for smbuser #{new_resource.name}")
+  u = shell_out("pdbedit -Lv -u #{new_resource.name}")
+  exists = u.stdout.include?(new_resource.name)
+  disabled = u.stdout.include?('Account Flags.*[D')
+  @smbuser.exists(exists)
+  @smbuser.disabled(disabled)
+end
