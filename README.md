@@ -2,13 +2,13 @@
 
 [![Build Status](https://travis-ci.org/sous-chefs/samba.svg?branch=master)](https://travis-ci.org/sous-chefs/samba) [![Cookbook Version](https://img.shields.io/cookbook/v/samba.svg)](https://supermarket.chef.io/cookbooks/samba)
 
-Installs and configures Samba daemon.
-Uses Chef Server for data bag to build configuration file shares.
-Includes resources for:
+Installs and configures Samba daemon. Uses Chef Server for data bag to build configuration file shares.
+
+# Resources
+
 - adding / removing Samba users.
 - adding Samba shares
--
-
+- configuring samba server
 
 ## Requirements
 
@@ -69,6 +69,8 @@ Sets up a Samba server. See "Usage" below for more information.
 
 ## Resources
 
+### User
+
 This cookbook includes a resource/provider for managing samba users with the smbpasswd program.
 
 ```
@@ -77,6 +79,28 @@ samba_user "jtimberman" do
   action [:create, :enable]
 end
 ```
+
+### Server
+
+```ruby
+samba_server 'samba server' do
+  workgroup # The SMB workgroup to use, default "SAMBA".
+  interfaces # Interfaces to listen on, default "lo 127.0.0.1".
+  hosts_allow # Allowed hosts/networks, default "127.0.0.0/8".
+  bind_interfaces_only # Limit interfaces to serve SMB, default "no"
+  load_printers # Whether to load printers, default "no".
+  passdb_backend # Which password backend to use, default "tdbsam".
+  dns_proxy # Whether to search NetBIOS names through DNS, default "no".
+  security # Samba security mode, default "user".
+  map_to_guest # What Samba should do with logins that don't match Unix users, default "Bad User".
+  socket_options # Socket options, default "`TCP_NODELAY`"
+  config_file # Location of Samba configuration, see resource for platform default
+  log_dir # Location of Samba logs, see resource for platform default
+  options # list of additional options, e.g. 'unix charset' => 'UTF8'.
+end
+```
+
+### samba_share
 
 For now, this resource can only create, enable or delete the user. It only supports setting the user's initial password. It assumes a password db backend that utilizes the smbpasswd program.
 
@@ -121,6 +145,7 @@ Example data bag item for a user. Note that the user must exist on the system al
 ```
 
 Unfortunately, smbpasswd does not take a hashed password as an argument - the password is echoed and piped to the smbpasswd program. This is a limitation of Samba.
+
 ## License
 
 Copyright 2010-2016, Chef Software, Inc.
