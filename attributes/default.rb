@@ -18,7 +18,7 @@
 # limitations under the License.
 
 case node['platform_family']
-when 'smartos','arch','debian'
+when 'smartos', 'arch', 'debian'
   default['samba']['client_package'] = 'smbclient'
 when 'rhel', 'fedora'
   default['samba']['client_package'] = 'samba-client'

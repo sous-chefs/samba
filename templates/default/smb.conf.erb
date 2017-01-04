@@ -14,18 +14,21 @@
   hosts allow = <%= @hosts_allow %>
   load printers = <%= @load_printers %>
   passdb backend = <%= @passdb_backend %>
-  dns proxy = <%=@dns_proxy %>
+  dns proxy = <%= @dns_proxy %>
 
-<% @options.each do |opt_name,opt_value| -%>
-  <%= opt_name %> = <%= opt_value %>
-
+<% if !@options.nil? %>
+  <% @options.each do |opt_name,opt_value| -%>
+    <%= opt_name %> = <%= opt_value %>
+  <% end -%>
 <% end -%>
 
 #============================ Share Definitions ==============================
-<% @shares.each do |share,option| -%>
-[<%= share %>]
-  <% option.each do |o,v| -%>
-  <%= o %> = <%= v.respond_to?(:join) ? v.join(',') : v %>
-  <% end -%>
+<% if !@shares.nil? %>
+  <% @shares.each do |share,option| -%>
+  [<%= share %>]
+    <% option.each do |o,v| -%>
+    <%= o %> = <%= v.respond_to?(:join) ? v.join(',') : v %>
+    <% end -%>
 
+  <% end -%>
 <% end -%>

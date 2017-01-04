@@ -16,12 +16,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-default_action :create
-
 property :name, String, name_property: true
 property :password, String
-property :exists, [TrueClass, FalseClass],default: false
+property :exists, [TrueClass, FalseClass], default: false
 property :disabled, [TrueClass, FalseClass], default: false
 
 action :create do
@@ -34,10 +31,9 @@ action :create do
 end
 
 action :enable do
-  if @smbuser.disabled
-    execute "Enable #{new_resource.name}" do
-      command "smbpasswd -e #{new_resource.name}"
-    end
+  execute "Enable #{new_resource.name}" do
+    command "smbpasswd -e #{new_resource.name}"
+    only_if { @smbuser.disabled }
   end
 end
 

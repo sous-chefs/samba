@@ -16,17 +16,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-default_action :create
+resource_name :samba_server
 
+property :server_string, String, name_property: true
 property :workgroup, String, default: 'SAMBA'
 property :interfaces, String, default: 'lo 127.0.0.1'
 property :hosts_allow, String, default: '127.0.0.0/8'
-property :bind_interfaces_only, String, default: 'no', equal_to: ['yes', 'no']
-property :server_string, String, default: 'Samba Server'
-property :load_printers, String, default: 'no', equal_to: ['yes', 'no']
-property :passdb_backend, String, default: 'tdbsam', equal_to: ['ldapsam','tdbsam','smbpasswd']
-property :dns_proxy, String, default: 'no', default: 'no', equal_to: ['yes', 'no']
-property :security, String, default: 'user', equal_to: ['user','domain','ADS','share','server'] # https://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/ServerType.html
+property :bind_interfaces_only, String, default: 'no', equal_to: %w(yes no)
+property :load_printers, String, default: 'no', equal_to: %w(yes no)
+property :passdb_backend, String, default: 'tdbsam', equal_to: %w(ldapsam tdbsam smbpasswd)
+property :dns_proxy, String, default: 'no', equal_to: %w(yes no)
+property :security, String, default: 'user', equal_to: %w(user domain ADS share server) # https://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/ServerType.html
 property :map_to_guest, String, default: 'Bad User'
 property :socket_options, String, default: '`TCP_NODELAY`'
 property :log_dir, String, default: lazy {
@@ -39,11 +39,11 @@ property :log_dir, String, default: lazy {
     '/var/log/samba/%m.log'
   end
 }
-property :max_log_size, String, default: '5000' #5M
-property :options, [String, nil], default: ''
+property :max_log_size, String, default: '5000' # 5M
+property :options, [String, nil], default: nil
 property :enable_users_search, [TrueClass, FalseClass], default: true
 property :config_file, String, default: lazy {
-  if node['platform_family'] = 'smartos'
+  if node['platform_family'] == 'smartos'
     '/opt/local/etc/samba/smb.conf'
   else
     '/etc/samba/smb.conf'
@@ -54,11 +54,12 @@ property :samba_services, Array, default: lazy {
   when 'smartos', 'ubuntu', 'linuxmint'
     %w(smbd nmbd)
   when 'arch', 'debian'
-    ['samba']
+    %w(samba)
   when 'rhel', 'fedora'
-    %w(smb, nmb)
+    %w(smb nmb)
   else
     %w(smbd nmbd)
+  end
 }
 
 action :create do
@@ -69,20 +70,31 @@ action :create do
     owner 'root'
     group 'root'
     mode '0644'
+    cookbook 'samba'
     variables(
-      workgroup: new_resource.workgroup
-      server_string: new_resource.server_string
-      security: new_resource.security
-      map_to_guest: new_resource.map_to_guests
-      interfaces: new_resource.interfaces
-      hosts_allow: new_resource.hosts_allow
-      load_printers: new_resource.load_printers
-      passdb_backend: new_resource.passdb_backend
-      dns_proxy: new_resource.dns_proxy
-      samba_options: new_resource.options
-      shares: new_resource.shares
+      workgroup: new_resource.workgroup,
+      server_string: new_resource.server_string,
+      security: new_resource.security,
+      map_to_guest: new_resource.map_to_guest,
+      interfaces: new_resource.interfaces,
+      hosts_allow: new_resource.hosts_allow,
+      load_printers: new_resource.load_printers,
+      passdb_backend: new_resource.passdb_backend,
+      dns_proxy: new_resource.dns_proxy,
+      samba_options: new_resource.options,
+      # shares: new_resource.shares
     )
     samba_services.each do |samba_service|
       notifies :restart, "service[#{samba_service}]"
+    end
+  end
+
+  samba_services.each do |s|
+    service s do
+      supports restart: true, reload: true
+      provider Chef::Provider::Service::Upstart if platform?('ubuntu') && node['platform_version'].to_f == 14.04
+      pattern 'smbd|nmbd' if node['platform'] =~ /^arch$/
+      action [:enable, :start]
+    end
   end
 end
