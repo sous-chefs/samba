@@ -25,12 +25,11 @@ end
 
 describe file('/etc/samba/smb.conf') do
   it { should exist }
-
 end
 
 options = {
   assignment_re: /^\s*([^:]*?)\s*:\s*(.*?)\s*$/,
-  multiple_values: true
+  multiple_values: true,
 }
 describe parse_config_file('/etc/samba/smb.conf', options) do
   its('comment') { should eq 'exported share 1' }

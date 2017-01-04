@@ -16,8 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-resource_name :samba_server
-
 property :server_string, String, name_property: true
 property :workgroup, String, default: 'SAMBA'
 property :interfaces, String, default: 'lo 127.0.0.1'
@@ -81,8 +79,7 @@ action :create do
       load_printers: new_resource.load_printers,
       passdb_backend: new_resource.passdb_backend,
       dns_proxy: new_resource.dns_proxy,
-      samba_options: new_resource.options,
-      # shares: new_resource.shares
+      samba_options: new_resource.options
     )
     samba_services.each do |samba_service|
       notifies :restart, "service[#{samba_service}]"
