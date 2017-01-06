@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-property :server_name, String, name_property: true
+property :share_name, String, name_property: true
 property :comment, String
 property :path, String, required: true
 property :guest_ok, String, default: 'no', equal_to: %w(yes no)
@@ -37,14 +37,14 @@ action :add do
     edit_resource(:template, config_file) do |new_resource|
       cookbook 'samba'
       variables[:shares] ||= {}
-      variables[:shares][new_resource.server_name] ||= {}
-      variables[:shares][new_resource.server_name]['comment'] = new_resource.comment
-      variables[:shares][new_resource.server_name]['path'] = new_resource.path
-      variables[:shares][new_resource.server_name]['guest_ok'] = new_resource.guest_ok
-      variables[:shares][new_resource.server_name]['printable'] = new_resource.printable
-      variables[:shares][new_resource.server_name]['write_list'] = new_resource.write_list
-      variables[:shares][new_resource.server_name]['create_mask'] = new_resource.create_mask
-      variables[:shares][new_resource.server_name]['directory_mask'] = new_resource.directory_mask
+      variables[:shares][new_resource.share_name] ||= {}
+      variables[:shares][new_resource.share_name]['comment'] = new_resource.comment
+      variables[:shares][new_resource.share_name]['path'] = new_resource.path
+      variables[:shares][new_resource.share_name]['guest_ok'] = new_resource.guest_ok
+      variables[:shares][new_resource.share_name]['printable'] = new_resource.printable
+      variables[:shares][new_resource.share_name]['write_list'] = new_resource.write_list
+      variables[:shares][new_resource.share_name]['create_mask'] = new_resource.create_mask
+      variables[:shares][new_resource.share_name]['directory_mask'] = new_resource.directory_mask
 
       action :nothing
       delayed_action :create

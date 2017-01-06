@@ -4,12 +4,6 @@
 
 Installs and configures Samba daemon. Uses Chef Server for data bag to build configuration file shares.
 
-# Resources
-
-- adding / removing Samba users.
-- adding Samba shares
-- configuring samba server
-
 ## Requirements
 
 ### Platforms
@@ -28,30 +22,8 @@ Installs and configures Samba daemon. Uses Chef Server for data bag to build con
 ## Known Limitations
 
 - Does not (yet) integrate with LDAP/AD.
-- Uses plaintext passwords for the user data bag entry to create the SMB users if the password backend is tdbsam or smbpasswd. See below under usage.
+- Uses plaintext passwords for the user resource to create the SMB users if the password backend is tdbsam or smbpasswd. See below under usage.
 - Does not modify the Samba daemons to launch (i.e., ArchLinux's `/etc/conf.d/samba` `SAMBA_DAMONS`).
-- Samba 4 may work with or without modification.
-
-## Attributes
-
-The attributes are used to set up the default values in the smb.conf, and set default locations used in the recipe. Where appropriate, the attributes use the default values in Samba.
-
-- `node["samba"]["workgroup"]` - The SMB workgroup to use, default "SAMBA".
-- `node["samba"]["interfaces"]` - Interfaces to listen on, default "lo 127.0.0.1".
-- `node["samba"]["hosts_allow"]` - Allowed hosts/networks, default "127.0.0.0/8".
-- `node["samba"]["bind_interfaces_only"]` - Limit interfaces to serve SMB, default "no"
-- `node["samba"]["server_string"]` - Server string value, default "Samba Server".
-- `node["samba"]["load_printers"]` - Whether to load printers, default "no".
-- `node["samba"]["passdb_backend"]` - Which password backend to use, default "tdbsam".
-- `node["samba"]["dns_proxy"]` - Whether to search NetBIOS names through DNS, default "no".
-- `node["samba"]["security"]` - Samba security mode, default "user".
-- `node["samba"]["map_to_guest"]` - What Samba should do with logins that don't match Unix users, default "Bad User".
-- `node["samba"]["socket_options"]` - Socket options, default "`TCP_NODELAY`"
-- `node["samba"]["config"]` - Location of Samba configuration, default "/etc/samba/smb.conf".
-- `node["samba"]["log_dir"]` - Location of Samba logs, default "/var/log/samba/%m.log".
-- `node["samba"]["shares_data_bag"]` - the name of the data bag that contains the shares information, default "samba". See `Usage` below.
-- `node["samba"]["users_data_bag"]` - the name of the data bag that contains user details, default "users". See `Usage` below.
-- `node["samba"]["options"]` - the list of additional options, default {'unix charset' => 'UTF8'}. (optional)
 
 ## Recipes
 
@@ -59,13 +31,9 @@ The attributes are used to set up the default values in the smb.conf, and set de
 
 Installs smbclient to provide access to SMB shares.
 
-### default
-
-Includes the client recipe by default.
-
 ### server
 
-Sets up a Samba server. See "Usage" below for more information.
+Sets up a Samba server. See below for more information on defaults.
 
 ## Resources
 
@@ -73,12 +41,16 @@ Sets up a Samba server. See "Usage" below for more information.
 
 This cookbook includes a resource/provider for managing samba users with the smbpasswd program.
 
-```
-samba_user "jtimberman" do
-  password "plaintextpassword"
+```ruby
+samba_user 'jtimberman' do
+  password 'plaintextpassword'
   action [:create, :enable]
 end
 ```
+
+For now, this resource can only create, enable or delete the user. It only supports setting the user's initial password. It assumes a password db backend that utilizes the smbpasswd program.
+
+This will not enforce the password to be set to the value specified. Meaning, if the local user changes their password with `smbpasswd`, the recipe will not reset it. This may be changed in a future version of this cookbook.
 
 ### Server
 
@@ -100,55 +72,34 @@ samba_server 'samba server' do
 end
 ```
 
-### samba_share
+### Share
 
-For now, this resource can only create, enable or delete the user. It only supports setting the user's initial password. It assumes a password db backend that utilizes the smbpasswd program.
-
-This will not enforce the password to be set to the value specified. Meaning, if the local user changes their password with `smbpasswd`, the recipe will not reset it. This may be changed in a future version of this cookbook.
+```ruby
+samba_share 'Share Name' do
+  comment
+  guest_ok # yes, no
+  printable # yes, no
+  write_list # An array of Unix users
+  create_mask # e.g. 0644
+  directory_mask # e.g. 0700
+end
+```
 
 ## Usage
 
-The `samba::default` recipe includes `samba::client`, which simply installs smbclient package. Remaining information in this section pertains to `samba::server` recipe.
+The `samba::default` recipe includes `samba::client`, which simply installs smbclient package.
 
-Set attributes as desired in a role, and create a data bag with an item called `shares`. The default name for the data bag is `samba` but this can be changed by setting `node["samba"]["data_bag"]`. Also create a data bag with an item for each user that should have access to samba. The name of the users data bag defaults to `users` but can be changed by setting `node["samba"]["users_data_bag"]`.
+Create a cookbook with the `server`, `user` & `share` resources as if you were using any other Chef resource.
 
-Example data bag item for a single share named `export` in the `shares` item.
-
-```
-% cat data_bags/samba/shares.json
-{
-  "id": "shares",
-  "shares": {
-    "export": {
-      "comment": "Exported Share",
-      "path": "/srv/export",
-      "guest ok": "no",
-      "printable": "no",
-      "write list": ["jtimberman"],
-      "create mask": "0664",
-      "directory mask": "0775"
-    }
-  }
-}
-```
-
-Each of the hashes in `shares` will be a stanza in the smb.conf.
-
-Example data bag item for a user. Note that the user must exist on the system already. This is the minimal users data bag to set up the `smbpasswd` entry. More options are available for those using the `users` cookbook, see the readme for that cookbook for more information.
-
-```
-% cat data_bags/users/jtimberman.json
-{
-  "id": "jtimberman",
-  "smbpasswd": "plaintextpassword"
-}
-```
+For examples see the `test/fixtures/cookbooks/test` directory.
 
 Unfortunately, smbpasswd does not take a hashed password as an argument - the password is echoed and piped to the smbpasswd program. This is a limitation of Samba.
 
 ## License
 
 Copyright 2010-2016, Chef Software, Inc.
+
+Copyright 2017, Webb Agile Solutions Ltd.
 
 ```text
 Licensed under the Apache License, Version 2.0 (the "License");
