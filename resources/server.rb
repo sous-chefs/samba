@@ -40,6 +40,7 @@ property :log_dir, String, default: lazy {
 property :max_log_size, String, default: '5000' # 5M
 property :options, [String, nil], default: nil
 property :enable_users_search, [TrueClass, FalseClass], default: true
+property :shares, [Hash, nil], default: nil
 property :config_file, String, default: lazy {
   if node['platform_family'] == 'smartos'
     '/opt/local/etc/samba/smb.conf'
@@ -53,7 +54,7 @@ property :samba_services, Array, default: lazy {
     %w(smbd nmbd)
   when 'arch', 'debian'
     %w(samba)
-  when 'rhel', 'fedora'
+  when 'rhel', 'fedora','centos'
     %w(smb nmb)
   else
     %w(smbd nmbd)
@@ -63,35 +64,40 @@ property :samba_services, Array, default: lazy {
 action :create do
   package 'samba'
 
-  template config_file do
-    source 'smb.conf.erb'
-    owner 'root'
-    group 'root'
-    mode '0644'
-    cookbook 'samba'
-    variables(
-      workgroup: new_resource.workgroup,
-      server_string: new_resource.server_string,
-      security: new_resource.security,
-      map_to_guest: new_resource.map_to_guest,
-      interfaces: new_resource.interfaces,
-      hosts_allow: new_resource.hosts_allow,
-      load_printers: new_resource.load_printers,
-      passdb_backend: new_resource.passdb_backend,
-      dns_proxy: new_resource.dns_proxy,
-      samba_options: new_resource.options
-    )
-    samba_services.each do |samba_service|
-      notifies :restart, "service[#{samba_service}]"
+# We need to force both the server template and the
+# share templates into the root context to find each other
+  with_run_context :root do
+    template config_file do
+      source 'smb.conf.erb'
+      owner 'root'
+      group 'root'
+      mode '0644'
+      cookbook 'samba'
+      variables(
+        workgroup: new_resource.workgroup,
+        server_string: new_resource.server_string,
+        security: new_resource.security,
+        map_to_guest: new_resource.map_to_guest,
+        interfaces: new_resource.interfaces,
+        hosts_allow: new_resource.hosts_allow,
+        load_printers: new_resource.load_printers,
+        passdb_backend: new_resource.passdb_backend,
+        dns_proxy: new_resource.dns_proxy,
+        samba_options: new_resource.options,
+        shares: new_resource.shares
+      )
+      samba_services.each do |samba_service|
+        notifies :restart, "service[#{samba_service}]"
+      end
+      action :nothing
     end
-  end
-
-  samba_services.each do |s|
-    service s do
-      supports restart: true, reload: true
-      provider Chef::Provider::Service::Upstart if platform?('ubuntu') && node['platform_version'].to_f == 14.04
-      pattern 'smbd|nmbd' if node['platform'] =~ /^arch$/
-      action [:enable, :start]
+    samba_services.each do |s|
+      service s do
+        supports restart: true, reload: true
+        # provider Chef::Provider::Service::Upstart if platform?('ubuntu') && node['platform_version'].to_f == 14.04
+        # pattern 'smbd|nmbd' if node['platform'] =~ /^arch$/
+        action [:enable, :start]
+      end
     end
   end
 end

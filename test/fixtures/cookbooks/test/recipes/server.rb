@@ -12,6 +12,10 @@ user 'test_user_2' do
   shell '/bin/bash'
 end
 
+# Use defaults in resources/server.rb
+samba_server 'Samba Server' do
+end
+
 samba_share 'first_share' do
   comment 'exported share 1'
   path '/srv/export'
@@ -30,7 +34,4 @@ samba_share 'second_share' do
   write_list ['test_user_2']
   create_mask '0644'
   directory_mask '0775'
-end
-
-samba_server 'Samba Server' do
 end
