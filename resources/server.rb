@@ -42,7 +42,7 @@ property :shares, [Hash, nil], default: nil
 property :config_file, String, default: '/etc/samba/smb.conf'
 property :samba_services, Array, default: lazy {
   case node['platform']
-  when 'rhel', 'fedora', 'centos','redhat', 'amazon', 'scientific', 'oracle'
+  when 'rhel', 'fedora', 'centos', 'redhat', 'amazon', 'scientific', 'oracle'
     %w(smb nmb)
   else
     %w(smbd nmbd)
