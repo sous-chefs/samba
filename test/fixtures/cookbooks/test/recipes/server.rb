@@ -1,19 +1,20 @@
 apt_update 'update' if platform_family?('debian')
 
-user 'test_user_1' do
-  comment 'Samba Test User'
-  home '/home/smbuser'
-  shell '/bin/bash'
-end
-
-user 'test_user_2' do
-  comment 'Samba Test User'
-  home '/home/smbuser'
-  shell '/bin/bash'
-end
-
 # Use defaults in resources/server.rb
 samba_server 'Samba Server' do
+end
+
+samba_user 'test_user_1' do
+  password 'superawesomepassword'
+  comment 'Samba Test User'
+  home '/home/test_user_1'
+  shell '/bin/bash'
+end
+
+samba_user 'test_user_2' do
+  password 'anothertopsecretpassword'
+  comment 'Samba Test User'
+  shell '/bin/bash'
 end
 
 samba_share 'first_share' do

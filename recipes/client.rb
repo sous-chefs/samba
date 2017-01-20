@@ -17,4 +17,9 @@
 # limitations under the License.
 #
 
-package node['samba']['client_package']
+case node['platform_family']
+when 'rhel', 'fedora'
+  package 'samba-client'
+else
+  package 'smbclient'
+end

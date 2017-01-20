@@ -11,6 +11,8 @@ Installs and configures Samba daemon. Uses Chef Server for data bag to build con
 - Debian / Ubuntu derivatives
 - RHEL and derivatives
 
+If you would like support for your preferred platform. Please think about creating a Vagrant Box and adding test platforms
+
 ### Chef
 
 - Chef 12.1+

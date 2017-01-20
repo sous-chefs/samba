@@ -1,5 +1,10 @@
 # Samba Changelog
 
+## v1.0.0.0 (tbc)
+
+- New custom resources `samba_server`, `samba_share`, `samba_user`
+- Removed support for Arch & SmartOS in code
+
 ## v0.13.0 (2016-12-30)
 
 - This cookbook is now maintained by Sous Chefs (sous-chefs.org). Expect regular updates and quicker turnaround on PRs!

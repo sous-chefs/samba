@@ -29,10 +29,8 @@ property :map_to_guest, String, default: 'Bad User'
 property :socket_options, String, default: '`TCP_NODELAY`'
 property :log_dir, String, default: lazy {
   case node['platform_family']
-  when 'smartos', 'arch', 'rhel', 'fedora'
+  when 'rhel', 'fedora'
     '/var/log/samba/log.%m'
-  when 'debian'
-    'var/log/samba/%m.log'
   else
     '/var/log/samba/%m.log'
   end
@@ -41,19 +39,9 @@ property :max_log_size, String, default: '5000' # 5M
 property :options, [String, nil], default: nil
 property :enable_users_search, [TrueClass, FalseClass], default: true
 property :shares, [Hash, nil], default: nil
-property :config_file, String, default: lazy {
-  if node['platform_family'] == 'smartos'
-    '/opt/local/etc/samba/smb.conf'
-  else
-    '/etc/samba/smb.conf'
-  end
-}
+property :config_file, String, default: '/etc/samba/smb.conf'
 property :samba_services, Array, default: lazy {
   case node['platform']
-  when 'smartos', 'ubuntu', 'linuxmint'
-    %w(smbd nmbd)
-  when 'arch', 'debian'
-    %w(samba)
   when 'rhel', 'fedora','centos'
     %w(smb nmb)
   else
@@ -64,8 +52,8 @@ property :samba_services, Array, default: lazy {
 action :create do
   package 'samba'
 
-# We need to force both the server template and the
-# share templates into the root context to find each other
+  # We need to force both the server template and the
+  # share templates into the root context to find each other
   with_run_context :root do
     template config_file do
       source 'smb.conf.erb'
@@ -90,12 +78,11 @@ action :create do
         notifies :restart, "service[#{samba_service}]"
       end
       action :nothing
+      delayed_action :create
     end
     samba_services.each do |s|
       service s do
         supports restart: true, reload: true
-        # provider Chef::Provider::Service::Upstart if platform?('ubuntu') && node['platform_version'].to_f == 14.04
-        # pattern 'smbd|nmbd' if node['platform'] =~ /^arch$/
         action [:enable, :start]
       end
     end
