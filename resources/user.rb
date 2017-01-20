@@ -21,7 +21,7 @@ property :password, String
 property :exists, [TrueClass, FalseClass], default: false
 property :disabled, [TrueClass, FalseClass], default: false
 property :comment, String
-property :home, String, default: lazy { ::File.join('/home/', name ) }
+property :home, String, default: lazy { ::File.join('/home/', name) }
 property :shell, String, default: '/bin/bash'
 
 def load_current_value

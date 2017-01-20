@@ -33,7 +33,6 @@ property :config_file, String, default: lazy {
 }
 
 action :add do
-  
   # We need to force both the server template and the
   # share templates into the root context to find each other
   with_run_context :root do
