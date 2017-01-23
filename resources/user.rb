@@ -16,10 +16,62 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-actions :create, :enable, :delete
+property :name, String, name_property: true
+property :password, String
+property :exists, [TrueClass, FalseClass], default: false
+property :disabled, [TrueClass, FalseClass], default: false
+property :comment, String
+property :home, String, default: lazy { ::File.join('/home/', name) }
+property :shell, String, default: '/bin/bash'
 
-default_action :create
+def load_current_value
+  @smbuser = Chef::Resource::SambaUser.new(new_resource.name)
 
-attribute :password, kind_of: String
-attribute :exists, default: false
-attribute :disabled, default: false
+  Chef::Log.debug("Checking for smbuser #{new_resource.name}")
+  u = Mixlib::ShellOut.new("pdbedit -Lv -u #{new_resource.name}")
+  u.run_command
+  exists = u.stdout.include?(new_resource.name)
+  disabled = u.stdout.include?('Account Flags.*[D')
+  @smbuser.exists(exists)
+  @smbuser.disabled(disabled)
+end
+
+action :create do
+  user new_resource.name do
+    password new_resource.password
+    comment new_resource.comment
+    home new_resource.home
+    shell new_resource.shell
+  end
+
+  group new_resource.name do
+    members new_resource.name
+    action :create
+  end
+
+  directory new_resource.home do
+    group new_resource.name
+    user new_resource.name
+  end
+
+  passwd = new_resource.password
+  execute "Create samba user #{new_resource.name}" do
+    command "echo '#{passwd}\n#{passwd}' | smbpasswd -s -a #{new_resource.name}"
+  end
+end
+
+action :enable do
+  execute "Enable #{new_resource.name}" do
+    command "smbpasswd -e #{new_resource.name}"
+    only_if { @smbuser.disabled }
+  end
+end
+
+action :delete do
+  if @smbuser.exists
+    execute "Delete #{new_resource.name}" do
+      command "smbpasswd -x #{new_resource.name}"
+    end
+    new_resource.updated_by_last_action(true)
+  end
+end

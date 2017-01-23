@@ -1,3 +1,3 @@
-execute 'apt-get update' if platform_family?('debian')
+apt_update 'update'
 
 include_recipe 'samba::client'
