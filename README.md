@@ -2,14 +2,14 @@
 
 [![Build Status](https://travis-ci.org/sous-chefs/samba.svg?branch=master)](https://travis-ci.org/sous-chefs/samba) [![Cookbook Version](https://img.shields.io/cookbook/v/samba.svg)](https://supermarket.chef.io/cookbooks/samba)
 
-Installs and configures Samba daemon. Uses Chef Server for data bag to build configuration file shares.
+Installs and configures Samba client or server.
 
 ## Requirements
 
 ### Platforms
 
 - Debian / Ubuntu derivatives
-- RHEL and derivatives
+- RedHat and derivatives
 
 If you would like support for your preferred platform. Please think about creating a Vagrant Box and adding test platforms
 
@@ -25,7 +25,6 @@ If you would like support for your preferred platform. Please think about creati
 
 - Does not (yet) integrate with LDAP/AD.
 - Uses plaintext passwords for the user resource to create the SMB users if the password backend is tdbsam or smbpasswd. See below under usage.
-- Does not modify the Samba daemons to launch (i.e., ArchLinux's `/etc/conf.d/samba` `SAMBA_DAMONS`).
 
 ## Recipes
 
@@ -46,11 +45,13 @@ This cookbook includes a resource/provider for managing samba users with the smb
 ```ruby
 samba_user 'jtimberman' do
   password 'plaintextpassword'
-  action [:create, :enable]
+  comment 'user_name_comment'
+  home '/home/jtimberman'
+  shell '/bin/zsh'
 end
 ```
 
-For now, this resource can only create, enable or delete the user. It only supports setting the user's initial password. It assumes a password db backend that utilizes the smbpasswd program.
+This resource can only create, enable or delete the user. It only supports setting the user's initial password. It assumes a password db backend that utilizes the smbpasswd program.
 
 This will not enforce the password to be set to the value specified. Meaning, if the local user changes their password with `smbpasswd`, the recipe will not reset it. This may be changed in a future version of this cookbook.
 

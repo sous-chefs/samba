@@ -41,8 +41,8 @@ property :enable_users_search, [TrueClass, FalseClass], default: true
 property :shares, [Hash, nil], default: nil
 property :config_file, String, default: '/etc/samba/smb.conf'
 property :samba_services, Array, default: lazy {
-  case node['platform']
-  when 'rhel', 'fedora', 'centos', 'redhat', 'amazon', 'scientific', 'oracle'
+  case node['platform_family']
+  when 'rhel'
     %w(smb nmb)
   else
     %w(smbd nmbd)
