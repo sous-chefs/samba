@@ -1,6 +1,6 @@
 #
 # Cookbook:: samba
-# Recipe:: client
+# Recipe:: default
 #
 # Copyright:: 2010-2017, Chef Software, Inc.
 #
@@ -17,9 +17,4 @@
 # limitations under the License.
 #
 
-case node['platform_family']
-when 'rhel', 'fedora'
-  package 'samba-client'
-else
-  package 'smbclient'
-end
+include_recipe 'samba::client'
