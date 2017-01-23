@@ -1,9 +1,22 @@
 # Samba Changelog
 
-## v1.0.0.0 (tbc)
+## v1.0.0.0 (23-01-2017)
 
 - New custom resources `samba_server`, `samba_share`, `samba_user`
-- Removed support for Arch & SmartOS in code
+- Remove data bags!
+- Removed support for Arch & SmartOS
+- Add 12.1 compatibility requirement
+- Move attributes out of template file and into template resource
+- Use Chef built in apt-get functionality
+- Remove default recipe - having a default recipe can be misleading when it doesn't do anything.
+- Guard against nil options & shares
+- Update README with resources and give it a general tidy.
+- Remove default specs
+- Use root context for template and services
+- Use trusty not precise for building on travis-ci
+- Remove spec directory as it duplicates inspec test & doesn't test what's now in the cookbook
+- Move yum into the testing recipe to clean up dependancies.
+- Ignore FC009 as it isn't being picked up correctly.
 
 ## v0.13.0 (2016-12-30)
 
