@@ -2,7 +2,7 @@ apt_update 'update' if platform_family?('debian')
 
 # Use defaults in resources/server.rb
 samba_server 'Samba Server' do
-  interfaces 'lo 127.0.0.1 enp0s3'
+  interfaces 'lo 127.0.0.1 enp* eth*'
 end
 
 samba_user 'test_user_1' do
