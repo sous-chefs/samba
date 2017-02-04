@@ -1,5 +1,10 @@
 # Samba Changelog
 
+## v1.0.1 (04-02-2017)
+
+- Fix #48 Resource underscores breaking permissions
+- Fix #47 Document proper behaviour of smbpasswd. This cookbook now enforces passwords.
+
 ## v1.0.0.0 (23-01-2017)
 
 - New custom resources `samba_server`, `samba_share`, `samba_user`
