@@ -36,8 +36,8 @@ describe file('/etc/samba/smb.conf') do
 end
 
 describe file('/etc/samba/smb.conf') do
-  its('content') { should match %r{comment = exported share 1} }
-  its('content') { should match %r{comment = exported share 2} }
-  its('content') { should match %r{guest ok =} }
-  its('content') { should_not match %r{guest_ok =} }
+  its('content') { should match /comment = exported share 1/ }
+  its('content') { should match /comment = exported share 2/ }
+  its('content') { should match /guest ok =/ }
+  its('content') { should_not match /guest_ok =/ }
 end
