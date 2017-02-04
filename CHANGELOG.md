@@ -1,5 +1,10 @@
 # Samba Changelog
 
+## v1.0.2 (04-02-2017)
+
+- Fix #54 Add an option to not create the directory we add to the share. Useful for including Samba variables in the share name.
+- Fix #52 nmbd systemd failures in tests.
+
 ## v1.0.1 (04-02-2017)
 
 - Fix #48 Resource underscores breaking permissions
