@@ -53,7 +53,7 @@ end
 
 This resource can only create, enable or delete the user. It only supports setting the user's initial password. It assumes a password db backend that utilizes the smbpasswd program.
 
-This will not enforce the password to be set to the value specified. Meaning, if the local user changes their password with `smbpasswd`, the recipe will not reset it. This may be changed in a future version of this cookbook.
+This will enforce the password set by the resource. Meaning, if the local user changes their password with `smbpasswd`, the recipe will reset it.
 
 ### Server
 
