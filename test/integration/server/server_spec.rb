@@ -38,4 +38,6 @@ end
 describe file('/etc/samba/smb.conf') do
   its('content') { should match %r{comment = exported share 1} }
   its('content') { should match %r{comment = exported share 2} }
+  its('content') { should match %r{guest ok =} }
+  its('content') { should_not match %r{guest_ok =} }
 end

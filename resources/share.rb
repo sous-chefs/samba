@@ -42,11 +42,11 @@ action :add do
       variables[:shares][new_resource.share_name] ||= {}
       variables[:shares][new_resource.share_name]['comment'] = new_resource.comment
       variables[:shares][new_resource.share_name]['path'] = new_resource.path
-      variables[:shares][new_resource.share_name]['guest_ok'] = new_resource.guest_ok
+      variables[:shares][new_resource.share_name]['guest ok'] = new_resource.guest_ok
       variables[:shares][new_resource.share_name]['printable'] = new_resource.printable
-      variables[:shares][new_resource.share_name]['write_list'] = new_resource.write_list
-      variables[:shares][new_resource.share_name]['create_mask'] = new_resource.create_mask
-      variables[:shares][new_resource.share_name]['directory_mask'] = new_resource.directory_mask
+      variables[:shares][new_resource.share_name]['write list'] = new_resource.write_list
+      variables[:shares][new_resource.share_name]['create mask'] = new_resource.create_mask
+      variables[:shares][new_resource.share_name]['directory mask'] = new_resource.directory_mask
 
       action :nothing
       delayed_action :create
