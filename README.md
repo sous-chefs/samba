@@ -40,7 +40,7 @@ Sets up a Samba server. See below for more information on defaults.
 
 ### User
 
-This cookbook includes a resource/provider for managing samba users with the smbpasswd program.
+This cookbook includes a resource/provider for managing samba users with the smbpasswd program. It will create the users home
 
 ```ruby
 samba_user 'jtimberman' do
@@ -85,6 +85,7 @@ samba_share 'Share Name' do
   write_list # An array of Unix users
   create_mask # e.g. 0644
   directory_mask # e.g. 0700
+  create_directory # Creates directory by default
 end
 ```
 

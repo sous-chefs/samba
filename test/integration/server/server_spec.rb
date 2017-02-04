@@ -28,7 +28,7 @@ describe directory('/srv/export') do
 end
 
 describe directory('/srv/export_2') do
-  it { should exist }
+  it { should_not exist }
 end
 
 describe file('/etc/samba/smb.conf') do

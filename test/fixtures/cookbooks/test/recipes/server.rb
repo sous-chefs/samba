@@ -36,4 +36,5 @@ samba_share 'second_share' do
   write_list ['test_user_2']
   create_mask '0644'
   directory_mask '0775'
+  create_directory false
 end
