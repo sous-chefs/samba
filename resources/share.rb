@@ -48,6 +48,7 @@ action :add do
       variables[:shares][new_resource.share_name]['write list'] = new_resource.write_list
       variables[:shares][new_resource.share_name]['create mask'] = new_resource.create_mask
       variables[:shares][new_resource.share_name]['directory mask'] = new_resource.directory_mask
+      variables.update(shares: variables[:shares])
 
       action :nothing
       delayed_action :create
