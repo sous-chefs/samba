@@ -39,15 +39,15 @@ action :add do
   with_run_context :root do
     edit_resource!(:template, '/etc/samba/smb.conf') do |new_resource|
       cookbook 'samba'
-      variables.update([:shares] ||= {})
-      variables.update([:shares][new_resource.share_name] ||= {} )
-      variables.update([:shares][new_resource.share_name]['comment'] = new_resource.comment )
-      variables.update([:shares][new_resource.share_name]['path'] = new_resource.path )
-      variables.update([:shares][new_resource.share_name]['guest ok'] = new_resource.guest_ok )
-      variables.update([:shares][new_resource.share_name]['printable'] = new_resource.printable )
-      variables.update([:shares][new_resource.share_name]['write list'] = new_resource.write_list )
-      variables.update([:shares][new_resource.share_name]['create mask'] = new_resource.create_mask )
-      variables.update([:shares][new_resource.share_name]['directory mask'] = new_resource.directory_mask )
+      variables[:shares] ||= {}
+      variables[:shares][new_resource.share_name] ||= {}
+      variables.update([:shares][new_resource.share_name]['comment'] = new_resource.comment)
+      variables.update([:shares][new_resource.share_name]['path'] = new_resource.path)
+      variables.update([:shares][new_resource.share_name]['guest ok'] = new_resource.guest_ok)
+      variables.update([:shares][new_resource.share_name]['printable'] = new_resource.printable)
+      variables.update([:shares][new_resource.share_name]['write list'] = new_resource.write_list)
+      variables.update([:shares][new_resource.share_name]['create mask'] = new_resource.create_mask)
+      variables.update([:shares][new_resource.share_name]['directory mask'] = new_resource.directory_mask)
 
       action :nothing
       delayed_action :create
