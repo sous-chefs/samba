@@ -42,6 +42,7 @@ action :create do
     comment new_resource.comment
     home new_resource.home
     shell new_resource.shell
+    notifies :run, "execute[Create samba user #{new_resource.name}]", :immediately
   end
 
   group new_resource.name do
@@ -57,6 +58,7 @@ action :create do
   passwd = new_resource.password
   execute "Create samba user #{new_resource.name}" do
     command "echo '#{passwd}\n#{passwd}' | smbpasswd -s -a #{new_resource.name}"
+    action :nothing
   end
 end
 
