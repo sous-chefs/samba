@@ -55,6 +55,7 @@ action :create do
   # We need to force both the server template and the
   # share templates into the root context to find each other
   with_run_context :root do
+
     template config_file do
       source 'smb.conf.erb'
       owner 'root'
@@ -71,20 +72,21 @@ action :create do
         load_printers: new_resource.load_printers,
         passdb_backend: new_resource.passdb_backend,
         dns_proxy: new_resource.dns_proxy,
-        samba_options: new_resource.options,
-        shares: new_resource.shares
+        samba_options: new_resource.options
       )
       samba_services.each do |samba_service|
         notifies :restart, "service[#{samba_service}]"
       end
-      action :nothing
+
       delayed_action :create
     end
+
     samba_services.each do |s|
       service s do
         supports restart: true, reload: true
         action [:enable, :start]
       end
     end
+
   end
 end

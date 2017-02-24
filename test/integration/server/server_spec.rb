@@ -50,3 +50,30 @@ describe file('/etc/samba/smb.conf') do
   its('content') { should match /guest ok =/ }
   its('content') { should_not match /guest_ok =/ }
 end
+
+case os['family']
+when 'redhat'
+  describe service('smb') do
+    it { should be_installed }
+    it { should be_enabled }
+    it { should be_running }
+  end
+
+  describe service('nmb') do
+    it { should be_installed }
+    it { should be_enabled }
+    it { should be_running }
+  end
+else
+  describe service('smbd') do
+    it { should be_installed }
+    it { should be_enabled }
+    it { should be_running }
+  end
+
+  describe service('nmbd') do
+    it { should be_installed }
+    it { should be_enabled }
+    it { should be_running }
+  end
+end
