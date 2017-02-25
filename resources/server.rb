@@ -71,15 +71,16 @@ action :create do
         load_printers: new_resource.load_printers,
         passdb_backend: new_resource.passdb_backend,
         dns_proxy: new_resource.dns_proxy,
-        samba_options: new_resource.options,
-        shares: new_resource.shares
+        samba_options: new_resource.options
       )
       samba_services.each do |samba_service|
         notifies :restart, "service[#{samba_service}]"
       end
+
       action :nothing
       delayed_action :create
     end
+
     samba_services.each do |s|
       service s do
         supports restart: true, reload: true

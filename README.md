@@ -15,7 +15,7 @@ If you would like support for your preferred platform. Please think about creati
 
 ### Chef
 
-- Chef 12.1+
+- Chef 12.5+
 
 ### Cookbooks
 

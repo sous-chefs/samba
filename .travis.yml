@@ -29,7 +29,7 @@ env:
   - INSTANCE=server-centos-7
   - INSTANCE=server-ubuntu-1204
   - INSTANCE=server-ubuntu-1404
-  - INSTANCE=server-ubuntu-1604
+  # - INSTANCE=server-ubuntu-1604
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )

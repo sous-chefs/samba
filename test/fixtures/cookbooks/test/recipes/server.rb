@@ -1,8 +1,13 @@
-apt_update 'update' if platform_family?('debian')
+apt_update 'update'
 
-# Use defaults in resources/server.rb
-samba_server 'Samba Server' do
+samba_server 'server' do
+  server_string 'fat'
+  workgroup 'HOME'
   interfaces 'lo 127.0.0.1 enp* eth*'
+  hosts_allow '192.168.1.0/24'
+  security 'user'
+  passdb_backend 'tdbsam'
+  socket_options 'TCP_NODELAY SO_RCVBUF=8192 SO_SNDBUF=8192'
 end
 
 samba_user 'test_user_1' do
