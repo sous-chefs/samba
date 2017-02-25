@@ -11,4 +11,4 @@ end
 
 source_url 'https://github.com/sous-chefs/samba'
 issues_url 'https://github.com/sous-chefs/samba/issues'
-chef_version '>= 12.5' 
+chef_version '>= 12.5'
