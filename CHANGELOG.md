@@ -1,5 +1,12 @@
 # Samba Changelog
 
+## v1.0.3 (25-02-2017)
+
+- Fixes double converges for smb.conf
+- Remove 16.04 from travis test matrix whilst we investigate long term solutions to failures
+- Adds Service tests
+- Remove ChefSpec matchers to tidy for tidy up
+
 ## v1.0.2 (04-02-2017)
 
 - Fix #54 Add an option to not create the directory we add to the share. Useful for including Samba variables in the share name.

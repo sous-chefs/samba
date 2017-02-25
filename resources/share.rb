@@ -49,6 +49,7 @@ action :add do
       variables[:shares][new_resource.share_name]['create mask'] = new_resource.create_mask
       variables[:shares][new_resource.share_name]['directory mask'] = new_resource.directory_mask
 
+      action :nothing
       delayed_action :create
     end
   end

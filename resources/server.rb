@@ -78,6 +78,7 @@ action :create do
         notifies :restart, "service[#{samba_service}]"
       end
 
+      action :nothing
       delayed_action :create
     end
 
