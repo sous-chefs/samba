@@ -55,7 +55,6 @@ action :create do
   # We need to force both the server template and the
   # share templates into the root context to find each other
   with_run_context :root do
-
     template config_file do
       source 'smb.conf.erb'
       owner 'root'
@@ -88,6 +87,5 @@ action :create do
         action [:enable, :start]
       end
     end
-
   end
 end
