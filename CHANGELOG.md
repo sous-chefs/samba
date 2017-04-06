@@ -1,5 +1,9 @@
 # Samba Changelog
 
+## v1.0.4 (06-04-2017)
+
+- Add read_only option to share. (#62 @whatcould)
+
 ## v1.0.3 (25-02-2017)
 
 - Fixes double converges for smb.conf
@@ -43,7 +47,7 @@
 - Added node['samba']['enable_users_search'] to enable/disable searching for samba users. Defaults to true to maintain existing behavior.
 - Added SmartOS compatibility
 - Added ChefSpec matchers for the LWRP
-- Added source_url issues_url and chef_version metadata
+- Added `source_url` `issues_url` and `chef_version` metadata
 - Removed arch and raspbian from the metadata and added oracle. We officially support systems we can test with Test Kitchen only.
 - Added a Rakefile for simplified testing
 - Switched integration testing to Inspec from serverspec
