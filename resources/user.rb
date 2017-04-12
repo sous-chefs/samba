@@ -23,6 +23,7 @@ property :disabled, [TrueClass, FalseClass], default: false
 property :comment, String
 property :home, String, default: lazy { ::File.join('/home/', name) }
 property :shell, String, default: '/bin/bash'
+property :manage_home, [TrueClass, FalseClass], default: true
 
 def load_current_value
   @smbuser = Chef::Resource::SambaUser.new(new_resource.name)
@@ -46,6 +47,7 @@ action :create do
     comment new_resource.comment
     home new_resource.home
     shell new_resource.shell
+    manage_home new_resource.manage_home
     notifies :run, "execute[Create samba user #{new_resource.name}]", :immediately
   end
 
