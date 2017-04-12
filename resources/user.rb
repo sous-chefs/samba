@@ -37,7 +37,9 @@ def load_current_value
 end
 
 action :create do
-  package 'openssl'
+  package 'openssl' do
+    action :nothing
+  end.run_action(:install)
 
   user new_resource.name do
     password generate_system_password
