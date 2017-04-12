@@ -37,8 +37,10 @@ def load_current_value
 end
 
 action :create do
+  package 'openssl'
+
   user new_resource.name do
-    password new_resource.password
+    password generate_system_password
     comment new_resource.comment
     home new_resource.home
     shell new_resource.shell
@@ -75,5 +77,13 @@ action :delete do
       command "smbpasswd -x #{new_resource.name}"
     end
     new_resource.updated_by_last_action(true)
+  end
+end
+
+action_class do
+  require 'mixlib/shellout'
+  def generate_system_password
+    system_password = Mixlib::ShellOut.new("openssl passwd -1 #{new_resource.password}").run_command.stdout.strip
+    system_password
   end
 end
