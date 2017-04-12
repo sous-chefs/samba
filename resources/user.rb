@@ -83,7 +83,7 @@ end
 action_class do
   require 'mixlib/shellout'
   def generate_system_password
-    system_password = Mixlib::ShellOut.new("openssl passwd -1 #{new_resource.password}").run_command.stdout.strip
+    system_password = Mixlib::ShellOut.new("/usr/bin/openssl passwd -1 #{new_resource.password}").run_command.stdout.strip
     Chef::Log.debug "SC: generated system password: #{system_password}"
     system_password
   end
