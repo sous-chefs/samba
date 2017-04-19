@@ -83,7 +83,7 @@ action :delete do
   end
 end
 
-action_classs.class_eval do
+action_class.class_eval do
   require 'mixlib/shellout'
   def generate_system_password
     system_password = Mixlib::ShellOut.new("/usr/bin/openssl passwd -1 #{new_resource.password}").run_command.stdout.strip
