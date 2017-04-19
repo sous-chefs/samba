@@ -18,12 +18,12 @@
 #
 property :name, String, name_property: true
 property :password, String
-property :exists, [TrueClass, FalseClass], default: false
-property :disabled, [TrueClass, FalseClass], default: false
+property :exists, [true, false], default: false
+property :disabled, [true, false], default: false
 property :comment, String
 property :home, String, default: lazy { ::File.join('/home/', name) }
 property :shell, String, default: '/bin/bash'
-property :manage_home, [TrueClass, FalseClass], default: true
+property :manage_home, [true, false], default: true
 
 def load_current_value
   @smbuser = Chef::Resource::SambaUser.new(new_resource.name)
@@ -80,11 +80,10 @@ action :delete do
     execute "Delete #{new_resource.name}" do
       command "smbpasswd -x #{new_resource.name}"
     end
-    new_resource.updated_by_last_action(true)
   end
 end
 
-action_class do
+action_classs.class_eval do
   require 'mixlib/shellout'
   def generate_system_password
     system_password = Mixlib::ShellOut.new("/usr/bin/openssl passwd -1 #{new_resource.password}").run_command.stdout.strip
