@@ -4,7 +4,7 @@ samba_server 'server' do
   server_string 'fat'
   workgroup 'HOME'
   interfaces 'lo 127.0.0.1 enp* eth*'
-  hosts_allow '192.168.1.0/24'
+  hosts_allow '0.0.0.0/0'
   security 'user'
   passdb_backend 'tdbsam'
   socket_options 'TCP_NODELAY SO_RCVBUF=8192 SO_SNDBUF=8192'
@@ -43,3 +43,5 @@ samba_share 'second_share' do
   directory_mask '0775'
   create_directory false
 end
+
+package 'samba-client'

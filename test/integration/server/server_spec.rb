@@ -19,6 +19,16 @@ describe directory('/home/test_user_1') do
   it { should exist }
 end
 
+#this test can be implemented once I figure out sudo
+=begin
+salt=`/usr/bin/sudo /usr/bin/grep test_user_1 /etc/shadow | awk -F'$' '{ print $3 }'`.strip
+password_string=`openssl passwd -1 -salt #{salt} superawesomepassword`.strip
+
+describe shadow.users('test_user_1') do
+  its('passwords') { should cmp [password_string] } 
+end
+=end
+
 describe user('test_user_2') do
   it { should exist }
 end
@@ -41,7 +51,7 @@ describe file('/etc/samba/smb.conf') do
   its('content') { should match /security = user/ }
   its('content') { should match /map to guest = Bad User/ }
   its('content') { should match /interfaces = lo 127.0.0.1 enp\* eth\*/ }
-  its('content') { should match %r{hosts allow = 192.168.1.0\/24} }
+  its('content') { should match %r{hosts allow = 0.0.0.0\/0} }
   its('content') { should match /load printers = no/ }
   its('content') { should match /passdb backend = tdbsam/ }
   its('content') { should match /dns proxy = no/ }
@@ -76,4 +86,8 @@ else
     it { should be_enabled }
     it { should be_running }
   end
+end
+
+describe command('smbclient //$(hostname)/first_share -U test_user_1 superawesomepassword -c \'exit\'') do
+  its('exit_status') { should eq 0 }
 end
