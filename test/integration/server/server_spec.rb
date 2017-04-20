@@ -20,7 +20,7 @@ describe directory('/home/test_user_1') do
 end
 
 # this test can be implemented once I figure out sudo
-# salt=`/usr/bin/sudo /usr/bin/grep test_user_1 /etc/shadow | awk -F'$' '{ print $3 }'`.strip
+# salt=`grep test_user_1 /etc/shadow | awk -F'$' '{ print $3 }'`.strip
 # password_string=`openssl passwd -1 -salt #{salt} superawesomepassword`.strip
 #
 # describe shadow.users('test_user_1') do
