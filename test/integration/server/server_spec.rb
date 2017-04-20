@@ -19,15 +19,13 @@ describe directory('/home/test_user_1') do
   it { should exist }
 end
 
-#this test can be implemented once I figure out sudo
-=begin
-salt=`/usr/bin/sudo /usr/bin/grep test_user_1 /etc/shadow | awk -F'$' '{ print $3 }'`.strip
-password_string=`openssl passwd -1 -salt #{salt} superawesomepassword`.strip
-
-describe shadow.users('test_user_1') do
-  its('passwords') { should cmp [password_string] } 
-end
-=end
+# this test can be implemented once I figure out sudo
+# salt=`/usr/bin/sudo /usr/bin/grep test_user_1 /etc/shadow | awk -F'$' '{ print $3 }'`.strip
+# password_string=`openssl passwd -1 -salt #{salt} superawesomepassword`.strip
+#
+# describe shadow.users('test_user_1') do
+#   its('passwords') { should cmp [password_string] }
+# end
 
 describe user('test_user_2') do
   it { should exist }
