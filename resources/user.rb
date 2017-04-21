@@ -38,9 +38,6 @@ def load_current_value
 end
 
 action :create do
-  package 'openssl' do
-    action :nothing
-  end.run_action(:install)
 
   user new_resource.name do
     password generate_system_password
@@ -86,7 +83,7 @@ end
 action_class.class_eval do
   require 'mixlib/shellout'
   def generate_system_password
-    system_password = Mixlib::ShellOut.new("/usr/bin/openssl passwd -1 #{new_resource.password}").run_command.stdout.strip
+	system_password = new_resource.password.crypt('$6$' + SecureRandom.random_number(36 ** 8).to_s(36))
     Chef::Log.debug "SC: generated system password: #{system_password}"
     system_password
   end
