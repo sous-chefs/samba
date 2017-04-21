@@ -87,4 +87,4 @@ end
 
 describe command('smbclient //$(hostname)/first_share -U test_user_1 superawesomepassword -c \'exit\'') do
   its('exit_status') { should eq 0 }
-end
+end unless os['family'] == 'redhat' && os['release'].to_i == 6
