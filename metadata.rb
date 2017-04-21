@@ -3,7 +3,7 @@ maintainer       'Sous Chefs'
 maintainer_email 'help@sous-chefs.org'
 license          'Apache 2.0'
 description      'Installs/Configures samba'
-version          '1.0.4'
+version          '1.0.5'
 
 %w( debian ubuntu centos fedora redhat scientific amazon oracle ).each do |os|
   supports os

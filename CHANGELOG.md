@@ -1,27 +1,32 @@
 # Samba Changelog
 
-## v1.0.4 (06-04-2017)
+## v1.0.5 (2017-04-21)
 
-- Add read_only option to share. (#62 @whatcould)
+- Fix user resource to generate a correct user password.
+- Fix options Hash #66
 
-## v1.0.3 (25-02-2017)
+## v1.0.4 (2017-04-06)
+
+- Add `read_only` option to share. (#62 @whatcould)
+
+## v1.0.3 (2017-02-25)
 
 - Fixes double converges for smb.conf
 - Remove 16.04 from travis test matrix whilst we investigate long term solutions to failures
 - Adds Service tests
 - Remove ChefSpec matchers to tidy for tidy up
 
-## v1.0.2 (04-02-2017)
+## v1.0.2 (2017-04-02)
 
 - Fix #54 Add an option to not create the directory we add to the share. Useful for including Samba variables in the share name.
 - Fix #52 nmbd systemd failures in tests.
 
-## v1.0.1 (04-02-2017)
+## v1.0.1 (2017-04-02)
 
 - Fix #48 Resource underscores breaking permissions
 - Fix #47 Document proper behaviour of smbpasswd. This cookbook now enforces passwords.
 
-## v1.0.0.0 (23-01-2017)
+## v1.0.0 (2017-01-03)
 
 - New custom resources `samba_server`, `samba_share`, `samba_user`
 - Remove data bags!
