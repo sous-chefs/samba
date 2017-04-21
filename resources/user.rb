@@ -38,7 +38,6 @@ def load_current_value
 end
 
 action :create do
-
   user new_resource.name do
     password generate_system_password
     comment new_resource.comment
@@ -83,7 +82,7 @@ end
 action_class.class_eval do
   require 'mixlib/shellout'
   def generate_system_password
-	system_password = new_resource.password.crypt('$6$' + SecureRandom.random_number(36 ** 8).to_s(36))
+    system_password = new_resource.password.crypt('$6$' + SecureRandom.random_number(36**8).to_s(36))
     Chef::Log.debug "SC: generated system password: #{system_password}"
     system_password
   end
