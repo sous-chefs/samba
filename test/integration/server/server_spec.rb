@@ -20,7 +20,7 @@ describe directory('/home/test_user_1') do
 end
 
 salt = command("grep test_user_1 /etc/shadow | awk -F'$' '{ print $3 }'").stdout.strip
-password_string = command("openssl passwd -1 -salt #{salt} superawesomepassword").stdout.strip
+password_string = 'superawesomepassword'.crypt('$6$' + salt)
 
 describe shadow.users('test_user_1') do
   its('passwords') { should cmp [password_string] }
