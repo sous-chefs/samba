@@ -8,6 +8,8 @@ samba_server 'server' do
   security 'user'
   passdb_backend 'tdbsam'
   socket_options 'TCP_NODELAY SO_RCVBUF=8192 SO_SNDBUF=8192'
+  options 'allow dns updates' => 'secure only',
+          'allow insecure wide links' => 'no'
 end
 
 samba_user 'test_user_1' do

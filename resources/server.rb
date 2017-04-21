@@ -36,7 +36,7 @@ property :log_dir, String, default: lazy {
   end
 }
 property :max_log_size, String, default: '5000' # 5M
-property :options, [String, nil], default: nil
+property :options, [Hash, nil], default: nil
 property :enable_users_search, [TrueClass, FalseClass], default: true
 property :shares, [Hash, nil], default: nil
 property :config_file, String, default: '/etc/samba/smb.conf'

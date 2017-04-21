@@ -49,6 +49,8 @@ describe file('/etc/samba/smb.conf') do
   its('content') { should match /comment = exported share 2/ }
   its('content') { should match /guest ok =/ }
   its('content') { should_not match /guest_ok =/ }
+  its('content') { should match /allow dns updates = secure only/ }
+  its('content') { should match /allow insecure wide links = no/ }
 end
 
 case os['family']
