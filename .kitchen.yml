@@ -10,6 +10,7 @@ client_rb:
 
 verifier:
   name: inspec
+  sudo: true
 
 platforms:
   - name: centos-6.8

@@ -18,11 +18,12 @@
 #
 property :name, String, name_property: true
 property :password, String
-property :exists, [TrueClass, FalseClass], default: false
-property :disabled, [TrueClass, FalseClass], default: false
+property :exists, [true, false], default: false
+property :disabled, [true, false], default: false
 property :comment, String
 property :home, String, default: lazy { ::File.join('/home/', name) }
 property :shell, String, default: '/bin/bash'
+property :manage_home, [true, false], default: true
 
 def load_current_value
   @smbuser = Chef::Resource::SambaUser.new(new_resource.name)
@@ -37,11 +38,16 @@ def load_current_value
 end
 
 action :create do
+  package 'openssl' do
+    action :nothing
+  end.run_action(:install)
+
   user new_resource.name do
-    password new_resource.password
+    password generate_system_password
     comment new_resource.comment
     home new_resource.home
     shell new_resource.shell
+    manage_home new_resource.manage_home
     notifies :run, "execute[Create samba user #{new_resource.name}]", :immediately
   end
 
@@ -74,6 +80,14 @@ action :delete do
     execute "Delete #{new_resource.name}" do
       command "smbpasswd -x #{new_resource.name}"
     end
-    new_resource.updated_by_last_action(true)
+  end
+end
+
+action_class.class_eval do
+  require 'mixlib/shellout'
+  def generate_system_password
+    system_password = Mixlib::ShellOut.new("/usr/bin/openssl passwd -1 #{new_resource.password}").run_command.stdout.strip
+    Chef::Log.debug "SC: generated system password: #{system_password}"
+    system_password
   end
 end
