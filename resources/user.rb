@@ -26,15 +26,17 @@ property :shell, String, default: '/bin/bash'
 property :manage_home, [true, false], default: true
 
 def load_current_value
-  @smbuser = Chef::Resource::SambaUser.new(new_resource.name)
+#  @smbuser = Chef::Resource::SambaUser.new(new_resource.name)
 
-  Chef::Log.debug("Checking for smbuser #{new_resource.name}")
-  u = Mixlib::ShellOut.new("pdbedit -Lv -u #{new_resource.name}")
+  Chef::Log.debug("Checking for smbuser #{name}")
+  u = Mixlib::ShellOut.new("pdbedit -Lv -u #{name}")
   u.run_command
-  exists = u.stdout.include?(new_resource.name)
-  disabled = u.stdout.include?('Account Flags.*[D')
-  @smbuser.exists(exists)
-  @smbuser.disabled(disabled)
+  exists(u.stdout.include?(name))
+  disabled(u.stdout.include?('Account Flags.*[D'))
+#  @smbuser.exists(exists)
+#  @smbuser.disabled(disabled)
+#  exists exists
+#  disabled disabled
 end
 
 action :create do
@@ -65,9 +67,17 @@ action :create do
 end
 
 action :enable do
+  load_current_value
+
   execute "Enable #{new_resource.name}" do
     command "smbpasswd -e #{new_resource.name}"
-    only_if { @smbuser.disabled }
+    only_if { new_resource.disabled }
+  end
+
+  execute "Create samba user for #{new_resource.name}" do
+    passwd = new_resource.password
+    command "echo '#{passwd}\n#{passwd}' | smbpasswd -s -a #{new_resource.name}"
+    not_if { new_resource.exists }
   end
 end
 
