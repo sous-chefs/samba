@@ -1,5 +1,11 @@
 # Samba Changelog
 
+## v1.0.6 (2017-07-24)
+
+- Require Chef 12.16+ #73
+- Update README with clear intentions of the `samba_user` resource. #
+- Fix OpenSUSE client install #75
+
 ## v1.0.5 (2017-04-21)
 
 - Fix user resource to generate a correct user password.
