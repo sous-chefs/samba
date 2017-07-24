@@ -18,7 +18,7 @@
 #
 
 case node['platform_family']
-when 'rhel', 'fedora'
+when 'rhel', 'fedora', 'suse'
   package 'samba-client'
 else
   package 'smbclient'

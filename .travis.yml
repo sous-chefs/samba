@@ -1,15 +1,13 @@
 sudo: required
 dist: trusty
 
-# install the pre-release chef-dk.  Use chef-stable-trusty to install the stable release
 addons:
   apt:
     sources:
-      - chef-stable-trusty
+      - chef-current-trusty
     packages:
       - chefdk
 
-# Don't `bundle install` which takes about 1.5 mins
 install: echo "skip bundle install"
 
 branches:
@@ -22,14 +20,13 @@ env:
   matrix:
   - INSTANCE=client-centos-6
   - INSTANCE=client-centos-7
-  - INSTANCE=client-ubuntu-1204
   - INSTANCE=client-ubuntu-1404
   - INSTANCE=client-ubuntu-1604
   - INSTANCE=server-centos-6
   - INSTANCE=server-centos-7
   - INSTANCE=server-ubuntu-1204
   - INSTANCE=server-ubuntu-1404
-  # - INSTANCE=server-ubuntu-1604
+  - INSTANCE=server-ubuntu-1604
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )

@@ -15,45 +15,48 @@ If you would like support for your preferred platform. Please think about creati
 
 ### Chef
 
-- Chef 12.5+
-
-### Cookbooks
-
-- none
+- Chef 12.15+
 
 ## Known Limitations
 
-- Does not (yet) integrate with LDAP/AD.
+- Does not integrate with LDAP/AD.
 - Uses plaintext passwords for the user resource to create the SMB users if the password backend is tdbsam or smbpasswd. See below under usage.
+- Creates & manages the system user. The creation of the user is the trigger for smbpasswd.
 
 ## Recipes
 
 ### client
 
-Installs smbclient to provide access to SMB shares.
+Installs the samba client to provide access to SMB shares.
 
 ### server
 
-Sets up a Samba server. See below for more information on defaults.
+Sets up a Samba server. See below for more information on configurables.
 
 ## Resources
 
 ### User
 
-This cookbook includes a resource/provider for managing samba users with the smbpasswd program. It will create the users home
+This cookbook includes a resource/provider for managing samba users with the smbpasswd program. It will create the users home directory, and manage the user.
+
+The creation of the user is the trigger for smbpasswd management.
+
+The basis of this resource is the Core [user resource].
+
 
 ```ruby
 samba_user 'jtimberman' do
-  password 'plaintextpassword'
+  password 'plaintextpassword' # user password for samba and the system
   comment 'user_name_comment'
-  home '/home/jtimberman'
-  shell '/bin/zsh'
+  home '/home/jtimberman' # Users home.
+  shell '/bin/zsh' # User shell to set, e.g. /bin/sh, /sbin/nologin
+  manage_home true # true/false, whether to manage the users home directory location
 end
 ```
 
 This resource can only create, enable or delete the user. It only supports setting the user's initial password. It assumes a password db backend that utilizes the smbpasswd program.
 
-This will enforce the password set by the resource. Meaning, if the local user changes their password with `smbpasswd`, the recipe will reset it.
+This will enforce the user system password set by the resource.
 
 ### Server
 
@@ -119,3 +122,5 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
+[user resource]: https://docs.chef.io/resource_user.html

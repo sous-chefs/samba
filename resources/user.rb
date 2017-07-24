@@ -15,11 +15,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
-property :name, String, name_property: true
+
 property :password, String
-property :exists, [true, false], default: false
-property :disabled, [true, false], default: false
 property :comment, String
 property :home, String, default: lazy { ::File.join('/home/', name) }
 property :shell, String, default: '/bin/bash'
