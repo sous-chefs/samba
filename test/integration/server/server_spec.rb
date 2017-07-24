@@ -61,7 +61,7 @@ describe file('/etc/samba/smb.conf') do
 end
 
 case os['family']
-when 'redhat', 'fedora', 'amazon'
+when 'redhat', 'fedora', 'amazon', 'suse'
   describe service('smb') do
     it { should be_installed }
     it { should be_enabled }

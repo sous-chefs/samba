@@ -29,7 +29,7 @@ property :map_to_guest, String, default: 'Bad User'
 property :socket_options, String, default: '`TCP_NODELAY`'
 property :log_dir, String, default: lazy {
   case node['platform_family']
-  when 'rhel', 'fedora', 'amazon'
+  when 'rhel', 'fedora', 'amazon', 'suse'
     '/var/log/samba/log.%m'
   else
     '/var/log/samba/%m.log'
@@ -42,7 +42,7 @@ property :shares, [Hash, nil], default: nil
 property :config_file, String, default: '/etc/samba/smb.conf'
 property :samba_services, Array, default: lazy {
   case node['platform_family']
-  when 'rhel', 'fedora', 'amazon'
+  when 'rhel', 'fedora', 'amazon', 'suse'
     %w(smb nmb)
   else
     %w(smbd nmbd)
