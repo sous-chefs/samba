@@ -2,7 +2,7 @@
 
 ## v1.0.6 (2017-07-24)
 
-- Update README and metadata with updated Chef version. #73
+- Require Chef 12.16+ #73
 - Update README with clear intentions of the `samba_user` resource. #
 - Fix OpenSUSE client install #75
 
