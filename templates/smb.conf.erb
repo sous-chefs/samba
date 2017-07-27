@@ -6,6 +6,14 @@
 #
 
 [global]
+  realm = <%= @realm %>
+  password server = <%= @password_server %>
+  encrypt passwords = <%= @encrypt_passwords %>
+  kerberos method = <%= @kerberos_method %>
+  winbind seperator = <%= @winbind_seperator %>
+  <% if @idmap_config %>
+  idmap config <%= @idmap_config %>
+  <% end %>
   workgroup = <%= @workgroup %>
   server string = <%= @server_string %>
   security = <%= @security %>

@@ -19,6 +19,10 @@
 property :share_name, String, name_property: true
 property :comment, String
 property :path, String, required: true
+property :valid_users, String
+property :force_group, String
+property :writable, String
+property :browsable, String
 property :guest_ok, String, default: 'no', equal_to: %w(yes no)
 property :printable, String, default: 'no', equal_to: %w(yes no)
 property :write_list, Array, required: true # e.g. %w(jtimberman damacus)

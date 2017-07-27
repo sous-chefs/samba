@@ -4,7 +4,7 @@
 
 ### `master` branch
 
-The master branch is the current comitted changes. These changes may not yet be released although we try to release often.
+The master branch is the current committed changes. These changes may not yet be released although we try to release often.
 
 ## Tags
 
