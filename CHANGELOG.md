@@ -10,8 +10,7 @@
 - Add idmap_config property
 - Add valid_users property
 - Add force_group property
-- Add writable property
-- Add browsable property
+- Add browseable property
 
 ## v1.0.6 (2017-07-24)
 
