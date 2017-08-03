@@ -41,7 +41,7 @@ property :kerberos_method,
          equal_to: ['secrets only', 'system keytab', 'dedicated keytab',
                     'secrets and keytab']
 property :log_level, String, default: '0'
-property :winbind_seperator, String, default: '/'
+property :winbind_separator, String, default: '\\'
 property :idmap_config, String
 property :socket_options, String, default: '`TCP_NODELAY`'
 property :log_dir, String, default: lazy {
@@ -79,9 +79,8 @@ action :create do
       mode '0644'
       cookbook 'samba'
       variables(
-        passdb_backend: new_resource.passdb_backend,
         idmap_config: new_resource.idmap_config,
-        winbind_seperator: new_resource.winbind_seperator,
+        winbind_separator: new_resource.winbind_separator,
         kerberos_method: new_resource.kerberos_method,
         encrypt_passwords: new_resource.encrypt_passwords,
         password_server: new_resource.password_server,

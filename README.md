@@ -74,6 +74,13 @@ samba_server 'samba server' do
   socket_options # Socket options, default "`TCP_NODELAY`"
   config_file # Location of Samba configuration, see resource for platform default
   log_dir # Location of Samba logs, see resource for platform default
+  realm # Kerberos realm to use, default: ''
+  password_server # Use a specific remote server for auth, default: ''
+  encrypt_passwords # Whether to negotiate encrypted passwords, default: yes
+  kerberos_method # How kerberos tickets are verified, default: secrets only
+  log_level # Sets the logging level from 0-10, default: 0
+  winbind_separator # Define the character used when listing a username of the form of DOMAIN \user, default \
+  idmap_config # Defint the mapping between SIDS and Unix users and groups, default: none
   options # list of additional options, e.g. 'unix charset' => 'UTF8'.
 end
 ```
@@ -90,6 +97,9 @@ samba_share 'Share Name' do
   directory_mask # e.g. 0700
   read_only # yes, no, default no
   create_directory # Creates directory by default
+  valid_users # space separated users or group, default ''
+  force_group # Assign Unix group as default primary, default ''
+  browseable # yes, no default: yes
 end
 ```
 

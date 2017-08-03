@@ -1,7 +1,6 @@
 # Samba Changelog
 
 ## v1.1.0 (2017-08-02)
-- Add passdb_backend property
 - Add realm property
 - Add encrypt_passwords property
 - Add kerberos_method property
