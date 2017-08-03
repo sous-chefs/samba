@@ -22,9 +22,15 @@ property :interfaces, String, default: 'lo 127.0.0.1'
 property :hosts_allow, String, default: '127.0.0.0/8'
 property :bind_interfaces_only, String, default: 'no', equal_to: %w(yes no)
 property :load_printers, String, default: 'no', equal_to: %w(yes no)
-property :passdb_backend, String, default: 'tdbsam', equal_to: %w(ldapsam tdbsam smbpasswd)
+property :passdb_backend,
+         String,
+         default: 'tdbsam',
+         equal_to: %w(ldapsam tdbsam smbpasswd)
 property :dns_proxy, String, default: 'no', equal_to: %w(yes no)
-property :security, String, default: 'user', equal_to: %w(user domain ADS share server) # https://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/ServerType.html
+property :security,
+         String,
+         default: 'user',
+         equal_to: %w(user domain ADS share server)
 property :map_to_guest, String, default: 'Bad User'
 property :realm, String, default: ''
 property :password_server, String, default: ''
@@ -34,6 +40,7 @@ property :kerberos_method,
          default: 'secrets only',
          equal_to: ['secrets only', 'system keytab', 'dedicated keytab',
                     'secrets and keytab']
+property :log_level, String, default: '0'
 property :winbind_seperator, String, default: '/'
 property :idmap_config, String
 property :socket_options, String, default: '`TCP_NODELAY`'
@@ -72,6 +79,7 @@ action :create do
       mode '0644'
       cookbook 'samba'
       variables(
+        passdb_backend: new_resource.passdb_backend,
         idmap_config: new_resource.idmap_config,
         winbind_seperator: new_resource.winbind_seperator,
         kerberos_method: new_resource.kerberos_method,
@@ -87,7 +95,9 @@ action :create do
         load_printers: new_resource.load_printers,
         passdb_backend: new_resource.passdb_backend,
         dns_proxy: new_resource.dns_proxy,
-        samba_options: new_resource.options
+        samba_options: new_resource.options,
+        security: new_resource.security,
+        log_level: new_resource.log_level
       )
       samba_services.each do |samba_service|
         notifies :restart, "service[#{samba_service}]"

@@ -19,10 +19,9 @@
 property :share_name, String, name_property: true
 property :comment, String
 property :path, String, required: true
-property :valid_users, String
-property :force_group, String
-property :writable, String
-property :browsable, String
+property :valid_users, String, default: ''
+property :force_group, String, default: ''
+property :browseable, String, default: 'yes', equal_to: %w(yes no)
 property :guest_ok, String, default: 'no', equal_to: %w(yes no)
 property :printable, String, default: 'no', equal_to: %w(yes no)
 property :write_list, Array, required: true # e.g. %w(jtimberman damacus)
@@ -54,6 +53,9 @@ action :add do
       variables[:shares][new_resource.share_name]['create mask'] = new_resource.create_mask
       variables[:shares][new_resource.share_name]['directory mask'] = new_resource.directory_mask
       variables[:shares][new_resource.share_name]['read only'] = new_resource.read_only
+      variables[:shares][new_resource.share_name]['valid users'] = new_resource.valid_users
+      variables[:shares][new_resource.share_name]['force group'] = new_resource.force_group
+      variables[:shares][new_resource.share_name]['browseable'] = new_resource.browseable
 
       action :nothing
       delayed_action :create

@@ -1,5 +1,18 @@
 # Samba Changelog
 
+## v1.1.0 (2017-08-02)
+- Add passdb_backend property
+- Add realm property
+- Add encrypt_passwords property
+- Add kerberos_method property
+- Add log_level property
+- Add winbind_seperator property
+- Add idmap_config property
+- Add valid_users property
+- Add force_group property
+- Add writable property
+- Add browsable property
+
 ## v1.0.6 (2017-07-24)
 
 - Require Chef 12.16+ #73
