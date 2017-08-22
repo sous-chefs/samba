@@ -33,7 +33,7 @@ property :security,
          equal_to: %w(user domain ADS share server)
 property :map_to_guest, String, default: 'Bad User'
 property :realm, String, default: ''
-property :password_server, String, default: ''
+property :password_server, String, default: '*'
 property :encrypt_passwords, String, default: 'yes', equal_to: %w(yes no)
 property :kerberos_method,
          String,
