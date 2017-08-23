@@ -18,15 +18,15 @@
 #
 property :share_name, String, name_property: true
 property :comment, String
-property :path, String, required: true
+property :path, String, required: false
 property :valid_users, String, default: ''
 property :force_group, String, default: ''
 property :browseable, String, default: 'yes', equal_to: %w(yes no)
 property :guest_ok, String, default: 'no', equal_to: %w(yes no)
 property :printable, String, default: 'no', equal_to: %w(yes no)
-property :write_list, Array, required: true # e.g. %w(jtimberman damacus)
-property :create_mask, String, required: true # e.g. 0644
-property :directory_mask, String, required: true # e.g. 0700
+property :write_list, Array, required: false # e.g. %w(jtimberman damacus)
+property :create_mask, String, required: false # e.g. 0644
+property :directory_mask, String, required: false # e.g. 0700
 property :read_only, String, default: 'no', equal_to: %w(yes no)
 property :create_directory, [TrueClass, FalseClass], default: true
 property :config_file, String, default: lazy {
