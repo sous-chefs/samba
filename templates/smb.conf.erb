@@ -10,7 +10,7 @@
   password server = <%= @password_server %>
   encrypt passwords = <%= @encrypt_passwords %>
   kerberos method = <%= @kerberos_method %>
-  <% if @winbind_separator != '/' %>
+  <% if @winbind_separator != '\\' %>
   winbind separator = <%= @winbind_separator %>
   <% end %>
   <% if @idmap_config %>
