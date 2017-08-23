@@ -80,7 +80,8 @@ samba_server 'samba server' do
   kerberos_method # How kerberos tickets are verified, default: secrets only
   log_level # Sets the logging level from 0-10, default: 0
   winbind_separator # Define the character used when listing a username of the form of DOMAIN \user, default \
-  idmap_config # Defint the mapping between SIDS and Unix users and groups, default: none
+  idmap_config # Define the mapping between SIDS and Unix users and groups, default: none
+  max_log_size # Maximum log file size, default: 5000, (5MB)
   options # list of additional options, e.g. 'unix charset' => 'UTF8'.
 end
 ```
@@ -96,7 +97,7 @@ samba_share 'Share Name' do
   create_mask # e.g. 0644
   directory_mask # e.g. 0700
   read_only # yes, no, default no
-  create_directory # Creates directory by default
+  create_directory # Whether to create the directory being served, default true
   valid_users # space separated users or group, default ''
   force_group # Assign Unix group as default primary, default ''
   browseable # yes, no default: yes

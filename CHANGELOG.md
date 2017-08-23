@@ -10,6 +10,13 @@
 - Add valid_users property
 - Add force_group property
 - Add browseable property
+- Many rubocop fixes (though not all)
+- Change share options from required that weren't really required
+- Fix issue with directory creation when path was not defined (which is not
+  required for home dirs for instance)
+- Make winbind_separator optional in template as default backslash is a
+  continuation character in smb.conf
+- Extend tests  
 
 ## v1.0.6 (2017-07-24)
 
