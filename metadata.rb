@@ -8,6 +8,6 @@ source_url       'https://github.com/sous-chefs/samba' if respond_to?(:source_ur
 issues_url       'https://github.com/sous-chefs/samba/issues' if respond_to?(:issues_url)
 chef_version     '>= 12.16' if respond_to?(:chef_version)
 
-%w( debian ubuntu centos fedora redhat scientific amazon oracle ).each do |os|
+%w(debian ubuntu centos fedora redhat scientific amazon oracle).each do |os|
   supports os
 end

@@ -45,17 +45,28 @@ action :add do
       cookbook 'samba'
       variables[:shares] ||= {}
       variables[:shares][new_resource.share_name] ||= {}
-      variables[:shares][new_resource.share_name]['comment'] = new_resource.comment
-      variables[:shares][new_resource.share_name]['path'] = new_resource.path
-      variables[:shares][new_resource.share_name]['guest ok'] = new_resource.guest_ok
-      variables[:shares][new_resource.share_name]['printable'] = new_resource.printable
-      variables[:shares][new_resource.share_name]['write list'] = new_resource.write_list
-      variables[:shares][new_resource.share_name]['create mask'] = new_resource.create_mask
-      variables[:shares][new_resource.share_name]['directory mask'] = new_resource.directory_mask
-      variables[:shares][new_resource.share_name]['read only'] = new_resource.read_only
-      variables[:shares][new_resource.share_name]['valid users'] = new_resource.valid_users
-      variables[:shares][new_resource.share_name]['force group'] = new_resource.force_group
-      variables[:shares][new_resource.share_name]['browseable'] = new_resource.browseable
+      variables[:shares][new_resource.share_name]['comment'] = \
+        new_resource.comment
+      variables[:shares][new_resource.share_name]['path'] = \
+        new_resource.path
+      variables[:shares][new_resource.share_name]['guest ok'] = \
+        new_resource.guest_ok
+      variables[:shares][new_resource.share_name]['printable'] = \
+        new_resource.printable
+      variables[:shares][new_resource.share_name]['write list'] = \
+        new_resource.write_list
+      variables[:shares][new_resource.share_name]['create mask'] = \
+        new_resource.create_mask
+      variables[:shares][new_resource.share_name]['directory mask'] = \
+        new_resource.directory_mask
+      variables[:shares][new_resource.share_name]['read only'] = \
+        new_resource.read_only
+      variables[:shares][new_resource.share_name]['valid users'] = \
+        new_resource.valid_users
+      variables[:shares][new_resource.share_name]['force group'] = \
+        new_resource.force_group
+      variables[:shares][new_resource.share_name]['browseable'] = \
+        new_resource.browseable
 
       action :nothing
       delayed_action :create
