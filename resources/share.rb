@@ -73,7 +73,7 @@ action :add do
     end
   end
 
-  if create_directory do
+  if create_directory
     directory path do
       recursive true
     end
