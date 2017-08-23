@@ -73,8 +73,9 @@ action :add do
     end
   end
 
-  directory path do
-    recursive true
-    only_if { create_directory == true }
+  if create_directory do
+    directory path do
+      recursive true
+    end
   end
 end
