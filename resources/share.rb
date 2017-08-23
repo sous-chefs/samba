@@ -25,8 +25,8 @@ property :browseable, String, default: 'yes', equal_to: %w(yes no)
 property :guest_ok, String, default: 'no', equal_to: %w(yes no)
 property :printable, String, default: 'no', equal_to: %w(yes no)
 property :write_list, Array, required: false # e.g. %w(jtimberman damacus)
-property :create_mask, String, required: false # e.g. 0644
-property :directory_mask, String, required: false # e.g. 0700
+property :create_mask, String, , default: '0744', required: false # e.g. 0644
+property :directory_mask, String, default: '0755', required: false # e.g. 0700
 property :read_only, String, default: 'no', equal_to: %w(yes no)
 property :create_directory, [TrueClass, FalseClass], default: true
 property :config_file, String, default: lazy {
