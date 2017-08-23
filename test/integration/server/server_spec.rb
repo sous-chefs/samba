@@ -47,7 +47,6 @@ describe file('/etc/samba/smb.conf') do
   its('content') { should match(/realm = $/) }
   its('content') { should match(/password server = \*$/) }
   its('content') { should match(/kerberos method = secrets only$/) }
-  its('content') { should match(/winbind separator = \\/) }
   its('content') { should match(/workgroup = HOME/) }
   its('content') { should match(/server string = fat/) }
   its('content') { should match(/security = user/) }
