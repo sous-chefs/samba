@@ -22,24 +22,14 @@ property :interfaces, String, default: 'lo 127.0.0.1'
 property :hosts_allow, String, default: '127.0.0.0/8'
 property :bind_interfaces_only, String, default: 'no', equal_to: %w(yes no)
 property :load_printers, String, default: 'no', equal_to: %w(yes no)
-property :passdb_backend,
-         String,
-         default: 'tdbsam',
-         equal_to: %w(ldapsam tdbsam smbpasswd)
+property :passdb_backend, String, default: 'tdbsam', equal_to: %w(ldapsam tdbsam smbpasswd)
 property :dns_proxy, String, default: 'no', equal_to: %w(yes no)
-property :security,
-         String,
-         default: 'user',
-         equal_to: %w(user domain ADS share server)
+property :security, String, default: 'user', equal_to: %w(user domain ADS share server)
 property :map_to_guest, String, default: 'Bad User'
 property :realm, String, default: ''
 property :password_server, String, default: '*'
 property :encrypt_passwords, String, default: 'yes', equal_to: %w(yes no)
-property :kerberos_method,
-         String,
-         default: 'secrets only',
-         equal_to: ['secrets only', 'system keytab', 'dedicated keytab',
-                    'secrets and keytab']
+property :kerberos_method, String, default: 'secrets only', equal_to: ['secrets only', 'system keytab', 'dedicated keytab', 'secrets and keytab']
 property :log_level, String, default: '0'
 property :winbind_separator, String, default: '\\'
 property :idmap_config, String

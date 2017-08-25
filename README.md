@@ -43,7 +43,6 @@ The creation of the user is the trigger for smbpasswd management.
 
 The basis of this resource is the Core [user resource].
 
-
 ```ruby
 samba_user 'jtimberman' do
   password 'plaintextpassword' # user password for samba and the system
