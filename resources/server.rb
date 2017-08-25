@@ -22,10 +22,27 @@ property :interfaces, String, default: 'lo 127.0.0.1'
 property :hosts_allow, String, default: '127.0.0.0/8'
 property :bind_interfaces_only, String, default: 'no', equal_to: %w(yes no)
 property :load_printers, String, default: 'no', equal_to: %w(yes no)
-property :passdb_backend, String, default: 'tdbsam', equal_to: %w(ldapsam tdbsam smbpasswd)
+property :passdb_backend,
+         String,
+         default: 'tdbsam',
+         equal_to: %w(ldapsam tdbsam smbpasswd)
 property :dns_proxy, String, default: 'no', equal_to: %w(yes no)
-property :security, String, default: 'user', equal_to: %w(user domain ADS share server) # https://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/ServerType.html
+property :security,
+         String,
+         default: 'user',
+         equal_to: %w(user domain ADS share server)
 property :map_to_guest, String, default: 'Bad User'
+property :realm, String, default: ''
+property :password_server, String, default: '*'
+property :encrypt_passwords, String, default: 'yes', equal_to: %w(yes no)
+property :kerberos_method,
+         String,
+         default: 'secrets only',
+         equal_to: ['secrets only', 'system keytab', 'dedicated keytab',
+                    'secrets and keytab']
+property :log_level, String, default: '0'
+property :winbind_separator, String, default: '\\'
+property :idmap_config, String
 property :socket_options, String, default: '`TCP_NODELAY`'
 property :log_dir, String, default: lazy {
   case node['platform_family']
@@ -62,6 +79,12 @@ action :create do
       mode '0644'
       cookbook 'samba'
       variables(
+        idmap_config: new_resource.idmap_config,
+        winbind_separator: new_resource.winbind_separator,
+        kerberos_method: new_resource.kerberos_method,
+        encrypt_passwords: new_resource.encrypt_passwords,
+        password_server: new_resource.password_server,
+        realm: new_resource.realm,
         workgroup: new_resource.workgroup,
         server_string: new_resource.server_string,
         security: new_resource.security,
@@ -71,7 +94,8 @@ action :create do
         load_printers: new_resource.load_printers,
         passdb_backend: new_resource.passdb_backend,
         dns_proxy: new_resource.dns_proxy,
-        samba_options: new_resource.options
+        samba_options: new_resource.options,
+        log_level: new_resource.log_level,
       )
       samba_services.each do |samba_service|
         notifies :restart, "service[#{samba_service}]"

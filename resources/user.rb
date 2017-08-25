@@ -41,7 +41,9 @@ action :create do
     home new_resource.home
     shell new_resource.shell
     manage_home new_resource.manage_home
-    notifies :run, "execute[Create samba user #{new_resource.name}]", :immediately
+    notifies :run,
+             "execute[Create samba user #{new_resource.name}]",
+             :immediately
   end
 
   group new_resource.name do
@@ -79,7 +81,9 @@ end
 action_class.class_eval do
   require 'mixlib/shellout'
   def generate_system_password
-    system_password = new_resource.password.crypt('$6$' + SecureRandom.random_number(36**8).to_s(36))
+    system_password = \
+      new_resource.password.crypt('$6$' +
+                                  SecureRandom.random_number(36**8).to_s(36))
     Chef::Log.debug "SC: generated system password: #{system_password}"
     system_password
   end

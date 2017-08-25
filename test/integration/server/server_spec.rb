@@ -19,7 +19,8 @@ describe directory('/home/test_user_1') do
   it { should exist }
 end
 
-salt = command("grep test_user_1 /etc/shadow | awk -F'$' '{ print $3 }'").stdout.strip
+salt = command('grep test_user_1 /etc/shadow | ' \
+               "awk -F'$' '{ print $3 }'").stdout.strip
 password_string = 'superawesomepassword'.crypt('$6$' + salt)
 
 describe shadow.users('test_user_1') do
@@ -43,21 +44,24 @@ describe file('/etc/samba/smb.conf') do
 end
 
 describe file('/etc/samba/smb.conf') do
-  its('content') { should match /workgroup = HOME/ }
-  its('content') { should match /server string = fat/ }
-  its('content') { should match /security = user/ }
-  its('content') { should match /map to guest = Bad User/ }
-  its('content') { should match /interfaces = lo 127.0.0.1 enp\* eth\*/ }
-  its('content') { should match %r{hosts allow = 0.0.0.0\/0} }
-  its('content') { should match /load printers = no/ }
-  its('content') { should match /passdb backend = tdbsam/ }
-  its('content') { should match /dns proxy = no/ }
-  its('content') { should match /comment = exported share 1/ }
-  its('content') { should match /comment = exported share 2/ }
-  its('content') { should match /guest ok =/ }
-  its('content') { should_not match /guest_ok =/ }
-  its('content') { should match /allow dns updates = secure only/ }
-  its('content') { should match /allow insecure wide links = no/ }
+  its('content') { should match(/realm = $/) }
+  its('content') { should match(/password server = \*$/) }
+  its('content') { should match(/kerberos method = secrets only$/) }
+  its('content') { should match(/workgroup = HOME/) }
+  its('content') { should match(/server string = fat/) }
+  its('content') { should match(/security = user/) }
+  its('content') { should match(/map to guest = Bad User/) }
+  its('content') { should match(/interfaces = lo 127.0.0.1 enp\* eth\*/) }
+  its('content') { should match(%r{hosts allow = 0.0.0.0/0}) }
+  its('content') { should match(/load printers = no/) }
+  its('content') { should match(/passdb backend = tdbsam/) }
+  its('content') { should match(/dns proxy = no/) }
+  its('content') { should match(/comment = exported share 1/) }
+  its('content') { should match(/comment = exported share 2/) }
+  its('content') { should match(/guest ok =/) }
+  its('content') { should_not match(/guest_ok =/) }
+  its('content') { should match(/allow dns updates = secure only/) }
+  its('content') { should match(/allow insecure wide links = no/) }
 end
 
 case os['family']
@@ -87,6 +91,7 @@ else
   end
 end
 
-describe command('smbclient //$(hostname)/first_share -U test_user_1 superawesomepassword -c \'exit\'') do
+describe command('smbclient //$(hostname)/first_share -U test_user_1 ' \
+                 'superawesomepassword -c \'exit\'') do
   its('exit_status') { should eq 0 }
 end unless os['family'] == 'redhat' && os['release'].to_i == 6

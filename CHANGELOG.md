@@ -1,5 +1,23 @@
 # Samba Changelog
 
+## v1.1.0 (2017-08-02)
+- Add realm property
+- Add encrypt_passwords property
+- Add kerberos_method property
+- Add log_level property
+- Add winbind_separator property
+- Add idmap_config property
+- Add valid_users property
+- Add force_group property
+- Add browseable property
+- Many rubocop fixes (though not all)
+- Change share options from required that weren't really required
+- Fix issue with directory creation when path was not defined (which is not
+  required for home dirs for instance)
+- Make winbind_separator optional in template as default backslash is a
+  continuation character in smb.conf
+- Extend tests  
+
 ## v1.0.6 (2017-07-24)
 
 - Require Chef 12.16+ #73
