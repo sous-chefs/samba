@@ -95,7 +95,7 @@ action :create do
         passdb_backend: new_resource.passdb_backend,
         dns_proxy: new_resource.dns_proxy,
         samba_options: new_resource.options,
-        log_level: new_resource.log_level,
+        log_level: new_resource.log_level
       )
       samba_services.each do |samba_service|
         notifies :restart, "service[#{samba_service}]"
