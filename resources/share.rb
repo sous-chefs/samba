@@ -29,6 +29,7 @@ property :create_mask, String, default: '0744', required: false
 property :directory_mask, String, default: '0755', required: false
 property :read_only, String, default: 'no', equal_to: %w(yes no)
 property :create_directory, [TrueClass, FalseClass], default: true
+property :options, Hash, default: {}
 property :config_file, String, default: lazy {
   if node['platform_family'] == 'smartos'
     '/opt/local/etc/samba/smb.conf'
@@ -56,6 +57,9 @@ action :add do
       variables[:shares][new_resource.share_name]['valid users'] = new_resource.valid_users
       variables[:shares][new_resource.share_name]['force group'] = new_resource.force_group
       variables[:shares][new_resource.share_name]['browseable'] = new_resource.browseable
+      new_resource.options.each do |key, value|
+        variables[:shares][new_resource.share_name][key] = value
+      end
 
       action :nothing
       delayed_action :create

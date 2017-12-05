@@ -33,6 +33,7 @@ samba_share 'first_share' do
   write_list ['test_user_1']
   create_mask '0644'
   directory_mask '0775'
+  options 'inherit permissions' => 'yes'
 end
 
 samba_share 'second_share' do
