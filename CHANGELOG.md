@@ -1,6 +1,11 @@
 # Samba Changelog
 
+## v1.1.1 (2017-12-06)
+
+- Add optional, options to the share resource (#80)
+
 ## v1.1.0 (2017-08-02)
+
 - Add realm property
 - Add encrypt_passwords property
 - Add kerberos_method property
@@ -12,11 +17,9 @@
 - Add browseable property
 - Many rubocop fixes (though not all)
 - Change share options from required that weren't really required
-- Fix issue with directory creation when path was not defined (which is not
-  required for home dirs for instance)
-- Make winbind_separator optional in template as default backslash is a
-  continuation character in smb.conf
-- Extend tests  
+- Fix issue with directory creation when path was not defined (which is not required for home dirs for instance)
+- Make winbind_separator optional in template as default backslash is a continuation character in smb.conf
+- Extend tests
 
 ## v1.0.6 (2017-07-24)
 
