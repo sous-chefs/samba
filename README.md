@@ -100,6 +100,7 @@ samba_share 'Share Name' do
   valid_users # space separated users or group, default ''
   force_group # Assign Unix group as default primary, default ''
   browseable # yes, no default: yes
+  options # list of additional options, e.g. 'inherit permissions' => 'yes'
 end
 ```
 
