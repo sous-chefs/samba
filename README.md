@@ -101,6 +101,7 @@ samba_share 'Share Name' do
   force_group # Assign Unix group as default primary, default ''
   browseable # yes, no default: yes
   options # list of additional options, e.g. 'inherit permissions' => 'yes'
+  path # String for the path of directory to be served. Required.
 end
 ```
 
