@@ -4,50 +4,55 @@ dist: trusty
 addons:
   apt:
     sources:
-      - chef-current-trusty
+    - chef-current-trusty
     packages:
-      - chefdk
+    - chefdk
 
 install: echo "skip bundle install"
 
 branches:
   only:
-    - master
+  - master
 
 services: docker
 
 env:
-  matrix:
-  - INSTANCE=client-debian-8
-  - INSTANCE=client-debian-9
-  - INSTANCE=client-centos-6
-  - INSTANCE=client-centos-7
-  - INSTANCE=client-fedora-latest
-  - INSTANCE=client-ubuntu-1404
-  - INSTANCE=client-ubuntu-1604
-  - INSTANCE=client-opensuse-leap
-  - INSTANCE=server-debian-8
-  - INSTANCE=server-debian-9
-  - INSTANCE=server-centos-6
-  - INSTANCE=server-centos-7
-  - INSTANCE=server-centos-7 CHEF_VERSION=12.16.42
-  - INSTANCE=server-fedora-latest
-  - INSTANCE=server-ubuntu-1404
-  - INSTANCE=server-ubuntu-1604
-  - INSTANCE=server-opensuse-leap
+- INSTANCE=client-amazon
+- INSTANCE=client-opensuse-leap
+- INSTANCE=client-ubuntu-1404
+- INSTANCE=client-ubuntu-1604
+- INSTANCE=client-centos-6
+- INSTANCE=client-centos-7
+- INSTANCE=client-fedora-26
+- INSTANCE=client-fedora-27
+- INSTANCE=client-centos-7 CHEF_VERSION=12.19.36
+- INSTANCE=client-debian-8
+- INSTANCE=client-debian-9
+
+- INSTANCE=server-amazon
+- INSTANCE=server-opensuse-leap
+- INSTANCE=server-ubuntu-1404
+- INSTANCE=server-ubuntu-1604
+- INSTANCE=server-centos-6
+- INSTANCE=server-centos-7
+- INSTANCE=server-fedora-26
+- INSTANCE=server-fedora-27
+- INSTANCE=server-centos-7 CHEF_VERSION=12.19.36
+- INSTANCE=server-debian-8
+- INSTANCE=server-debian-9
 
 before_script:
-  - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
-  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
-  - /opt/chefdk/embedded/bin/chef --version
-  - /opt/chefdk/embedded/bin/cookstyle --version
-  - /opt/chefdk/embedded/bin/foodcritic --version
+- sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
+- eval "$(/opt/chefdk/bin/chef shell-init bash)"
+- chef --version
+- cookstyle --version
+- foodcritic --version
 
 script: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml /opt/chefdk/embedded/bin/kitchen verify ${INSTANCE}
 
 matrix:
   include:
-    - script:
-      - /opt/chefdk/bin/chef exec delivery local syntax
-      - /opt/chefdk/bin/chef exec delivery local lint
-      env: UNIT_AND_LINT=1
+  - script:
+    - /opt/chefdk/bin/chef exec delivery local syntax
+    - /opt/chefdk/bin/chef exec delivery local lint
+    env: UNIT_AND_LINT=1
