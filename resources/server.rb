@@ -87,7 +87,7 @@ action :create do
         samba_options: new_resource.options,
         log_level: new_resource.log_level
       )
-      samba_services.each do |samba_service|
+      new_resource.samba_services.each do |samba_service|
         notifies :restart, "service[#{samba_service}]"
       end
 
@@ -95,7 +95,7 @@ action :create do
       delayed_action :create
     end
 
-    samba_services.each do |s|
+    new_resource.samba_services.each do |s|
       service s do
         supports restart: true, reload: true
         action [:enable, :start]

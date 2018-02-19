@@ -42,7 +42,7 @@ action :add do
   # We need to force both the server template and the
   # share templates into the root context to find each other
   with_run_context :root do
-    edit_resource(:template, config_file) do |new_resource|
+    edit_resource(:template, new_resource.config_file) do |new_resource|
       cookbook 'samba'
       variables[:shares] ||= {}
       variables[:shares][new_resource.share_name] ||= {}
@@ -66,8 +66,8 @@ action :add do
     end
   end
 
-  if create_directory
-    directory path do
+  if new_resource.create_directory
+    directory new_resource.path do
       recursive true
     end
   end

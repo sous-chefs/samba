@@ -20,6 +20,8 @@ platforms:
     image: dokken/amazonlinux
     privileged: true
     pid_one_command: /sbin/init
+    intermediate_instructions:
+      - RUN touch /etc/sysconfig/network
 
 - name: debian-7
   driver:
