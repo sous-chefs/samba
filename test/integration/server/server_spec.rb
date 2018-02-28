@@ -19,8 +19,7 @@ describe directory('/home/test_user_1') do
   it { should exist }
 end
 
-salt = command('grep test_user_1 /etc/shadow | ' \
-               "awk -F'$' '{ print $3 }'").stdout.strip
+salt = command('grep test_user_1 /etc/shadow | awk -F\'$\' \'{ print $3 }\'').stdout.strip
 password_string = 'superawesomepassword'.crypt('$6$' + salt)
 
 describe shadow.users('test_user_1') do

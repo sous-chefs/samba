@@ -17,5 +17,4 @@
 # limitations under the License.
 #
 
-samba_server 'Samba Server' do
-end
+samba_server 'Samba Server'
