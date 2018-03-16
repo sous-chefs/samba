@@ -26,7 +26,8 @@ jobs:
   unit_test:
     <<: *defaults
     steps:
-      &workspace
+      - attach_workspace:
+          at: /project
       - run:
           name: Unit Test
           command: chef exec delivery local all
