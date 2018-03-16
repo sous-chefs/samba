@@ -18,7 +18,7 @@ jobs:
           root: /
           paths:
             - project
-            
+
   unit_test:
     <<: *defaults
     steps:
@@ -187,7 +187,9 @@ workflows:
   build:
     jobs:
       - build
-      - unit_test
+      - unit_test:
+          requires:
+            - build
       - test_client-amazonlinux:
           requires:
             - build
