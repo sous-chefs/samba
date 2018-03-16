@@ -11,6 +11,7 @@ jobs:
       - run:
           name: Build image
           command: |
+            alias dokken="KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen"
             dokken list
             dokken client-centos-7
 workflows:
