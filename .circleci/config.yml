@@ -10,184 +10,183 @@ jobs:
           version: 17.11.0-ce
       - run:
           name: Build image
-          command: |
-            KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen list
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen list
 
   test_client-amazonlinux:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-amazonlinux
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-amazonlinux
 
   test_client-debian-7:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-debian-7
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-debian-7
 
   test_client-debian-8:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-debian-8
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-debian-8
 
   test_client-debian-9:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-debian-9
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-debian-9
 
   test_client-centos-6:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-centos-6
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-centos-6
 
   test_client-centos-7:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-centos-7
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-centos-7
 
   test_client-fedora-26:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-fedora-26
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-fedora-26
 
   test_client-fedora-27:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-fedora-27
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-fedora-27
 
   test_client-ubuntu-1404:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-ubuntu-1404
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-ubuntu-1404
 
   test_client-ubuntu-1604:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-ubuntu-1604
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-ubuntu-1604
 
   test_client-opensuse-leap:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-opensuse-leap
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test client-opensuse-leap
 
   test_server-amazonlinux:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-amazonlinux
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-amazonlinux
 
   test_server-debian-7:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-debian-7
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-debian-7
 
   test_server-debian-8:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-debian-8
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-debian-8
 
   test_server-debian-9:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-debian-9
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-debian-9
 
   test_server-centos-6:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-centos-6
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-centos-6
 
   test_server-centos-7:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-centos-7
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-centos-7
 
   test_server-fedora-26:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-fedora-26
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-fedora-26
 
   test_server-fedora-27:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-fedora-27
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-fedora-27
 
   test_server-ubuntu-1404:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-ubuntu-1404
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-ubuntu-1404
 
   test_server-ubuntu-1604:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-ubuntu-1604
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-ubuntu-1604
 
   test_server-opensuse-leap:
     docker:
       - image: damacus/docker-chefdk
     steps:
       - run:
-        name: Dokken Test
-        command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-opensuse-leap
+          name: Dokken Test
+          command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen test server-opensuse-leap
 
 
 
