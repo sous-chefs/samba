@@ -3,6 +3,10 @@ defaults: &defaults
   docker:
     - image: damacus/docker-chefdk
 
+workspace: &workspace
+  - attach_workspace:
+      at: /project
+
 version: 2
 jobs:
   build:
@@ -22,6 +26,7 @@ jobs:
   unit_test:
     <<: *defaults
     steps:
+      &workspace
       - run:
           name: Unit Test
           command: chef exec delivery local all
