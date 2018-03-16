@@ -9,8 +9,15 @@ jobs:
       - setup_remote_docker:
           version: 17.11.0-ce
       - run:
-          name: Build image
+          name: Check kitchen config is valid
           command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen list
+  unit_test:
+    docker:
+      - image: damacus/docker-chefdk
+    steps:
+      - run:
+          name: Unit Test
+          command: chef exec delivery local all
 
   test_client-amazonlinux:
     docker:
@@ -195,69 +202,92 @@ workflows:
   build:
     jobs:
       - build
+      - unit_test
       - test_client-amazonlinux:
           requires:
             - build
+            - unit_test
       - test_client-debian-7:
           requires:
             - build
+            - unit_test
       - test_client-debian-8:
           requires:
             - build
+            - unit_test
       - test_client-debian-9:
           requires:
             - build
+            - unit_test
       - test_client-centos-6:
           requires:
             - build
+            - unit_test
       - test_client-centos-7:
           requires:
             - build
+            - unit_test
       - test_client-fedora-26:
           requires:
             - build
+            - unit_test
       - test_client-fedora-27:
           requires:
             - build
+            - unit_test
       - test_client-ubuntu-1404:
           requires:
             - build
+            - unit_test
       - test_client-ubuntu-1604:
           requires:
             - build
+            - unit_test
       - test_client-opensuse-leap:
           requires:
             - build
+            - unit_test
       - test_server-amazonlinux:
           requires:
             - build
+            - unit_test
       - test_server-debian-7:
           requires:
             - build
+            - unit_test
       - test_server-debian-8:
           requires:
             - build
+            - unit_test
       - test_server-debian-9:
           requires:
             - build
+            - unit_test
       - test_server-centos-6:
           requires:
             - build
+            - unit_test
       - test_server-centos-7:
           requires:
             - build
+            - unit_test
       - test_server-fedora-26:
           requires:
             - build
+            - unit_test
       - test_server-fedora-27:
           requires:
             - build
+            - unit_test
       - test_server-ubuntu-1404:
           requires:
             - build
+            - unit_test
       - test_server-ubuntu-1604:
           requires:
             - build
+            - unit_test
       - test_server-opensuse-leap:
           requires:
             - build
+            - unit_test
