@@ -3,28 +3,29 @@ defaults: &defaults
   docker:
     - image: damacus/docker-chefdk
 
-workspace: &workspace
-  - attach_workspace:
-      at: /project
+default_steps: &default_steps
+  steps:
+    - checkout
+    - setup_remote_docker:
+        version: 17.11.0-ce
 
 version: 2
 jobs:
   build:
     <<: *defaults
+    <<: *default_steps
     steps:
       - checkout
       - setup_remote_docker:
           version: 17.11.0-ce
+
       - run:
           name: Check kitchen config is valid
           command: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen list
-      - persist_to_workspace:
-          root: /
-          paths:
-            - project
 
   unit_test:
     <<: *defaults
+    <<: *default_steps
     steps:
       - attach_workspace:
           at: /project
