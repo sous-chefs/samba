@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: damacus/docker-chefdk
+    working_directory: ~/project
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 17.11.0-ce
+      - run:
+          name: Build image
+          command: |
+            dokken list
+            dokken client-centos-7
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          context: org-global
