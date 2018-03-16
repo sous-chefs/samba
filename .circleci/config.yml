@@ -196,25 +196,69 @@ workflows:
   build:
     jobs:
       - build
-      - test-client-amazonlinux
-      - test-client-debian-7
-      - test-client-debian-8
-      - test-client-debian-9
-      - test-client-centos-6
-      - test-client-centos-7
-      - test-client-fedora-26
-      - test-client-fedora-27
-      - test-client-ubuntu-1404
-      - test-client-ubuntu-1604
-      - test-client-opensuse-leap
-      - test-server-amazonlinux
-      - test-server-debian-7
-      - test-server-debian-8
-      - test-server-debian-9
-      - test-server-centos-6
-      - test-server-centos-7
-      - test-server-fedora-26
-      - test-server-fedora-27
-      - test-server-ubuntu-1404
-      - test-server-ubuntu-1604
-      - test-server-opensuse-leap
+      - test_client-amazonlinux:
+        requires:
+          - build
+      - test_client-debian-7:
+        requires:
+          - build
+      - test_client-debian-8:
+        requires:
+          - build
+      - test_client-debian-9:
+        requires:
+          - build
+      - test_client-centos-6:
+        requires:
+          - build
+      - test_client-centos-7:
+        requires:
+          - build
+      - test_client-fedora-26:
+        requires:
+          - build
+      - test_client-fedora-27:
+        requires:
+          - build
+      - test_client-ubuntu-1404:
+        requires:
+          - build
+      - test_client-ubuntu-1604:
+        requires:
+          - build
+      - test_client-opensuse-leap:
+        requires:
+          - build
+      - test_server-amazonlinux:
+        requires:
+          - build
+      - test_server-debian-7:
+        requires:
+          - build
+      - test_server-debian-8:
+        requires:
+          - build
+      - test_server-debian-9:
+        requires:
+          - build
+      - test_server-centos-6:
+        requires:
+          - build
+      - test_server-centos-7:
+        requires:
+          - build
+      - test_server-fedora-26:
+        requires:
+          - build
+      - test_server-fedora-27:
+        requires:
+          - build
+      - test_server-ubuntu-1404:
+        requires:
+          - build
+      - test_server-ubuntu-1604:
+        requires:
+          - build
+      - test_server-opensuse-leap:
+        requires:
+          - build
