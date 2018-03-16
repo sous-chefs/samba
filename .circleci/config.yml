@@ -2,8 +2,6 @@ defaults: &defaults
   working_directory: /project
   docker:
     - image: damacus/docker-chefdk
-
-default_steps: &default_steps
   steps:
     - checkout
     - setup_remote_docker:
@@ -13,7 +11,6 @@ version: 2
 jobs:
   build:
     <<: *defaults
-    <<: *default_steps
     steps:
       - checkout
       - setup_remote_docker:
@@ -25,7 +22,6 @@ jobs:
 
   unit_test:
     <<: *defaults
-    <<: *default_steps
     steps:
       - attach_workspace:
           at: /project
