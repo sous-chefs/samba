@@ -59,6 +59,7 @@ action :create do
   passwd = new_resource.password
   execute "Create samba user #{new_resource.name}" do
     command "echo '#{passwd}\n#{passwd}' | smbpasswd -s -a #{new_resource.name}"
+    sensitive true
     action :nothing
   end
 end
