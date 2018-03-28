@@ -6,6 +6,7 @@ provisioner:
   product_name: chef
   product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
   install_strategy: once
+  channel: unstable
 
 client_rb:
   treat_deprecation_warnings_as_errors: true
