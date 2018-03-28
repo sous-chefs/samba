@@ -1,5 +1,9 @@
 # Samba Changelog
 
+## v1.1.2 (2018-03-28)
+
+- Make the password property sensitive so it doesn't appear in the output log (#83)
+
 ## v1.1.1 (2017-12-06)
 
 - Add optional, options to the share resource (#80)
