@@ -25,6 +25,7 @@
   load printers = <%= @load_printers %>
   passdb backend = <%= @passdb_backend %>
   dns proxy = <%= @dns_proxy %>
+  max log size = <%= max_log_size %>
 
 <% if !@samba_options.nil? %>
   <% @samba_options.each do |opt_name,opt_value| -%>
