@@ -42,7 +42,7 @@ property :log_dir, String, default: lazy {
     '/var/log/samba/%m.log'
   end
 }
-property :max_log_size, String, default: '5000' # 5M
+property :max_log_size, [String, Integer], default: '5000' # 5M
 property :options, [Hash, nil], default: nil
 property :enable_users_search, [TrueClass, FalseClass], default: true
 property :shares, [Hash, nil], default: nil
@@ -85,7 +85,8 @@ action :create do
         passdb_backend: new_resource.passdb_backend,
         dns_proxy: new_resource.dns_proxy,
         samba_options: new_resource.options,
-        log_level: new_resource.log_level
+        log_level: new_resource.log_level,
+        max_log_size: new_resource.max_log_size
       )
       new_resource.samba_services.each do |samba_service|
         notifies :restart, "service[#{samba_service}]"
