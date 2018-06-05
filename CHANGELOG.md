@@ -1,5 +1,9 @@
 # Samba Changelog
 
+## v1.1.3 (2018-06-05)
+
+- Honour the `max_size` property (#84, @sll552)
+
 ## v1.1.2 (2018-03-28)
 
 - Make the password property sensitive so it doesn't appear in the output log (#83)
