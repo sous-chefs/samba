@@ -62,6 +62,7 @@ describe file('/etc/samba/smb.conf') do
   its('content') { should match(/allow dns updates = secure only/) }
   its('content') { should match(/allow insecure wide links = no/) }
   its('content') { should match(/inherit permissions = yes/) }
+  its('content') { should match(/bind interfaces only = no/) }
 end
 
 case os['family']
