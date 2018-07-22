@@ -22,8 +22,8 @@ end
 salt = command('grep test_user_1 /etc/shadow | awk -F\'$\' \'{ print $3 }\'').stdout.strip
 password_string = 'superawesomepassword'.crypt('$6$' + salt)
 
-describe shadow.users('test_user_1') do
-  its('passwords') { should cmp [password_string] }
+describe shadow.user('test_user_1') do
+  its('password') { should cmp [password_string] }
 end
 
 describe user('test_user_2') do
