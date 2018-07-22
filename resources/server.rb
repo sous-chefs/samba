@@ -86,7 +86,8 @@ action :create do
         dns_proxy: new_resource.dns_proxy,
         samba_options: new_resource.options,
         log_level: new_resource.log_level,
-        max_log_size: new_resource.max_log_size
+        max_log_size: new_resource.max_log_size,
+        bind_interfaces_only: new_resource.bind_interfaces_only
       )
       new_resource.samba_services.each do |samba_service|
         notifies :restart, "service[#{samba_service}]"
