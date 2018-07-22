@@ -1,5 +1,9 @@
 # Samba Changelog
 
+## v1.1.4 (2018-07-22)
+
+- Fix bind interfaces
+
 ## v1.1.3 (2018-06-05)
 
 - Honour the `max_size` property (#84, @sll552)
