@@ -90,7 +90,8 @@ action :create do
         bind_interfaces_only: new_resource.bind_interfaces_only
       )
       new_resource.samba_services.each do |samba_service|
-        notifies :restart, "service[#{samba_service}]"
+        notifies :restart, "service[#{samba_service}]", :delayed
+        notifies :enable, "service[#{samba_service}]", :delayed
       end
 
       action :nothing
@@ -100,7 +101,7 @@ action :create do
     new_resource.samba_services.each do |s|
       service s do
         supports restart: true, reload: true
-        action [:enable, :start]
+        action [:nothing]
       end
     end
   end
