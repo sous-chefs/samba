@@ -1,5 +1,11 @@
 # Samba Changelog
 
+## v1.2.0 (2018-09-22)
+
+- Update platforms
+- Remove shaddow password test that was unreliable
+- Drop Chef-12 support
+
 ## v1.1.4 (2018-07-22)
 
 - Fix bind interfaces
