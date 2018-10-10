@@ -1,5 +1,9 @@
 # Samba Changelog
 
+## Unreleased
+
+- Add CircleCI builder
+
 ## v1.2.0 (2018-09-22)
 
 - Update platforms
