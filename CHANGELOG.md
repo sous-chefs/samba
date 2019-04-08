@@ -1,5 +1,12 @@
 # Samba Changelog
 
+## Unreleased
+
+- Remove licence headers from files
+- Remove server recipe
+- Add CircleCI builder
+- Add level configurable to the template
+
 ## v1.2.1 (20-03-2020)
 
 - Fix: no longer ignore log_level in the server options
@@ -17,6 +24,7 @@
 - Update platforms
 - Remove shaddow password test that was unreliable
 - Drop Chef-12 support
+
 
 ## v1.1.4 (2018-07-22)
 

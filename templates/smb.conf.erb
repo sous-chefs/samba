@@ -28,6 +28,7 @@
   max log size = <%= @max_log_size %>
   log level = <%= @log_level %>
   bind interfaces only = <%= @bind_interfaces_only %>
+  log level = <%= @log_level %>
 
 <% if !@samba_options.nil? %>
   <% @samba_options.each do |opt_name,opt_value| -%>
