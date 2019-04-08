@@ -1,6 +1,6 @@
 # Samba Changelog
 
-## Unreleased
+## v2.0.0 (TBD)
 
 - Remove licence headers from files
 - Remove server recipe
@@ -24,7 +24,6 @@
 - Update platforms
 - Remove shaddow password test that was unreliable
 - Drop Chef-12 support
-
 
 ## v1.1.4 (2018-07-22)
 
