@@ -27,8 +27,10 @@ workflows:
       - kitchen/dokken:
           name: client
           suite: client
-          requires: [lint, danger]
+          requires:
+            *lint_and_unit
       - kitchen/dokken:
           name: server
           suite: server
-          requires: [lint, danger]
+          requires:
+            *lint_and_unit
