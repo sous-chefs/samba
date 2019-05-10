@@ -21,6 +21,7 @@ platforms:
     privileged: true
     pid_one_command: /sbin/init
     intermediate_instructions:
+      - RUN export CHEF_LICENSE="accept"
       - RUN touch /etc/sysconfig/network
 
 - name: debian-7
