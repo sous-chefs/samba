@@ -122,7 +122,7 @@
 - Add test kitchen, chefspec, serverspec, rubocop ignore rules, and foodcritic check
 - Cleanup attributes to make them easier to follow per-platform
 
-## v0.11.4:
+## v0.11.4
 
 ### Bug
 
