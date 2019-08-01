@@ -25,14 +25,6 @@ platforms:
       intermediate_instructions:
         - RUN touch /etc/sysconfig/network
 
-  - name: debian-7
-    driver:
-      image: dokken/debian-7
-      pid_one_command: /sbin/init
-      privileged: true
-      intermediate_instructions:
-        - RUN /usr/bin/apt-get update
-
   - name: debian-8
     driver:
       image: dokken/debian-8
