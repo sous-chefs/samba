@@ -1,18 +1,23 @@
 ---
+jobs:
+  final:
+    docker:
+      - image: bash:latest
+    steps:
+      - run:
+          name: Finish cooking
+          command: echo "Finished cooking"
 lint_and_unit: &lint_and_unit
   - delivery
   - danger
   - lint-yaml
   - lint-markdown
-
 version: 2.1
 orbs:
   kitchen: sous-chefs/kitchen@2
-
 workflows:
   kitchen:
     jobs:
-      # Lint and Unit Test
       - kitchen/yamllint:
           name: lint-yaml
       - kitchen/mdlint:
@@ -23,12 +28,84 @@ workflows:
       - kitchen/delivery:
           name: delivery
       - kitchen/dokken-single:
-          name: server
-          suite: server
-          requires:
-            *lint_and_unit
+          name: client-amazonlinux
+          suite: client-amazonlinux
+          requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: client
-          suite: client
+          name: client-debian-8
+          suite: client-debian-8
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-debian-9
+          suite: client-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-centos-6
+          suite: client-centos-6
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-centos-7
+          suite: client-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-fedora-latest
+          suite: client-fedora-latest
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-ubuntu-1604
+          suite: client-ubuntu-1604
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-ubuntu-1804
+          suite: client-ubuntu-1804
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-amazonlinux
+          suite: server-amazonlinux
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-debian-8
+          suite: server-debian-8
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-debian-9
+          suite: server-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-centos-6
+          suite: server-centos-6
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-centos-7
+          suite: server-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-fedora-latest
+          suite: server-fedora-latest
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-ubuntu-1604
+          suite: server-ubuntu-1604
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-ubuntu-1804
+          suite: server-ubuntu-1804
+          requires: *lint_and_unit
+      - final:
           requires:
-            *lint_and_unit
+            - client-amazonlinux
+            - client-debian-8
+            - client-debian-9
+            - client-centos-6
+            - client-centos-7
+            - client-fedora-latest
+            - client-ubuntu-1604
+            - client-ubuntu-1804
+            - server-amazonlinux
+            - server-debian-8
+            - server-debian-9
+            - server-centos-6
+            - server-centos-7
+            - server-fedora-latest
+            - server-ubuntu-1604
+            - server-ubuntu-1804
