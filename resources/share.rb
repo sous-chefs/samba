@@ -31,7 +31,7 @@ property :read_only, String, default: 'no', equal_to: %w(yes no)
 property :create_directory, [TrueClass, FalseClass], default: true
 property :options, Hash, default: {}
 property :config_file, String, default: lazy {
-  if node['platform_family'] == 'smartos'
+  if node['platform_family'] == 'smartos' # rubocop: disable ChefStyle/UsePlatformHelpers
     '/opt/local/etc/samba/smb.conf'
   else
     '/etc/samba/smb.conf'
