@@ -80,7 +80,6 @@ action :delete do
 end
 
 action_class.class_eval do
-  require 'mixlib/shellout'
   def generate_system_password
     system_password = \
       new_resource.password.crypt('$6$' + SecureRandom.random_number(36**8).to_s(36))
