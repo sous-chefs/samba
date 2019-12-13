@@ -8,6 +8,7 @@
 - Simplify overly complex platform logic
 - Swap Debian 8 testing for Debian 10
 - Add CentOS 8 to the kitchen config
+- Remove the .rubocop.yml config that only had a Dangerfile exclusion
 
 ## v1.2.0 (2018-09-22)
 
