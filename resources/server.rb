@@ -35,8 +35,7 @@ property :winbind_separator, String, default: '\\'
 property :idmap_config, String
 property :socket_options, String, default: '`TCP_NODELAY`'
 property :log_dir, String, default: lazy {
-  case node['platform_family']
-  when 'rhel', 'fedora', 'amazon', 'suse'
+  if platform_family?('rhel', 'fedora', 'amazon', 'suse')
     '/var/log/samba/log.%m'
   else
     '/var/log/samba/%m.log'
@@ -48,8 +47,7 @@ property :enable_users_search, [TrueClass, FalseClass], default: true
 property :shares, [Hash, nil], default: nil
 property :config_file, String, default: '/etc/samba/smb.conf'
 property :samba_services, Array, default: lazy {
-  case node['platform_family']
-  when 'rhel', 'fedora', 'amazon', 'suse'
+  if platform_family?('rhel', 'fedora', 'amazon', 'suse')
     %w(smb nmb)
   else
     %w(smbd nmbd)

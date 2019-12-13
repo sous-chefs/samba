@@ -64,12 +64,12 @@ workflows:
           suite: server-amazonlinux
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: server-debian-8
-          suite: server-debian-8
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
           name: server-debian-9
           suite: server-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-debian-10
+          suite: server-debian-10
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: server-centos-6
@@ -102,8 +102,8 @@ workflows:
             - client-ubuntu-1604
             - client-ubuntu-1804
             - server-amazonlinux
-            - server-debian-8
             - server-debian-9
+            - server-debian-10
             - server-centos-6
             - server-centos-7
             - server-fedora-latest

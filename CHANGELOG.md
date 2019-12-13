@@ -5,6 +5,9 @@
 - Add CircleCI builder
 - Remove unnecessary `if respond_to?(:chef_version)` in the metadata.rb
 - Remove unnecessary `require 'mixlib/shellout'` from the user resource
+- Simplify overly complex platform logic
+- Swap Debian 8 testing for Debian 10
+- Add CentOS 8 to the kitchen config
 
 ## v1.2.0 (2018-09-22)
 
