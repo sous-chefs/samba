@@ -17,8 +17,7 @@
 # limitations under the License.
 #
 
-case node['platform_family']
-when 'rhel', 'fedora', 'suse', 'amazon'
+if platform_family?('rhel', 'fedora', 'suse', 'amazon')
   package 'samba-client'
 else
   package 'smbclient'

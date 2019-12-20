@@ -32,12 +32,16 @@ workflows:
           suite: client-amazonlinux
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: client-debian-8
-          suite: client-debian-8
+          name: client-amazonlinux-2
+          suite: client-amazonlinux-2
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: client-debian-9
           suite: client-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-debian-10
+          suite: client-debian-10
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: client-centos-6
@@ -46,6 +50,10 @@ workflows:
       - kitchen/dokken-single:
           name: client-centos-7
           suite: client-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-centos-8
+          suite: client-centos-8
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: client-fedora-latest
@@ -64,12 +72,16 @@ workflows:
           suite: server-amazonlinux
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: server-debian-8
-          suite: server-debian-8
+          name: server-amazonlinux-2
+          suite: server-amazonlinux-2
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: server-debian-9
           suite: server-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-debian-10
+          suite: server-debian-10
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: server-centos-6
@@ -78,6 +90,10 @@ workflows:
       - kitchen/dokken-single:
           name: server-centos-7
           suite: server-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-centos-8
+          suite: server-centos-8
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: server-fedora-latest
@@ -94,18 +110,23 @@ workflows:
       - final:
           requires:
             - client-amazonlinux
-            - client-debian-8
+            - client-amazonlinux-2
             - client-debian-9
+            - client-debian-10
             - client-centos-6
             - client-centos-7
+            - client-centos-8
             - client-fedora-latest
             - client-ubuntu-1604
             - client-ubuntu-1804
             - server-amazonlinux
-            - server-debian-8
+            - server-amazonlinux-2
             - server-debian-9
+            - server-debian-10
             - server-centos-6
             - server-centos-7
+            - server-centos-6
+            - server-centos-8
             - server-fedora-latest
             - server-ubuntu-1604
             - server-ubuntu-1804
