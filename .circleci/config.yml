@@ -32,6 +32,10 @@ workflows:
           suite: client-amazonlinux
           requires: *lint_and_unit
       - kitchen/dokken-single:
+          name: client-amazonlinux-2
+          suite: client-amazonlinux-2
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
           name: client-debian-9
           suite: client-debian-9
           requires: *lint_and_unit
@@ -68,6 +72,10 @@ workflows:
           suite: server-amazonlinux
           requires: *lint_and_unit
       - kitchen/dokken-single:
+          name: server-amazonlinux-2
+          suite: server-amazonlinux-2
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
           name: server-debian-9
           suite: server-debian-9
           requires: *lint_and_unit
@@ -102,6 +110,7 @@ workflows:
       - final:
           requires:
             - client-amazonlinux
+            - client-amazonlinux-2
             - client-debian-9
             - client-debian-10
             - client-centos-6
@@ -111,8 +120,11 @@ workflows:
             - client-ubuntu-1604
             - client-ubuntu-1804
             - server-amazonlinux
+            - server-amazonlinux-2
             - server-debian-9
             - server-debian-10
+            - server-centos-6
+            - server-centos-7
             - server-centos-6
             - server-centos-8
             - server-fedora-latest

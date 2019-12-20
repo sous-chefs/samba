@@ -25,21 +25,26 @@ platforms:
       intermediate_instructions:
         - RUN touch /etc/sysconfig/network
 
+  - name: amazonlinux-2
+    driver:
+      image: dokken/amazonlinux-2
+      privileged: true
+      pid_one_command: /usr/lib/systemd/systemd
+      intermediate_instructions: ["RUN touch /etc/fstab"]
+
   - name: debian-9
     driver:
       image: dokken/debian-9
       pid_one_command: /bin/systemd
       privileged: true
-      intermediate_instructions:
-        - RUN /usr/bin/apt-get update
+      intermediate_instructions: ["RUN /usr/bin/apt-get update"]
 
   - name: debian-10
     driver:
       image: dokken/debian-10
       pid_one_command: /bin/systemd
       privileged: true
-      intermediate_instructions:
-        - RUN /usr/bin/apt-get update
+      intermediate_instructions: ["RUN /usr/bin/apt-get update"]
 
   - name: centos-6
     driver:
@@ -52,37 +57,32 @@ platforms:
       image: dokken/centos-7
       privileged: true
       pid_one_command: /usr/lib/systemd/systemd
-      internediate_instructions:
-        - RUN touch /etc/fstab
+      internediate_instructions: ["RUN touch /etc/fstab"]
 
   - name: centos-8
     driver:
       image: dokken/centos-8
       privileged: true
       pid_one_command: /usr/lib/systemd/systemd
-      internediate_instructions:
-        - RUN touch /etc/fstab
+      internediate_instructions: ["RUN touch /etc/fstab"]
 
   - name: fedora-latest
     driver:
       image: dokken/fedora-latest
       privileged: true
       pid_one_command: /usr/lib/systemd/systemd
-      internediate_instructions:
-        - RUN touch /etc/fstab
+      internediate_instructions: ["RUN touch /etc/fstab"]
 
   - name: ubuntu-16.04
     driver:
       image: dokken/ubuntu-16.04
       pid_one_command: /sbin/init
       privileged: true
-      intermediate_instructions:
-        - RUN /usr/bin/apt-get update
+      intermediate_instructions: ["RUN /usr/bin/apt-get update"]
 
   - name: ubuntu-18.04
     driver:
       image: dokken/ubuntu-18.04
       pid_one_command: /bin/systemd
       privileged: true
-      intermediate_instructions:
-        - RUN /usr/bin/apt-get update
+      intermediate_instructions: ["RUN /usr/bin/apt-get update"]
