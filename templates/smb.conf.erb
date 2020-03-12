@@ -26,6 +26,7 @@
   passdb backend = <%= @passdb_backend %>
   dns proxy = <%= @dns_proxy %>
   max log size = <%= @max_log_size %>
+  log level = <%= @log_level %>
   bind interfaces only = <%= @bind_interfaces_only %>
 
 <% if !@samba_options.nil? %>
