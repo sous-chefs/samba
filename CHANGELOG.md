@@ -1,7 +1,8 @@
 # Samba Changelog
 
-## Unreleased
+## v1.2.1 (20-03-2020)
 
+- Fix: no longer ignore log_level in the server options
 - Add CircleCI builder
 - Remove unnecessary `if respond_to?(:chef_version)` in the metadata.rb
 - Remove unnecessary `require 'mixlib/shellout'` from the user resource
