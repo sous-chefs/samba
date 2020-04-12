@@ -43,7 +43,7 @@ property :log_dir, String, default: lazy {
 }
 property :max_log_size, [String, Integer], default: '5000' # 5M
 property :options, [Hash, nil], default: nil
-property :enable_users_search, [TrueClass, FalseClass], default: true
+property :enable_users_search, [true, false], default: true
 property :shares, [Hash, nil], default: nil
 property :config_file, String, default: '/etc/samba/smb.conf'
 property :samba_services, Array, default: lazy {

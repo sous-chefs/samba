@@ -28,7 +28,7 @@ property :write_list, Array, required: false
 property :create_mask, String, default: '0744', required: false
 property :directory_mask, String, default: '0755', required: false
 property :read_only, String, default: 'no', equal_to: %w(yes no)
-property :create_directory, [TrueClass, FalseClass], default: true
+property :create_directory, [true, false], default: true
 property :options, Hash, default: {}
 property :config_file, String, default: lazy {
   if node['platform_family'] == 'smartos' # rubocop: disable ChefStyle/UsePlatformHelpers
