@@ -16,11 +16,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-property :password, String
-property :comment, String
-property :home, String, default: lazy { ::File.join('/home/', name) }
-property :shell, String, default: '/bin/bash'
-property :manage_home, [true, false], default: true
+unified_mode true
+
+property :password,
+        String,
+        description: 'User password for samba and the system'
+
+property :comment,
+        String,
+        description: 'One (or more) comments about the user'
+
+property :home,
+        String,
+        default: lazy { ::File.join('/home/', name) },
+        description: 'Users home'
+
+property :shell,
+        String,
+        default: '/bin/bash',
+        description: 'User shell to set, e.g. /bin/sh, /sbin/nologin'
+
+property :manage_home,
+        [true, false],
+        default: true,
+        description: 'Whether to manage the users home directory location'
 
 def load_current_value
   @smbuser = Chef::Resource::SambaUser.new(new_resource.name)

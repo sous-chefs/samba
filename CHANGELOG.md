@@ -1,5 +1,17 @@
 # Samba Changelog
 
+## Unreleased
+
+- Remove unused properties shares & enable_users_search
+- Remove recipes
+  - Samba client recipe has been removed. Please installthe package directly
+  - Samba serve has been removed in favour of calling the resource
+- Remove unit tests for removed recipes
+- Set minimum Chef version to 15.3 for unified mode
+  - Unified mode is required for Chef 17 support
+- Update tested platforms
+- Move documentation from the README to the documentation directory
+
 ## v1.2.1 (20-03-2020)
 
 - Fix: no longer ignore log_level in the server options

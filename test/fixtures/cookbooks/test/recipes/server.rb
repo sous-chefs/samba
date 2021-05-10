@@ -1,7 +1,6 @@
 apt_update 'update'
 
-samba_server 'server' do
-  server_string 'fat'
+samba_server 'foxtrot' do
   workgroup 'HOME'
   interfaces 'lo 127.0.0.1 enp* eth*'
   hosts_allow '0.0.0.0/0'
