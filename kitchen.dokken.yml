@@ -5,8 +5,8 @@ driver:
   chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
   volumes: ["/mnt"]
 
-transport: {name: dokken}
-provisioner: {name: dokken}
+transport: { name: dokken }
+provisioner: { name: dokken }
 
 platforms:
   - name: amazonlinux-2

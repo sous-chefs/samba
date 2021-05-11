@@ -11,6 +11,7 @@
   - Unified mode is required for Chef 17 support
 - Update tested platforms
 - Move documentation from the README to the documentation directory
+- Change yes, no properties on resources for true, false
 
 ## v1.2.1 (20-03-2020)
 

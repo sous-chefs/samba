@@ -40,15 +40,15 @@ property :hosts_allow,
         description: 'Allowed hosts/networks'
 
 property :bind_interfaces_only,
-        String,
-        default: 'no',
-        equal_to: %w(yes no),
+        [true, false],
+        default: false,
+        coerce: proc { |p| p ? 'yes' : 'no' }
         description: 'Limit interfaces to serve SMB'
 
 property :load_printers,
-        String,
-        default: 'no',
-        equal_to: %w(yes no),
+        [true, false],
+        default: false,
+        coerce: proc { |p| p ? 'yes' : 'no' }
         description: 'Whether to load printers'
 
 property :passdb_backend,
@@ -58,9 +58,9 @@ property :passdb_backend,
         description: 'Which password backend to use'
 
 property :dns_proxy,
-        String,
-        default: 'no',
-        equal_to: %w(yes no),
+        [true, false],
+        default: false,
+        coerce: proc { |p| p ? 'yes' : 'no' }
         description: 'Whether to search NetBIOS names through DNS'
 
 property :security,
@@ -76,7 +76,6 @@ property :map_to_guest,
 
 property :realm,
         String,
-        default: '',
         description: 'Kerberos realm to use'
 
 property :kerberos_method,
@@ -91,9 +90,9 @@ property :password_server,
         description: 'Use a specific remote server for auth'
 
 property :encrypt_passwords,
-        String,
-        default: 'yes',
-        equal_to: %w(yes no),
+        [true, false],
+        default: true,
+        coerce: proc { |p| p ? 'yes' : 'no' }
         description: 'Whether to negotiate encrypted passwords'
 
 property :log_level,
@@ -128,8 +127,8 @@ property :max_log_size,
         description: 'Maximum log file size'
 
 property :options,
-        [Hash, nil],
-        default: nil,
+        Hash,
+        default: {},
         description: 'Hash of additional options'
 
 property :config_file,

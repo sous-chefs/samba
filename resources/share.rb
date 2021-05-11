@@ -46,21 +46,21 @@ property :force_user,
         description: 'Force ownership of files on the share to specified user'
 
 property :browseable,
-        String,
-        default: 'yes',
-        equal_to: %w(yes no),
+        [true, false],
+        default: true,
+        coerce: proc { |p| p ? 'yes' : 'no' }
         description: 'Controls whether this share is seen in the list of available shares in a net view and in the browse list'
 
 property :guest_ok,
-        String,
-        default: 'no',
-        equal_to: %w(yes no),
+        [true, false],
+        default: false,
+        coerce: proc { |p| p ? 'yes' : 'no' }
         description: 'Allow anoymous access to the share'
 
 property :printable,
-        String,
-        default: 'no',
-        equal_to: %w(yes no),
+        [true, false],
+        default: false,
+        coerce: proc { |p| p ? 'yes' : 'no' }
         description: 'If set to yes, then clients may open, write to and submit spool files on the directory specified for the service'
 
 property :write_list,
@@ -81,9 +81,9 @@ property :directory_mask,
         description: 'Mask for directory'
 
 property :read_only,
-        String,
-        default: 'no',
-        equal_to: %w(yes no),
+        [true, false],
+        default: false,
+        coerce: proc { |p| p ? 'yes' : 'no' }
         description: 'Whether files on the share are writeable'
 
 property :create_directory,
