@@ -1,5 +1,22 @@
 # Samba Changelog
 
+## Unreleased
+
+- Remove unused properties shares & enable_users_search
+- Remove recipes
+  - Samba client recipe has been removed. Please install the package directly
+  - Samba server recipe has been removed in favour of calling the resource
+- Remove unit tests for removed recipes
+- Set minimum Chef version to 15.3 for unified mode
+  - Unified mode is required for Chef 17 support
+- Update tested platforms
+- Move documentation from the README to the documentation directory
+- Change yes, no properties on resources for true, false
+- Change socket options to a regex
+- Stop generating a system password and just accept it via a property
+  - This allows the resource to be idempotent
+- Change the smb.conf template to only render set properties
+
 ## v1.2.1 (20-03-2020)
 
 - Fix: no longer ignore log_level in the server options

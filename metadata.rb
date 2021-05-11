@@ -6,7 +6,7 @@ description      'Installs/Configures samba'
 version          '1.2.1'
 source_url       'https://github.com/sous-chefs/samba'
 issues_url       'https://github.com/sous-chefs/samba/issues'
-chef_version     '>= 13.0'
+chef_version     '>= 15.3'
 
 %w(debian ubuntu centos fedora redhat scientific amazon oracle).each do |os|
   supports os

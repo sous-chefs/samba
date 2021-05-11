@@ -16,43 +16,130 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-property :server_string, String, name_property: true
-property :workgroup, String, default: 'SAMBA'
-property :interfaces, String, default: 'lo 127.0.0.1'
-property :hosts_allow, String, default: '127.0.0.0/8'
-property :bind_interfaces_only, String, default: 'no', equal_to: %w(yes no)
-property :load_printers, String, default: 'no', equal_to: %w(yes no)
-property :passdb_backend, String, default: 'tdbsam', equal_to: %w(ldapsam tdbsam smbpasswd)
-property :dns_proxy, String, default: 'no', equal_to: %w(yes no)
-property :security, String, default: 'user', equal_to: %w(user domain ADS share server)
-property :map_to_guest, String, default: 'Bad User'
-property :realm, String, default: ''
-property :password_server, String, default: '*'
-property :encrypt_passwords, String, default: 'yes', equal_to: %w(yes no)
-property :kerberos_method, String, default: 'secrets only', equal_to: ['secrets only', 'system keytab', 'dedicated keytab', 'secrets and keytab']
-property :log_level, String, default: '0'
-property :winbind_separator, String, default: '\\'
-property :idmap_config, String
-property :socket_options, String, default: '`TCP_NODELAY`'
-property :log_dir, String, default: lazy {
-  if platform_family?('rhel', 'fedora', 'amazon', 'suse')
-    '/var/log/samba/log.%m'
-  else
-    '/var/log/samba/%m.log'
-  end
-}
-property :max_log_size, [String, Integer], default: '5000' # 5M
-property :options, [Hash, nil], default: nil
-property :enable_users_search, [true, false], default: true
-property :shares, [Hash, nil], default: nil
-property :config_file, String, default: '/etc/samba/smb.conf'
-property :samba_services, Array, default: lazy {
-  if platform_family?('rhel', 'fedora', 'amazon', 'suse')
-    %w(smb nmb)
-  else
-    %w(smbd nmbd)
-  end
-}
+
+unified_mode true
+
+property :server_string,
+        String,
+        name_property: true,
+        description: 'Name of the server'
+
+property :workgroup,
+        String,
+        default: 'SAMBA',
+        description: 'The SMB workgroup to use'
+
+property :interfaces,
+        String,
+        default: 'lo 127.0.0.1',
+        description: 'Interfaces to listen on'
+
+property :hosts_allow,
+        String,
+        default: '127.0.0.0/8',
+        description: 'Allowed hosts/networks'
+
+property :bind_interfaces_only,
+        [true, false, String],
+        default: false,
+        coerce: proc { |p| p ? 'yes' : 'no' },
+        description: 'Limit interfaces to serve SMB'
+
+property :load_printers,
+        [true, false, String],
+        default: false,
+        coerce: proc { |p| p ? 'yes' : 'no' },
+        description: 'Whether to load printers'
+
+property :passdb_backend,
+        String,
+        default: 'tdbsam',
+        equal_to: %w(ldapsam tdbsam smbpasswd),
+        description: 'Which password backend to use'
+
+property :dns_proxy,
+        [true, false, String],
+        default: false,
+        coerce: proc { |p| p ? 'yes' : 'no' },
+        description: 'Whether to search NetBIOS names through DNS'
+
+property :security,
+        String,
+        default: 'user',
+        equal_to: %w(user domain ADS share server),
+        description: 'Samba security mode'
+
+property :map_to_guest,
+        String,
+        default: 'Bad User',
+        description: 'What Samba should do with logins that do not match Unix users'
+
+property :realm,
+        String,
+        description: 'Kerberos realm to use'
+
+property :kerberos_method,
+        String,
+        default: 'secrets only',
+        equal_to: ['secrets only', 'system keytab', 'dedicated keytab', 'secrets and keytab'],
+        description: 'How kerberos tickets are verified'
+
+property :password_server,
+        String,
+        default: '*',
+        description: 'Use a specific remote server for auth'
+
+property :encrypt_passwords,
+        [true, false, String],
+        default: true,
+        coerce: proc { |p| p ? 'yes' : 'no' },
+        description: 'Whether to negotiate encrypted passwords'
+
+property :log_level,
+        [String, Integer],
+        default: '0',
+        coerce: proc { |p| p.is_a?(Integer) ? p.to_s : p },
+        description: 'Sets the logging level from 0-10'
+
+property :winbind_separator,
+        String,
+        default: '\\',
+        description: 'the character used when listing a username of the form of DOMAIN \user'
+
+property :idmap_config,
+        String,
+        description: 'Define the mapping between SIDS and Unix users and groups'
+
+property :socket_options,
+        [String, Integer],
+        default: 'TCP_NODELAY',
+        regex: /SO_KEEPALIV|SO_REUSEADDR| SO_BROADCAST|TCP_NODELAY|IPTOS_LOWDELAY|IPTOS_THROUGHPUT|SO_SNDBUF|SO_RCVBUF|SO_SNDLOWAT|SO_RCVLOWAT/,
+        description: 'Options for connection tuning'
+
+property :log_dir,
+        String,
+        default: lazy { platform_family?('rhel', 'fedora', 'amazon', 'suse') ? '/var/log/samba/log.%m' : '/var/log/samba/%m.log' },
+        description: 'Location of Samba logs'
+
+property :max_log_size,
+        [String, Integer],
+        default: '5000',
+        description: 'Maximum log file size'
+
+property :options,
+        Hash,
+        default: {},
+        description: 'Hash of additional options'
+
+property :config_file,
+        String,
+        default: '/etc/samba/smb.conf',
+        description: 'Location of Samba configuration'
+
+property :samba_services,
+        Array,
+        default: lazy { platform_family?('rhel', 'fedora', 'amazon', 'suse') ? %w(smb nmb) : %w(smbd nmbd) },
+        description: 'An array of services to start'
 
 action :create do
   package 'samba'
@@ -99,7 +186,7 @@ action :create do
     new_resource.samba_services.each do |s|
       service s do
         supports restart: true, reload: true
-        action [:nothing]
+        action :nothing
       end
     end
   end
