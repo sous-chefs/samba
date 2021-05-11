@@ -45,8 +45,8 @@ jobs:
           - debian-10
           - fedora-latest
           - opensuse-leap-15
-          - ubuntu-20.04
-          - ubuntu-21.04
+          - ubuntu-2004
+          - ubuntu-2104
         suite: ["server"]
       fail-fast: false
 
