@@ -6,37 +6,33 @@
 #
 
 [global]
-  realm = <%= @realm %>
-  password server = <%= @password_server %>
-  encrypt passwords = <%= @encrypt_passwords %>
-  kerberos method = <%= @kerberos_method %>
-  <% if @winbind_separator != '\\' %>
-  winbind separator = <%= @winbind_separator %>
-  <% end %>
-  <% if @idmap_config %>
-  idmap config <%= @idmap_config %>
-  <% end %>
-  workgroup = <%= @workgroup %>
-  server string = <%= @server_string %>
-  security = <%= @security %>
-  map to guest = <%= @map_to_guest %>
-  interfaces = <%= @interfaces %>
-  hosts allow = <%= @hosts_allow %>
-  load printers = <%= @load_printers %>
-  passdb backend = <%= @passdb_backend %>
-  dns proxy = <%= @dns_proxy %>
-  max log size = <%= @max_log_size %>
-  log level = <%= @log_level %>
-  bind interfaces only = <%= @bind_interfaces_only %>
+  <% unless @realm.nil? %>realm = <%= @realm %><% end %>
+  <% unless @password_server.nil? %>password server = <%= @password_server %><% end %>
+  <% unless @encrypt_passwords.nil? %>encrypt passwords = <%= @encrypt_passwords %><% end %>
+  <% unless @kerberos_method.nil? %>kerberos method = <%= @kerberos_method %><% end %>
+  <% if @winbind_separator != '\\' %>winbind separator = <%= @winbind_separator %><% end %>
+  <% unless @idmap_config.nil? %>idmap config <%= @idmap_config %><% end %>
+  <% unless @workgroup.nil? %>workgroup = <%= @workgroup %><% end %>
+  <% unless @server_string.nil? %>server string = <%= @server_string %><% end %>
+  <% unless @security.nil? %>security = <%= @security %><% end %>
+  <% unless @map_to_guest.nil? %>map to guest = <%= @map_to_guest %><% end %>
+  <% unless @interfaces.nil? %>interfaces = <%= @interfaces %><% end %>
+  <% unless @hosts_allow.nil? %>hosts allow = <%= @hosts_allow %><% end %>
+  <% unless @load_printers.nil? %>load printers = <%= @load_printers %><% end %>
+  <% unless @passdb_backend.nil? %>passdb backend = <%= @passdb_backend %><% end %>
+  <% unless @dns_proxy.nil? %>dns proxy = <%= @dns_proxy %><% end %>
+  <% unless @max_log_size.nil? %>max log size = <%= @max_log_size %><% end %>
+  <% unless @log_level.nil? %>log level = <%= @log_level %><% end %>
+  <% unless @bind_interfaces_only.nil? %>bind interfaces only = <%= @bind_interfaces_only %><% end %>
 
-<% if !@samba_options.nil? %>
+<% unless @samba_options.nil? %>
   <% @samba_options.each do |opt_name,opt_value| -%>
   <%= opt_name %> = <%= opt_value %>
   <% end -%>
 <% end -%>
 
 #============================ Share Definitions ==============================
-<% if !@shares.nil? %>
+<% unless @shares.nil? %>
   <% @shares.each do |share,option| -%>
   [<%= share %>]
     <% option.each do |o,v| -%>

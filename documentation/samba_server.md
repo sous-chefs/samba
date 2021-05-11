@@ -21,7 +21,7 @@ Installs and configures Samba server
 | log_level            | `String`, `Integer` | `'0'`                   |                                          | Sets the logging level from 0-10'                                      |
 | winbind_separator    | `String`            | `\`                     |                                          | The character used when listing a username of the form of DOMAIN \user |
 | idmap_config         | `String`            |                         |                                          | Define the mapping between SIDS and Unix users and groups              |
-| socket_options       | `String`, `Integer` | '`TCP_NODELAY`'         | See resource for full list               | Options for connection tuning                                          |
+| socket_options       | `String`, `Integer` | 'TCP_NODELAY'           | See resource for full list               | Options for connection tuning                                          |
 | log_dir              | `String`,           | Platform specific value |                                          | Location of Samba logs                                                 |
 | max_log_size         | `String`, `Integer` | `5000`                  |                                          | Maximum log file size                                                  |
 | options              | `Hash`              |                         |                                          | Hash of additional options                                             |

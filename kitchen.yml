@@ -10,6 +10,7 @@ provisioner:
   product_version: <%= ENV['CHEF_VERSION'] || 'current' %>
   install_strategy: always
   log_level: <%= ENV['CHEF_LOG_LEVEL'] || 'auto' %>
+  multiple_converge: 2
 
 platforms:
   - name: amazonlinux-2
@@ -23,9 +24,6 @@ platforms:
   - name: ubuntu-21.04
 
 suites:
-  - name: client
-    run_list:
-      - recipe[test::client]
   - name: server
     run_list:
       - recipe[test::server]

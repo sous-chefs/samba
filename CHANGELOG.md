@@ -12,6 +12,10 @@
 - Update tested platforms
 - Move documentation from the README to the documentation directory
 - Change yes, no properties on resources for true, false
+- Change socket options to a regex
+- Stop generating a system password and just accept it via a property
+  - This allows the resource to be idempotent
+- Change the smb.conf template to only render set properties
 
 ## v1.2.1 (20-03-2020)
 

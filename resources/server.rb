@@ -40,13 +40,13 @@ property :hosts_allow,
         description: 'Allowed hosts/networks'
 
 property :bind_interfaces_only,
-        [true, false],
+        [true, false, String],
         default: false,
         coerce: proc { |p| p ? 'yes' : 'no' },
         description: 'Limit interfaces to serve SMB'
 
 property :load_printers,
-        [true, false],
+        [true, false, String],
         default: false,
         coerce: proc { |p| p ? 'yes' : 'no' },
         description: 'Whether to load printers'
@@ -58,7 +58,7 @@ property :passdb_backend,
         description: 'Which password backend to use'
 
 property :dns_proxy,
-        [true, false],
+        [true, false, String],
         default: false,
         coerce: proc { |p| p ? 'yes' : 'no' },
         description: 'Whether to search NetBIOS names through DNS'
@@ -90,13 +90,13 @@ property :password_server,
         description: 'Use a specific remote server for auth'
 
 property :encrypt_passwords,
-        [true, false],
+        [true, false, String],
         default: true,
         coerce: proc { |p| p ? 'yes' : 'no' },
         description: 'Whether to negotiate encrypted passwords'
 
 property :log_level,
-        String, Integer,
+        [String, Integer],
         default: '0',
         coerce: proc { |p| p.is_a?(Integer) ? p.to_s : p },
         description: 'Sets the logging level from 0-10'
@@ -112,8 +112,8 @@ property :idmap_config,
 
 property :socket_options,
         [String, Integer],
-        default: '`TCP_NODELAY`',
-        equal_to: %w(SO_KEEPALIV SO_REUSEADDR SO_BROADCAST TCP_NODELAY IPTOS_LOWDELAY IPTOS_THROUGHPUT SO_SNDBUF SO_RCVBUF SO_SNDLOWAT SO_RCVLOWAT),
+        default: 'TCP_NODELAY',
+        regex: %r{SO_KEEPALIV|SO_REUSEADDR| SO_BROADCAST|TCP_NODELAY|IPTOS_LOWDELAY|IPTOS_THROUGHPUT|SO_SNDBUF|SO_RCVBUF|SO_SNDLOWAT|SO_RCVLOWAT},
         description: 'Options for connection tuning'
 
 property :log_dir,
