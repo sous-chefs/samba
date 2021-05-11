@@ -1,5 +1,7 @@
 # Samba Changelog
 
+## Unreleased
+
 ## 2.0.0 - *2021-05-11*
 
 - Remove unused properties shares & enable_users_search
