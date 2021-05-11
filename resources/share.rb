@@ -48,19 +48,19 @@ property :force_user,
 property :browseable,
         [true, false],
         default: true,
-        coerce: proc { |p| p ? 'yes' : 'no' }
+        coerce: proc { |p| p ? 'yes' : 'no' },
         description: 'Controls whether this share is seen in the list of available shares in a net view and in the browse list'
 
 property :guest_ok,
         [true, false],
         default: false,
-        coerce: proc { |p| p ? 'yes' : 'no' }
+        coerce: proc { |p| p ? 'yes' : 'no' },
         description: 'Allow anoymous access to the share'
 
 property :printable,
         [true, false],
         default: false,
-        coerce: proc { |p| p ? 'yes' : 'no' }
+        coerce: proc { |p| p ? 'yes' : 'no' },
         description: 'If set to yes, then clients may open, write to and submit spool files on the directory specified for the service'
 
 property :write_list,
@@ -83,7 +83,7 @@ property :directory_mask,
 property :read_only,
         [true, false],
         default: false,
-        coerce: proc { |p| p ? 'yes' : 'no' }
+        coerce: proc { |p| p ? 'yes' : 'no' },
         description: 'Whether files on the share are writeable'
 
 property :create_directory,

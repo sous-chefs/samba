@@ -42,13 +42,13 @@ property :hosts_allow,
 property :bind_interfaces_only,
         [true, false],
         default: false,
-        coerce: proc { |p| p ? 'yes' : 'no' }
+        coerce: proc { |p| p ? 'yes' : 'no' },
         description: 'Limit interfaces to serve SMB'
 
 property :load_printers,
         [true, false],
         default: false,
-        coerce: proc { |p| p ? 'yes' : 'no' }
+        coerce: proc { |p| p ? 'yes' : 'no' },
         description: 'Whether to load printers'
 
 property :passdb_backend,
@@ -60,7 +60,7 @@ property :passdb_backend,
 property :dns_proxy,
         [true, false],
         default: false,
-        coerce: proc { |p| p ? 'yes' : 'no' }
+        coerce: proc { |p| p ? 'yes' : 'no' },
         description: 'Whether to search NetBIOS names through DNS'
 
 property :security,
@@ -92,7 +92,7 @@ property :password_server,
 property :encrypt_passwords,
         [true, false],
         default: true,
-        coerce: proc { |p| p ? 'yes' : 'no' }
+        coerce: proc { |p| p ? 'yes' : 'no' },
         description: 'Whether to negotiate encrypted passwords'
 
 property :log_level,
