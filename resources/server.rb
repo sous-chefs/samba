@@ -113,7 +113,7 @@ property :idmap_config,
 property :socket_options,
         [String, Integer],
         default: 'TCP_NODELAY',
-        regex: %r{SO_KEEPALIV|SO_REUSEADDR| SO_BROADCAST|TCP_NODELAY|IPTOS_LOWDELAY|IPTOS_THROUGHPUT|SO_SNDBUF|SO_RCVBUF|SO_SNDLOWAT|SO_RCVLOWAT},
+        regex: /SO_KEEPALIV|SO_REUSEADDR| SO_BROADCAST|TCP_NODELAY|IPTOS_LOWDELAY|IPTOS_THROUGHPUT|SO_SNDBUF|SO_RCVBUF|SO_SNDLOWAT|SO_RCVLOWAT/,
         description: 'Options for connection tuning'
 
 property :log_dir,
