@@ -3,10 +3,10 @@ driver:
   name: dokken
   privileged: true
   chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
-  volumes: ['/mnt']
+  volumes: ["/mnt"]
 
 transport: {name: dokken}
-provisioner:  {name: dokken}
+provisioner: {name: dokken}
 
 platforms:
   - name: amazonlinux-2

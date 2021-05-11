@@ -4,8 +4,8 @@
 
 - Remove unused properties shares & enable_users_search
 - Remove recipes
-  - Samba client recipe has been removed. Please installthe package directly
-  - Samba serve has been removed in favour of calling the resource
+  - Samba client recipe has been removed. Please install the package directly
+  - Samba server recipe has been removed in favour of calling the resource
 - Remove unit tests for removed recipes
 - Set minimum Chef version to 15.3 for unified mode
   - Unified mode is required for Chef 17 support
