@@ -106,7 +106,6 @@ action :add do
   # share templates into the root context to find each other
   with_run_context :root do
     edit_resource(:template, new_resource.config_file) do |new_resource|
-      cookbook 'samba'
       variables[:shares] ||= {}
       variables[:shares][new_resource.share_name] ||= {}
       variables[:shares][new_resource.share_name]['comment'] = new_resource.comment
@@ -124,9 +123,6 @@ action :add do
       new_resource.options.each do |key, value|
         variables[:shares][new_resource.share_name][key] = value
       end
-
-      action :nothing
-      delayed_action :create
     end
   end
 
