@@ -1,5 +1,7 @@
 # Samba Changelog
 
+## Unreleased
+
 ## 2.0.2 - *2021-07-08*
 
 - Remove `delayed_action`, `action` and `cookbook` settings from the share resource as these are not required
