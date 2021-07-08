@@ -2,7 +2,11 @@
 
 ## Unreleased
 
+- Remove `delayed_action`, `action` and `cookbook` settings from the share resource as these are not required
+
 ## 2.0.1 - *2021-06-01*
+
+- Standardise files with files in sous-chefs/repo-management
 
 ## 2.0.0 - *2021-05-11*
 
