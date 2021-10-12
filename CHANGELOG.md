@@ -1,6 +1,6 @@
 # Samba Changelog
 
-## Unreleased
+## 2.0.4 - *2021-10-12*
 
 - Documentation cleanup
 
