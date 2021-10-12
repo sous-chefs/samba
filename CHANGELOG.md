@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Documentation cleanup 
+- Documentation cleanup
 
 ## 2.0.3 - *2021-08-30*
 
