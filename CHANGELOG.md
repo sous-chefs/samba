@@ -3,6 +3,17 @@
 ## Unreleased
 
 - Remove delivery folder
+
+## 2.0.4 - *2021-10-12*
+
+- Documentation cleanup
+
+## 2.0.3 - *2021-08-30*
+
+- Standardise files with files in sous-chefs/repo-management
+
+## 2.0.2 - *2021-07-08*
+
 - Remove `delayed_action`, `action` and `cookbook` settings from the share resource as these are not required
 
 ## 2.0.1 - *2021-06-01*
