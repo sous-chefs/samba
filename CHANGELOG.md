@@ -1,5 +1,7 @@
 # Samba Changelog
 
+## Unreleased
+
 ## 2.0.5 - *2022-02-08*
 
 - Remove delivery folder
