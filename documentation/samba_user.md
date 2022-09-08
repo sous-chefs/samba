@@ -18,7 +18,7 @@ This will enforce the user system password set by the resource.
 | ----------- | ------------------------------------ | ----------- | --------------------------------------------------- |
 | password    | `String`                             |             | User password for samba and the system              |
 | comment     | `String`                             |             | One (or more) comments about the user               |
-| home        | `String` ::File.join('/home/', name) | Users home  |                                                     |
+| home        | `String`                             | `::File.join('/home/', name)` | Users home                        |
 | shell       | `String`                             | `/bin/bash` | User shell to set                                   |
 | manage_home | `true`, `false`                      | `true`      | Whether to manage the users home directory location |
 
