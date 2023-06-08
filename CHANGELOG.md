@@ -1,6 +1,6 @@
 # Samba Changelog
 
-## Unreleased
+## 2.0.7 - *2023-06-08*
 
 Standardise files with files in sous-chefs/repo-management
 
