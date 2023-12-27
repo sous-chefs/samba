@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+Fix GitHub Actions workflows
+
 ## 2.0.8 - *2023-09-11*
 
 ## 2.0.7 - *2023-06-08*
