@@ -1,5 +1,7 @@
 # Samba Changelog
 
+## Unreleased
+
 ## 2.0.9 - *2023-12-27*
 
 Fix GitHub Actions workflows
