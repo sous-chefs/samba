@@ -1,214 +1,200 @@
 # Samba Changelog
 
-## Unreleased
-
-## 2.0.13 - *2025-09-04*
-
-## 2.0.12 - *2024-05-02*
-
-## 2.0.11 - *2024-05-02*
-
-## 2.0.10 - *2023-12-27*
-
 ## 2.0.9 - *2023-12-27*
 
 Fix GitHub Actions workflows
-
-## 2.0.8 - *2023-09-11*
 
 ## 2.0.7 - *2023-06-08*
 
 Standardise files with files in sous-chefs/repo-management
 
-## 2.0.6 - *2022-09-12*
-
 ## 2.0.5 - *2022-02-08*
 
-- Remove delivery folder
+* Remove delivery folder
 
 ## 2.0.4 - *2021-10-12*
 
-- Documentation cleanup
+* Documentation cleanup
 
 ## 2.0.3 - *2021-08-30*
 
-- Standardise files with files in sous-chefs/repo-management
+* Standardise files with files in sous-chefs/repo-management
 
 ## 2.0.2 - *2021-07-08*
 
-- Remove `delayed_action`, `action` and `cookbook` settings from the share resource as these are not required
+* Remove `delayed_action`, `action` and `cookbook` settings from the share resource as these are not required
 
 ## 2.0.1 - *2021-06-01*
 
-- Standardise files with files in sous-chefs/repo-management
+* Standardise files with files in sous-chefs/repo-management
 
 ## 2.0.0 - *2021-05-11*
 
-- Remove unused properties shares & enable_users_search
-- Remove recipes
-  - Samba client recipe has been removed. Please install the package directly
-  - Samba server recipe has been removed in favour of calling the resource
-- Remove unit tests for removed recipes
-- Set minimum Chef version to 15.3 for unified mode
-  - Unified mode is required for Chef 17 support
-- Update tested platforms
-- Move documentation from the README to the documentation directory
-- Change yes, no properties on resources for true, false
-- Change socket options to a regex
-- Stop generating a system password and just accept it via a property
-  - This allows the resource to be idempotent
-- Change the smb.conf template to only render set properties
+* Remove unused properties shares & enable_users_search
+* Remove recipes
+  * Samba client recipe has been removed. Please install the package directly
+  * Samba server recipe has been removed in favour of calling the resource
+* Remove unit tests for removed recipes
+* Set minimum Chef version to 15.3 for unified mode
+  * Unified mode is required for Chef 17 support
+* Update tested platforms
+* Move documentation from the README to the documentation directory
+* Change yes, no properties on resources for true, false
+* Change socket options to a regex
+* Stop generating a system password and just accept it via a property
+  * This allows the resource to be idempotent
+* Change the smb.conf template to only render set properties
 
 ## v1.2.1 (20-03-2020)
 
-- Fix: no longer ignore log_level in the server options
-- Add CircleCI builder
-- Remove unnecessary `if respond_to?(:chef_version)` in the metadata.rb
-- Remove unnecessary `require 'mixlib/shellout'` from the user resource
-- Simplify overly complex platform logic
-- Swap Debian 8 testing for Debian 10
-- Add CentOS 8 to the kitchen config
-- Remove the .rubocop.yml config that only had a Dangerfile exclusion
-- Migrate to actions
+* Fix: no longer ignore log_level in the server options
+* Add CircleCI builder
+* Remove unnecessary `if respond_to?(:chef_version)` in the metadata.rb
+* Remove unnecessary `require 'mixlib/shellout'` from the user resource
+* Simplify overly complex platform logic
+* Swap Debian 8 testing for Debian 10
+* Add CentOS 8 to the kitchen config
+* Remove the .rubocop.yml config that only had a Dangerfile exclusion
+* Migrate to actions
 
 ## v1.2.0 (2018-09-22)
 
-- Update platforms
-- Remove shaddow password test that was unreliable
-- Drop Chef-12 support
+* Update platforms
+* Remove shaddow password test that was unreliable
+* Drop Chef-12 support
 
 ## v1.1.4 (2018-07-22)
 
-- Fix bind interfaces
+* Fix bind interfaces
 
 ## v1.1.3 (2018-06-05)
 
-- Honour the `max_size` property (#84, @sll552)
+* Honour the `max_size` property (#84, @sll552)
 
 ## v1.1.2 (2018-03-28)
 
-- Make the password property sensitive so it doesn't appear in the output log (#83)
+* Make the password property sensitive so it doesn't appear in the output log (#83)
 
 ## v1.1.1 (2017-12-06)
 
-- Add optional, options to the share resource (#80)
+* Add optional, options to the share resource (#80)
 
 ## v1.1.0 (2017-08-02)
 
-- Add realm property
-- Add encrypt_passwords property
-- Add kerberos_method property
-- Add log_level property
-- Add winbind_separator property
-- Add idmap_config property
-- Add valid_users property
-- Add force_group property
-- Add browseable property
-- Many rubocop fixes (though not all)
-- Change share options from required that weren't really required
-- Fix issue with directory creation when path was not defined (which is not required for home dirs for instance)
-- Make winbind_separator optional in template as default backslash is a continuation character in smb.conf
-- Extend tests
+* Add realm property
+* Add encrypt_passwords property
+* Add kerberos_method property
+* Add log_level property
+* Add winbind_separator property
+* Add idmap_config property
+* Add valid_users property
+* Add force_group property
+* Add browseable property
+* Many rubocop fixes (though not all)
+* Change share options from required that weren't really required
+* Fix issue with directory creation when path was not defined (which is not required for home dirs for instance)
+* Make winbind_separator optional in template as default backslash is a continuation character in smb.conf
+* Extend tests
 
 ## v1.0.6 (2017-07-24)
 
-- Require Chef 12.16+ #73
-- Update README with clear intentions of the `samba_user` resource. #
-- Fix OpenSUSE client install #75
+* Require Chef 12.16+ #73
+* Update README with clear intentions of the `samba_user` resource. #
+* Fix OpenSUSE client install #75
 
 ## v1.0.5 (2017-04-21)
 
-- Fix user resource to generate a correct user password.
-- Fix options Hash #66
+* Fix user resource to generate a correct user password.
+* Fix options Hash #66
 
 ## v1.0.4 (2017-04-06)
 
-- Add `read_only` option to share. (#62 @whatcould)
+* Add `read_only` option to share. (#62 @whatcould)
 
 ## v1.0.3 (2017-02-25)
 
-- Fixes double converges for smb.conf
-- Remove 16.04 from travis test matrix whilst we investigate long term solutions to failures
-- Adds Service tests
-- Remove ChefSpec matchers to tidy for tidy up
+* Fixes double converges for smb.conf
+* Remove 16.04 from travis test matrix whilst we investigate long term solutions to failures
+* Adds Service tests
+* Remove ChefSpec matchers to tidy for tidy up
 
 ## v1.0.2 (2017-04-02)
 
-- Fix #54 Add an option to not create the directory we add to the share. Useful for including Samba variables in the share name.
-- Fix #52 nmbd systemd failures in tests.
+* Fix #54 Add an option to not create the directory we add to the share. Useful for including Samba variables in the share name.
+* Fix #52 nmbd systemd failures in tests.
 
 ## v1.0.1 (2017-04-02)
 
-- Fix #48 Resource underscores breaking permissions
-- Fix #47 Document proper behaviour of smbpasswd. This cookbook now enforces passwords.
+* Fix #48 Resource underscores breaking permissions
+* Fix #47 Document proper behaviour of smbpasswd. This cookbook now enforces passwords.
 
 ## v1.0.0 (2017-01-03)
 
-- New custom resources `samba_server`, `samba_share`, `samba_user`
-- Remove data bags!
-- Removed support for Arch & SmartOS
-- Add 12.1 compatibility requirement
-- Move attributes out of template file and into template resource
-- Use Chef built in apt-get functionality
-- Remove default recipe - having a default recipe can be misleading when it doesn't do anything.
-- Guard against nil options & shares
-- Update README with resources and give it a general tidy.
-- Remove default specs
-- Use root context for template and services
-- Use trusty not precise for building on travis-ci
-- Remove spec directory as it duplicates inspec test & doesn't test what's now in the cookbook
-- Move yum into the testing recipe to clean up dependancies.
-- Ignore FC009 as it isn't being picked up correctly.
+* New custom resources `samba_server`, `samba_share`, `samba_user`
+* Remove data bags!
+* Removed support for Arch & SmartOS
+* Add 12.1 compatibility requirement
+* Move attributes out of template file and into template resource
+* Use Chef built in apt-get functionality
+* Remove default recipe - having a default recipe can be misleading when it doesn't do anything.
+* Guard against nil options & shares
+* Update README with resources and give it a general tidy.
+* Remove default specs
+* Use root context for template and services
+* Use trusty not precise for building on travis-ci
+* Remove spec directory as it duplicates inspec test & doesn't test what's now in the cookbook
+* Move yum into the testing recipe to clean up dependancies.
+* Ignore FC009 as it isn't being picked up correctly.
 
 ## v0.13.0 (2016-12-30)
 
-- This cookbook is now maintained by Sous Chefs (sous-chefs.org). Expect regular updates and quicker turnaround on PRs!
-- This will be the last version of this cookbook that supports Chef 11\. Pin to this version if you require Chef 11 compatibility
-- Added node["samba"]["options"] for passing an array of additional options
-- Added node['samba']['enable_users_search'] to enable/disable searching for samba users. Defaults to true to maintain existing behavior.
-- Added SmartOS compatibility
-- Added ChefSpec matchers for the LWRP
-- Added `source_url` `issues_url` and `chef_version` metadata
-- Removed arch and raspbian from the metadata and added oracle. We officially support systems we can test with Test Kitchen only.
-- Added a Rakefile for simplified testing
-- Switched integration testing to Inspec from serverspec
-- Moved all testing to the 'test' cookbook and eliminated the need for the apt cookbook
-- Switched to cookstyle from Rubocop and resolved all warnings
-- Added testing in Travis CI
-- Added a kitchen config for kitchen-dokken. Expect testing in Travis using kitchen-dokken soon
-- Added a Code of Conduct doc
-- Updated the Contributing docs
+* This cookbook is now maintained by Sous Chefs (sous-chefs.org). Expect regular updates and quicker turnaround on PRs!
+* This will be the last version of this cookbook that supports Chef 11\. Pin to this version if you require Chef 11 compatibility
+* Added node["samba"]["options"] for passing an array of additional options
+* Added node['samba']['enable_users_search'] to enable/disable searching for samba users. Defaults to true to maintain existing behavior.
+* Added SmartOS compatibility
+* Added ChefSpec matchers for the LWRP
+* Added `source_url` `issues_url` and `chef_version` metadata
+* Removed arch and raspbian from the metadata and added oracle. We officially support systems we can test with Test Kitchen only.
+* Added a Rakefile for simplified testing
+* Switched integration testing to Inspec from serverspec
+* Moved all testing to the 'test' cookbook and eliminated the need for the apt cookbook
+* Switched to cookstyle from Rubocop and resolved all warnings
+* Added testing in Travis CI
+* Added a kitchen config for kitchen-dokken. Expect testing in Travis using kitchen-dokken soon
+* Added a Code of Conduct doc
+* Updated the Contributing docs
 
 ## v0.12.0
 
-- Manage services at end of server recipe
-- Move package and service names to attributes
-- Select data bags via attributes instead of hardcoded names
-- Corrected service name on Debian
-- Add map to guest option in smb.conf
-- Add test kitchen, chefspec, serverspec, rubocop ignore rules, and foodcritic check
-- Cleanup attributes to make them easier to follow per-platform
+* Manage services at end of server recipe
+* Move package and service names to attributes
+* Select data bags via attributes instead of hardcoded names
+* Corrected service name on Debian
+* Add map to guest option in smb.conf
+* Add test kitchen, chefspec, serverspec, rubocop ignore rules, and foodcritic check
+* Cleanup attributes to make them easier to follow per-platform
 
 ## v0.11.4
 
 ### Bug
 
-- [COOK-3144]: Wrong service name in samba cookbook
+* [COOK-3144]: Wrong service name in samba cookbook
 
 ## v0.11.2
 
 ### Bug
 
-- [COOK-2978]: samba cookbook has foodcritic errors
+* [COOK-2978]: samba cookbook has foodcritic errors
 
 ## v0.11.0
 
-- [COOK-1719] - Add Scientific / Amazon support to the Samba recipe
+* [COOK-1719] - Add Scientific / Amazon support to the Samba recipe
 
 ## v0.10.6
 
-- [COOK-1363] - user password assignment fails on systems using dash as default shell
+* [COOK-1363] - user password assignment fails on systems using dash as default shell
 
 ## v0.10.4
 
-- Fixes COOK-802, typo in nmbd service name
+* Fixes COOK-802, typo in nmbd service name
