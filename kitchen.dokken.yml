@@ -2,7 +2,7 @@ driver:
   name: dokken
   privileged: true
   chef_image: cincproject/cinc
-  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
+  chef_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
 
 transport: { name: dokken }
 provisioner:
