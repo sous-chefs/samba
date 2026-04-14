@@ -104,30 +104,6 @@ property :config_file,
         description: 'Path to the samba configuration file'
 
 action :add do
-  # We need to force both the server template and the
-  # share templates into the root context to find each other
-  with_run_context :root do
-    edit_resource(:template, new_resource.config_file) do |new_resource|
-      variables[:shares] ||= {}
-      variables[:shares][new_resource.share_name] ||= {}
-      variables[:shares][new_resource.share_name]['comment'] = new_resource.comment
-      variables[:shares][new_resource.share_name]['path'] = new_resource.path
-      variables[:shares][new_resource.share_name]['guest ok'] = new_resource.guest_ok
-      variables[:shares][new_resource.share_name]['printable'] = new_resource.printable
-      variables[:shares][new_resource.share_name]['write list'] = new_resource.write_list
-      variables[:shares][new_resource.share_name]['create mask'] = new_resource.create_mask
-      variables[:shares][new_resource.share_name]['directory mask'] = new_resource.directory_mask
-      variables[:shares][new_resource.share_name]['read only'] = new_resource.read_only
-      variables[:shares][new_resource.share_name]['valid users'] = new_resource.valid_users
-      variables[:shares][new_resource.share_name]['force user'] = new_resource.force_user
-      variables[:shares][new_resource.share_name]['force group'] = new_resource.force_group
-      variables[:shares][new_resource.share_name]['browseable'] = new_resource.browseable
-      new_resource.options.each do |key, value|
-        variables[:shares][new_resource.share_name][key] = value
-      end
-    end
-  end
-
   if new_resource.create_directory
     directory new_resource.path do
       recursive true
