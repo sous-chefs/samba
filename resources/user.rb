@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Cookbook:: samba
 # Resource:: user
