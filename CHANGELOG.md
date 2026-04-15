@@ -1,5 +1,13 @@
 # Samba Changelog
 
+## [2.0.15](https://github.com/sous-chefs/samba/compare/v2.0.14...v2.0.15) (2026-04-15)
+
+
+### Bug Fixes
+
+* **ci:** Update workflows to use release pipeline ([#156](https://github.com/sous-chefs/samba/issues/156)) ([630b20d](https://github.com/sous-chefs/samba/commit/630b20d7cbc6cb08fef2dc87fdbef1201cb268e1))
+* samba share persistence on failed runs ([#161](https://github.com/sous-chefs/samba/issues/161)) ([9f1e327](https://github.com/sous-chefs/samba/commit/9f1e3277f0c1e8411efdd1f60953f72842c981d5))
+
 ## [2.0.14](https://github.com/sous-chefs/samba/compare/2.0.13...v2.0.14) (2025-10-16)
 
 
