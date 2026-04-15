@@ -21,6 +21,15 @@
 
 unified_mode true
 
+samba_yes_no = proc do |value|
+  case value
+  when String
+    value.casecmp('yes').zero? || value.casecmp('true').zero? ? 'yes' : 'no'
+  else
+    value ? 'yes' : 'no'
+  end
+end
+
 property :share_name,
         String,
         name_property: true,
@@ -50,19 +59,19 @@ property :force_user,
 property :browseable,
         [true, false, String],
         default: true,
-        coerce: proc { |p| p ? 'yes' : 'no' },
+        coerce: samba_yes_no,
         description: 'Controls whether this share is seen in the list of available shares in a net view and in the browse list'
 
 property :guest_ok,
         [true, false, String],
         default: false,
-        coerce: proc { |p| p ? 'yes' : 'no' },
+        coerce: samba_yes_no,
         description: 'Allow anoymous access to the share'
 
 property :printable,
         [true, false, String],
         default: false,
-        coerce: proc { |p| p ? 'yes' : 'no' },
+        coerce: samba_yes_no,
         description: 'If set to yes, then clients may open, write to and submit spool files on the directory specified for the service'
 
 property :write_list,
@@ -85,7 +94,7 @@ property :directory_mask,
 property :read_only,
         [true, false, String],
         default: false,
-        coerce: proc { |p| p ? 'yes' : 'no' },
+        coerce: samba_yes_no,
         description: 'Whether files on the share are writeable'
 
 property :create_directory,

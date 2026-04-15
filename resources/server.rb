@@ -21,6 +21,15 @@
 
 unified_mode true
 
+samba_yes_no = proc do |value|
+  case value
+  when String
+    value.casecmp('yes').zero? || value.casecmp('true').zero? ? 'yes' : 'no'
+  else
+    value ? 'yes' : 'no'
+  end
+end
+
 property :server_string,
         String,
         name_property: true,
@@ -44,13 +53,13 @@ property :hosts_allow,
 property :bind_interfaces_only,
         [true, false, String],
         default: false,
-        coerce: proc { |p| p ? 'yes' : 'no' },
+        coerce: samba_yes_no,
         description: 'Limit interfaces to serve SMB'
 
 property :load_printers,
         [true, false, String],
         default: false,
-        coerce: proc { |p| p ? 'yes' : 'no' },
+        coerce: samba_yes_no,
         description: 'Whether to load printers'
 
 property :passdb_backend,
@@ -62,7 +71,7 @@ property :passdb_backend,
 property :dns_proxy,
         [true, false, String],
         default: false,
-        coerce: proc { |p| p ? 'yes' : 'no' },
+        coerce: samba_yes_no,
         description: 'Whether to search NetBIOS names through DNS'
 
 property :security,
@@ -94,7 +103,7 @@ property :password_server,
 property :encrypt_passwords,
         [true, false, String],
         default: true,
-        coerce: proc { |p| p ? 'yes' : 'no' },
+        coerce: samba_yes_no,
         description: 'Whether to negotiate encrypted passwords'
 
 property :log_level,
