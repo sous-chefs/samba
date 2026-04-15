@@ -21,6 +21,15 @@
 
 unified_mode true
 
+samba_yes_no = proc do |value|
+  case value
+  when String
+    value.casecmp('yes').zero? || value.casecmp('true').zero? ? 'yes' : 'no'
+  else
+    value ? 'yes' : 'no'
+  end
+end
+
 property :server_string,
         String,
         name_property: true,
@@ -44,13 +53,13 @@ property :hosts_allow,
 property :bind_interfaces_only,
         [true, false, String],
         default: false,
-        coerce: proc { |p| p ? 'yes' : 'no' },
+        coerce: samba_yes_no,
         description: 'Limit interfaces to serve SMB'
 
 property :load_printers,
         [true, false, String],
         default: false,
-        coerce: proc { |p| p ? 'yes' : 'no' },
+        coerce: samba_yes_no,
         description: 'Whether to load printers'
 
 property :passdb_backend,
@@ -62,7 +71,7 @@ property :passdb_backend,
 property :dns_proxy,
         [true, false, String],
         default: false,
-        coerce: proc { |p| p ? 'yes' : 'no' },
+        coerce: samba_yes_no,
         description: 'Whether to search NetBIOS names through DNS'
 
 property :security,
@@ -94,7 +103,7 @@ property :password_server,
 property :encrypt_passwords,
         [true, false, String],
         default: true,
-        coerce: proc { |p| p ? 'yes' : 'no' },
+        coerce: samba_yes_no,
         description: 'Whether to negotiate encrypted passwords'
 
 property :log_level,
@@ -143,6 +152,34 @@ property :samba_services,
         default: lazy { platform_family?('rhel', 'fedora', 'amazon', 'suse') ? %w(smb nmb) : %w(smbd nmbd) },
         description: 'An array of services to start'
 
+action_class do
+  def share_options(resource)
+    {
+      'comment' => resource.comment,
+      'path' => resource.path,
+      'guest ok' => resource.guest_ok,
+      'printable' => resource.printable,
+      'write list' => resource.write_list,
+      'create mask' => resource.create_mask,
+      'directory mask' => resource.directory_mask,
+      'read only' => resource.read_only,
+      'valid users' => resource.valid_users,
+      'force user' => resource.force_user,
+      'force group' => resource.force_group,
+      'browseable' => resource.browseable,
+    }.merge(resource.options)
+  end
+
+  def declared_shares
+    run_context.resource_collection.each_with_object({}) do |resource, shares|
+      next unless resource.resource_name == :samba_share
+      next unless resource.config_file == new_resource.config_file
+
+      shares[resource.share_name] = share_options(resource)
+    end
+  end
+end
+
 action :create do
   package 'samba'
 
@@ -174,7 +211,8 @@ action :create do
         samba_options: new_resource.options,
         log_level: new_resource.log_level,
         max_log_size: new_resource.max_log_size,
-        bind_interfaces_only: new_resource.bind_interfaces_only
+        bind_interfaces_only: new_resource.bind_interfaces_only,
+        shares: declared_shares
       )
       new_resource.samba_services.each do |samba_service|
         notifies :restart, "service[#{samba_service}]", :delayed
