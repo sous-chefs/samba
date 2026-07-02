@@ -18,7 +18,7 @@ Installs and configures Samba server
 | kerberos_method      | `String`            | `'secrets only'`        | See resource for full list               | How kerberos tickets are verified                                      |
 | password_server      | `String`            | `'*'`                   |                                          | Use a specific remote server for auth                                  |
 | encrypt_passwords    | `true`, `false`     | `true`                  | `true false`                             | Whether to negotiate encrypted passwords                               |
-| log_level            | `String`, `Integer` | `'0'`                   |                                          | Sets the logging level from 0-10                                      |
+| log_level            | `String`, `Integer` | `'0'`                   |                                          | Sets the logging level from 0-10                                       |
 | winbind_separator    | `String`            | `\`                     |                                          | The character used when listing a username of the form of DOMAIN \user |
 | idmap_config         | `String`            |                         |                                          | Define the mapping between SIDS and Unix users and groups              |
 | socket_options       | `String`, `Integer` | 'TCP_NODELAY'           | See resource for full list               | Options for connection tuning                                          |
