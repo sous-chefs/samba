@@ -1,5 +1,12 @@
 # Samba Changelog
 
+## [2.0.16](https://github.com/sous-chefs/samba/compare/v2.0.15...v2.0.16) (2026-07-09)
+
+
+### Bug Fixes
+
+* migrate to Policyfile ([#170](https://github.com/sous-chefs/samba/issues/170)) ([2dc244c](https://github.com/sous-chefs/samba/commit/2dc244cb5d0f0c3f50f2b12840dee892cbb38938))
+
 ## [2.0.15](https://github.com/sous-chefs/samba/compare/v2.0.14...v2.0.15) (2026-04-15)
 
 
