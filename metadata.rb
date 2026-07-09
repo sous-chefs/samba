@@ -8,6 +8,11 @@ source_url       'https://github.com/sous-chefs/samba'
 issues_url       'https://github.com/sous-chefs/samba/issues'
 chef_version     '>= 15.3'
 
-%w(debian ubuntu centos fedora redhat scientific amazon oracle).each do |os|
-  supports os
-end
+supports 'debian'
+supports 'ubuntu'
+supports 'centos'
+supports 'fedora'
+supports 'redhat'
+supports 'scientific'
+supports 'amazon'
+supports 'oracle'
